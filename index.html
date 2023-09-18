@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CV Lab</title>
+    <meta name="description" content="CV Lab" />
+    <meta name="author" content="Simon Guest" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" href="./static/fonts/RobotoMono-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+        <div id="buttonrow">
+          <img id="logo" src="./static/icons/logo.svg" alt="Code.org logo"/>
+          <p></p>
+          <button id="examples" class="button"></button>
+          <div id="examples-dropdown">
+            <button class="examples-dropdown-item" data-file="starter.json" data-physics="off">Starter</button>
+          </div>
+          <div id="image-upload">
+            <label for="import">
+              <img src="./static/icons/upload.svg" class="button" />
+            </label>
+            <input id="import" type="file" />
+          </div>
+          <button id="export" class="button"></button>
+          <button id="clear" class="button"></button>
+          <button id="help" class="button"></button>
+        </div>
+      </div>
+      <div id="split">
+        <div id="blocklyArea">Loading Workspace...</div>
+        <span id="columnResizer"><img id="drag" src="./static/icons/drag.svg" /></span>
+        <div id="runArea">
+          <canvas id="runAreaCanvas"></canvas>
+        </div>
+      </div>
+    </div>
+    <div id="blocklyDiv" style="position: absolute"></div>
+    <script type="module" src="src/index.ts"></script>
+  </body>
+</html>

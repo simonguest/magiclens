@@ -1,0 +1,19 @@
+{
+  "name": "cvlab",
+  "version": "1.0.0",
+  "description": "CV Lab",
+  "scripts": {
+    "build": "rm -rf ./dist && rm -rf ./.parcel-cache && npx parcel build --public-url '.' index.html",
+    "server": "npm run build && npx parcel serve index.html -p 55000"
+  },
+  "author": "Simon Guest",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/node": "^20.6.2",
+    "parcel": "^2.9.3",
+    "parcel-reporter-static-files-copy": "^1.5.2"
+  },
+  "dependencies": {
+    "blockly": "^10.1.3"
+  }
+}
