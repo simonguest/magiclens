@@ -15,19 +15,21 @@
         <div id="buttonrow">
           <img id="logo" src="./static/icons/logo.svg" alt="Code.org logo"/>
           <p></p>
-          <button id="examples" class="button"></button>
+          <button id="run" class="button">Run</button>
+          <button id="stop" class="button">Stop</button>
+          <button id="examples" class="button">Examples</button>
           <div id="examples-dropdown">
             <button class="examples-dropdown-item" data-file="starter.json" data-physics="off">Starter</button>
           </div>
           <div id="image-upload">
-            <label for="import">
-              <img src="./static/icons/upload.svg" class="button" />
+            <label id="image-upload-label" for="upload">
+              <img src="./static/icons/upload.svg" class="button" />Upload
             </label>
-            <input id="import" type="file" />
+            <input id="upload" type="file" />
           </div>
-          <button id="export" class="button"></button>
-          <button id="clear" class="button"></button>
-          <button id="help" class="button"></button>
+          <button id="download" class="button">Download</button>
+          <button id="clear" class="button">Clear</button>
+          <button id="help" class="button">Help</button>
         </div>
       </div>
       <div id="split">

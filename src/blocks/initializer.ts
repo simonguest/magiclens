@@ -1,6 +1,7 @@
 import Blockly from "blockly";
 import { javascriptGenerator } from "blockly/javascript";
 
+import * as input from "./input";
 import * as math from "./math";
 
 import { toolbox } from "./toolbox";
@@ -14,7 +15,7 @@ Blockly.Theme.defineTheme("theme", {
     toolboxForegroundColour: "#fff",
     flyoutBackgroundColour: "#3d3d53",
     flyoutForegroundColour: "#ddd",
-    flyoutOpacity: 0.8,
+    flyoutOpacity: 0.7,
     scrollbarColour: "#797979",
     insertionMarkerColour: "#fff",
     insertionMarkerOpacity: 0.3,
@@ -48,6 +49,7 @@ const createCustomBlock = (name, blockType) => {
 
 const createCustomBlocks = () => {
   createCustomBlock("debug", math.debug);
+  createCustomBlock("input_load_sample_image", input.loadSampleImage);
 };
 
 const handleBlocklyResize = () => {

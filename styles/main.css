@@ -17,7 +17,7 @@ body {
 
 #container {
   display: grid;
-  grid-template-rows: 45px calc(100% - 65px) 20px;
+  grid-template-rows: 60px calc(100% - 65px) 20px;
   height: 100%;
 }
 
@@ -79,8 +79,9 @@ body {
 }
 
 #logo {
-  height: 40px;
-  padding-top: 2px;
+  height: 50px;
+  padding-top: 5px;
+  padding-left: 10px;
 }
 
 #buttonrow {
@@ -88,7 +89,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   padding: 0 10px;
-  width: 350px;
+  width: 500px;
 }
 
 .button {
@@ -100,30 +101,81 @@ body {
   margin-top: 7;
   margin-bottom: 7;
   cursor: pointer;
+  color: white;
+  font-family: "Roboto Mono";
+  font-size: 12px;
+  flex-direction: column;
+  align-items: center;
 }
 
 .button:hover {
-  background-color: #777;
+  color: yellow;
 }
 
-#clear {
-  background-image: url(../static/icons/delete.svg);
-  background-repeat: no-repeat;
+#run {
+  background-image: url(../static/icons/run.svg);
+  padding-top: 30px; /* Adjust this value based on the height of your SVG image */
+  flex-direction: column;
+  align-items: center;
+
 }
 
-#export {
-  background-image: url(../static/icons/download.svg);
+#stop {
+  background-image: url(../static/icons/stop.svg);
   background-repeat: no-repeat;
+  padding-top: 30px;
 }
 
 #examples {
   background-image: url(../static/icons/media.svg);
   background-repeat: no-repeat;
+  padding-top: 30px;
+  margin-left: 10px;
+  margin-right: 10px; 
+}
+
+#image-upload>input {
+  display: none;
+} 
+
+#image-upload-label {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center;    /* Center children horizontally */
+  cursor: pointer;        /* Indicate it's clickable */
+  color: white;
+  font-size: 12px;
+  font-family: "Roboto Mono";
+}
+
+#image-upload-label:hover {
+  color: yellow;
+}
+
+#image-upload-label img.button {
+  margin-bottom: 0px; /* Creates space between the image and the text. Adjust as needed */
+  
+}
+
+#download {
+  background-image: url(../static/icons/download.svg);
+  background-repeat: no-repeat;
+  padding-top: 30px;
+  margin-left: 10px;
+  margin-right: 10px; 
+}
+
+#clear {
+  background-image: url(../static/icons/delete.svg);
+  background-repeat: no-repeat;
+  padding-top: 30px;
 }
 
 #help {
   background-image: url(../static/icons/help.svg);
   background-repeat: no-repeat;
+  padding-top: 30px;
+
 }
 
 #drag {
@@ -137,10 +189,6 @@ body {
   cursor: col-resize;
   clip-path: inset(0% 19%);
   user-select: none;
-}
-
-#image-upload>input {
-  display: none;
 }
 
 #examples-dropdown {

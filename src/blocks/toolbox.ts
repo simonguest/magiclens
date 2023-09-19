@@ -3,6 +3,16 @@ export let toolbox = {
   contents: [
     {
       kind: "category",
+      name: "Input Images",
+      contents: [
+        {
+          kind: "block",
+          type: "input_load_sample_image",
+        }
+      ],
+    },
+    {
+      kind: "category",
       name: "Loops",
       contents: [
         {
