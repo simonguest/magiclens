@@ -1,5 +1,3 @@
-import {javascriptGenerator} from "blockly/javascript";
-
 export let debug = {
     init: function () {
         this.appendValueInput("OBJECT")
@@ -12,8 +10,8 @@ export let debug = {
         this.setColour(250);
     },
 
-    transpile: function (block) {
-        let object = javascriptGenerator.valueToCode(block, 'OBJECT', javascriptGenerator.ORDER_NONE);
+    transpile: function (block, generator) {
+        let object = generator.valueToCode(block, 'OBJECT', generator.ORDER_NONE);
         if (object === "") return "";
 
         return `console.log(${object});`;

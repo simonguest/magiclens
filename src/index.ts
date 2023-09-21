@@ -1,12 +1,47 @@
 import Blockly from "blockly";
+import { javascriptGenerator } from "blockly/javascript";
+import { CV } from "./cv";
 
 // Initialize Blockly and the workspace
 import { blocklyInit, workspace } from "./blocks/initializer";
 blocklyInit();
 
+// Initiatlize all of the CV libs
+const cv = new CV()
+
+// Code execution
+async function run() {
+  // Execute the required code
+  let code = javascriptGenerator.workspaceToCode(workspace);
+  console.log(`CODE: ${code}`);
+  try {
+    eval(
+      `const run = async () => { ${code} }; run();`
+    );
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 // Setup the UI
 async function init() {
+  console.log("Loading workspace from session storage");
+  let jsonStr = sessionStorage.getItem("workspace");
+  if (jsonStr) {
+    Blockly.serialization.workspaces.load(JSON.parse(jsonStr), workspace);
+  } else {
+    // Load the sample workspace
+    // console.log("Loading starter workspace...");
+    // const response = await fetch(`./examples/starter.json`);
+    // const json = await response.json();
+    // Blockly.serialization.workspaces.load(json, workspace);
+  }
+
+  document.getElementById("run").onclick = async () => {
+    console.log("run button pressed");
+    await run();
+  };
+
   document.getElementById("clear").onclick = () => {
     console.log("clear session button pressed");
     if (confirm("Clearing the workspace will lose all unsaved work. Continue?")) {
@@ -15,8 +50,8 @@ async function init() {
     }
   };
 
-  document.getElementById("export").onclick = () => {
-    console.log("export workspace button pressed");
+  document.getElementById("download").onclick = () => {
+    console.log("download workspace button pressed");
     let file = new Blob([sessionStorage.getItem("workspace")], {
       type: "text/json",
     });
@@ -32,8 +67,8 @@ async function init() {
     }, 0);
   };
 
-  document.getElementById("import").onchange = async (e) => {
-    console.log("importing workspace from file");
+  document.getElementById("upload").onchange = async (e) => {
+    console.log("upload workspace from file");
     let file = e.target["files"][0];
     if (!file) {
       return;

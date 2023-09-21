@@ -1,4 +1,3 @@
-import { javascriptGenerator } from "blockly/javascript";
 import Blockly from "blockly";
 
 const sampleImages = [{
@@ -22,7 +21,7 @@ export let loadSampleImage = {
     this.setColour(295);
   },
 
-  transpile: function (block) {
+  transpile: function (block, generator) {
     let image = block.getFieldValue("IMAGE");
     return `cv.loadSampleImage("${image}");`;
   },

@@ -10,7 +10,7 @@ Blockly.Theme.defineTheme("theme", {
   base: Blockly.Themes.Zelos,
   name: "theme",
   componentStyles: {
-    workspaceBackgroundColour: "#ccc",
+    workspaceBackgroundColour: "#ddd",
     toolboxBackgroundColour: "#5d5d73",
     toolboxForegroundColour: "#fff",
     flyoutBackgroundColour: "#3d3d53",
@@ -44,7 +44,9 @@ let workspace = Blockly.inject("blocklyDiv", {
 
 const createCustomBlock = (name, blockType) => {
   Blockly.Blocks[name] = blockType;
-  javascriptGenerator[name] = blockType["transpile"];
+  javascriptGenerator.forBlock[name] = function(block, generator) {
+    return blockType["transpile"](block, generator);
+  };
 };
 
 const createCustomBlocks = () => {
