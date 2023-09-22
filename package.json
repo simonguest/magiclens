@@ -10,8 +10,14 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@types/node": "^20.6.2",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
+    "events": "^3.3.0",
     "parcel": "^2.9.3",
-    "parcel-reporter-static-files-copy": "^1.5.2"
+    "parcel-reporter-static-files-copy": "^1.5.2",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0"
   },
   "dependencies": {
     "blockly": "^10.1.3"

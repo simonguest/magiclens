@@ -3,7 +3,7 @@
         "target": "ES6",
         "sourceMap": true,
         "allowSyntheticDefaultImports": true,
-        "moduleResolution": "Node"
+        "moduleResolution": "Node",
     },
     "exclude": [
         "node_modules"

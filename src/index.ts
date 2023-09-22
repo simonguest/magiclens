@@ -6,9 +6,6 @@ import { CV } from "./cv";
 import { blocklyInit, workspace } from "./blocks/initializer";
 blocklyInit();
 
-// Initiatlize all of the CV libs
-const cv = new CV()
-
 // Code execution
 async function run() {
   // Execute the required code
@@ -93,7 +90,7 @@ async function init() {
 
     let blocklyArea = document.getElementById("blocklyArea");
     blocklyArea.style.width = `${(e.clientX / windowWidth) * 100}%`;
-    
+
     let columnResizedEvent = new Event("resize");
     window.dispatchEvent(columnResizedEvent);
   };
@@ -108,7 +105,5 @@ async function init() {
   };
 }
 
-
-
-
-init().then();
+// Initiatlize all of the CV libs
+const cv = new CV(() => init());
