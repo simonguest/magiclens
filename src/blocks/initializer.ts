@@ -3,6 +3,8 @@ import { javascriptGenerator } from "blockly/javascript";
 
 import * as input from "./input";
 import * as math from "./math";
+import * as transform from "./transform";
+import * as output from "./output";
 
 import { toolbox } from "./toolbox";
 
@@ -44,7 +46,7 @@ let workspace = Blockly.inject("blocklyDiv", {
 
 const createCustomBlock = (name, blockType) => {
   Blockly.Blocks[name] = blockType;
-  javascriptGenerator.forBlock[name] = function(block, generator) {
+  javascriptGenerator.forBlock[name] = function (block, generator) {
     return blockType["transpile"](block, generator);
   };
 };
@@ -52,6 +54,10 @@ const createCustomBlock = (name, blockType) => {
 const createCustomBlocks = () => {
   createCustomBlock("debug", math.debug);
   createCustomBlock("input_load_sample_image", input.loadSampleImage);
+  createCustomBlock("convert_to_gray", transform.convertToGray);
+  createCustomBlock("rotate_right", transform.rotateRight);
+  createCustomBlock("display", output.display);
+
 };
 
 const handleBlocklyResize = () => {
@@ -81,11 +87,19 @@ const handleBlocklyResize = () => {
 };
 
 const eventInitializer = () => {
+
   workspace.addChangeListener(async (ev) => {
-    // Write to session storage
-    console.log("Writing workspace to session storage");
-    let json = Blockly.serialization.workspaces.save(workspace);
-    sessionStorage.setItem("workspace", JSON.stringify(json));
+    if (
+      ev.type === Blockly.Events.BLOCK_MOVE ||
+      ev.type === Blockly.Events.BLOCK_CHANGE ||
+      ev.type === Blockly.Events.BLOCK_DELETE ||
+      ev.type === Blockly.Events.BLOCK_CREATE
+    ) {
+      // Write to session storage
+      console.log("Writing workspace to session storage");
+      let json = Blockly.serialization.workspaces.save(workspace);
+      sessionStorage.setItem("workspace", JSON.stringify(json));
+    }
   });
 }
 

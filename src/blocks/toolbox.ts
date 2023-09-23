@@ -13,6 +13,30 @@ export let toolbox = {
     },
     {
       kind: "category",
+      name: "Transform",
+      contents: [
+        {
+          kind: "block",
+          type: "convert_to_gray"
+        },
+        {
+          kind: "block",
+          type: "rotate_right"
+        }
+      ]
+    },
+    {
+      kind: "category",
+      name: "Output",
+      contents: [
+        {
+          kind: "block",
+          type: "display",
+        }
+      ],
+    },
+    {
+      kind: "category",
       name: "Loops",
       contents: [
         {

@@ -4,25 +4,27 @@ const sampleImages = [{
   id: "dogs_walking_in_park.png", title: "Dogs walking in park"
 },
 {
-  id: "CAT", title: "Cat sitting on a chair"
+  id: "cat_sitting_on_chair.png", title: "Cat sitting on a chair"
 }]
 
 export let loadSampleImage = {
   init: function () {
     this.appendDummyInput()
-      .appendField("Load Sample Image")
+      .appendField("Sample Image")
       .appendField(
         new Blockly.FieldDropdown(sampleImages.map(l => [l.title, l.id])),
         "IMAGE"
       )
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
+    this.setInputsInline(false);
+    this.setOutput(true, "MATRIX");
+    this.setPreviousStatement(false, null);
+    this.setNextStatement(false, null);
     this.setColour(295);
+    this.setTooltip("A sample image");
   },
 
   transpile: function (block, generator) {
     let image = block.getFieldValue("IMAGE");
-    return `cv.loadSampleImage("${image}");`;
+    return [`await cv.loadSampleImage("${image}")`, generator.ORDER_NONE];
   },
 };
