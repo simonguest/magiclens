@@ -5,6 +5,9 @@ const sampleImages = [{
 },
 {
   id: "cat_sitting_on_chair.png", title: "Cat sitting on a chair"
+},
+{
+  id: "skateboarder.png", title: "Skateboarder"
 }]
 
 export let loadSampleImage = {

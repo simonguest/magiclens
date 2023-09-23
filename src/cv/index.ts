@@ -104,10 +104,48 @@ export class CV {
     const yolov8NmsModel = await yolov8NmsModelFile.arrayBuffer();
     const yolov8NmsSession = await InferenceSession.create(yolov8NmsModel);
 
-    const labels = await fetch(`/models/yolov8-seg-onnxruntime-web/labels.json`);
+    const labelsFile = await fetch(`/models/yolov8-seg-onnxruntime-web/labels.json`);
+    const labels = await labelsFile.json();
 
     console.log("Preprocessing image");
-    //const [input, xRatio, yRatio] = this.preprocess(mat, 416, 416);
+    const [input, xRatio, yRatio] = this.preprocess(mat, 640, 640);
+
+    const modelInputShape = [1, 3, 640, 640];
+    const topk = 100;
+    const iouThreshold = 0.45;
+    const scoreThreshold = 0.25;
+
+    const tensor = new Tensor("float32", input.data32F, modelInputShape); // to ort.Tensor
+    const config = new Tensor(
+      "float32",
+      new Float32Array([
+        labels.length, // num class
+        topk, // topk per class
+        iouThreshold, // iou threshold
+        scoreThreshold, // score threshold
+      ])
+    ); // nms config tensor
+
+    console.log("Running yolov8 model");
+    const { output0, output1 } = await yolov8Session.run({ images: tensor });
+    console.log(output0, output1);
+
+    console.log("Running yolov8 nms model");
+    const { selected } = await yolov8NmsSession.run({ detection: output0, config: config });
+    console.log(selected);
+
+    for (let idx = 0; idx < selected.dims[1]; idx++) {
+      const data = selected.data.slice(idx * selected.dims[2], (idx + 1) * selected.dims[2]); // get rows
+      let box = data.slice(0, 4); // det boxes
+      const scores = data.slice(4, 4 + labels.length); // det classes probability scores
+      const score = Math.max(...scores); // maximum probability scores
+      const label = scores.indexOf(score); // class id of maximum probability scores
+  
+      console.log(labels[label])
+      console.log(box)
+  
+    }
+
 
     return ["test"];
 
