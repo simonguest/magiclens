@@ -27,6 +27,16 @@ export let toolbox = {
     },
     {
       kind: "category",
+      name: "Models",
+      contents: [
+        {
+          kind: "block",
+          type: "detect_objects"
+        }
+      ]
+    },
+    {
+      kind: "category",
       name: "Output",
       contents: [
         {

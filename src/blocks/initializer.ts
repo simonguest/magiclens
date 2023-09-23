@@ -4,6 +4,7 @@ import { javascriptGenerator } from "blockly/javascript";
 import * as input from "./input";
 import * as math from "./math";
 import * as transform from "./transform";
+import * as models from "./models";
 import * as output from "./output";
 
 import { toolbox } from "./toolbox";
@@ -56,6 +57,7 @@ const createCustomBlocks = () => {
   createCustomBlock("input_load_sample_image", input.loadSampleImage);
   createCustomBlock("convert_to_gray", transform.convertToGray);
   createCustomBlock("rotate_right", transform.rotateRight);
+  createCustomBlock("detect_objects", models.detectObjects);
   createCustomBlock("display", output.display);
 
 };
