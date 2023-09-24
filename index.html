@@ -6,20 +6,32 @@
     <meta name="description" content="CV Lab" />
     <meta name="author" content="Simon Guest" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preload" href="./static/fonts/RobotoMono-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
+    <link
+      rel="preload"
+      href="./static/fonts/RobotoMono-VariableFont_wght.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
     <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
     <div id="container">
       <div id="header">
         <div id="buttonrow">
-          <img id="logo" src="./static/icons/logo.svg" alt="Code.org logo"/>
+          <img id="logo" src="./static/icons/logo.svg" alt="Code.org logo" />
           <p></p>
           <button id="run" class="button">Run</button>
           <button id="stop" class="button">Stop</button>
           <button id="examples" class="button">Examples</button>
           <div id="examples-dropdown">
-            <button class="examples-dropdown-item" data-file="starter.json" data-physics="off">Starter</button>
+            <button
+              class="examples-dropdown-item"
+              data-file="starter.json"
+              data-physics="off"
+            >
+              Starter
+            </button>
           </div>
           <div id="image-upload">
             <label id="image-upload-label" for="upload">
@@ -34,10 +46,15 @@
       </div>
       <div id="split">
         <div id="blocklyArea">Loading Workspace...</div>
-        <span id="columnResizer"><img id="drag" src="./static/icons/drag.svg" /></span>
+        <span id="columnResizer"
+          ><img id="drag" src="./static/icons/drag.svg"
+        /></span>
         <div id="runArea">
-          <img id="hiddenImage"/>
-          <canvas id="runAreaCanvas"></canvas>
+          <img id="hiddenImage" />
+          <div id="canvasContainer">
+            <canvas id="runAreaCanvas"></canvas>
+            <canvas id="annotationCanvas"></canvas>
+          </div>
         </div>
       </div>
     </div>

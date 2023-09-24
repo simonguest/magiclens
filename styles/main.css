@@ -34,13 +34,45 @@ body {
 
 #runArea {
   width: 60%;
+  height: 100%;
   background: #333333;
 }
 
-#runAreaCanvas {
-  width: 100%;
+#hiddenImage {
+  display: block;
+}
+
+#canvasContainer {
+  display: flex;
+  justify-content: center;  /* Horizontal centering */
+  align-items: center;      /* Vertical centering */
+  overflow: hidden;         /* Hide any overflowing content */
+  /* Assuming the div is resizable, you might have something like this: */
+  resize: both;
+  border: 1px solid #000;   /* Just for visualization */
+  position: relative;
   height: 100%;
 }
+
+#canvasContainer canvas {
+  max-width: 512px;
+  max-height: 512px;
+  width: 100%;   /* Make the canvas responsive */
+  height: 100%;
+  object-fit: contain; /* Make sure the canvas doesn't stretch out of proportion */
+  position: absolute;  /* Position the canvases absolutely to overlap */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);  /* Center the canvases within the container */
+}
+
+#runAreaCanvas {
+  z-index: 1;
+}
+
+#annotationCanvas {
+  z-index: 2;
+} 
 
 #blocklyArea {
   width: 40%;
@@ -117,7 +149,6 @@ body {
   padding-top: 30px; /* Adjust this value based on the height of your SVG image */
   flex-direction: column;
   align-items: center;
-
 }
 
 #stop {
