@@ -32,17 +32,17 @@ body {
   flex-direction: row;
 }
 
-#runArea {
+#run-area {
   width: 60%;
   height: 100%;
   background: #333333;
 }
 
-#hiddenImage {
+#hidden-image {
   display: block;
 }
 
-#canvasContainer {
+#canvas-container {
   display: flex;
   justify-content: center;  /* Horizontal centering */
   align-items: center;      /* Vertical centering */
@@ -54,7 +54,7 @@ body {
   height: 100%;
 }
 
-#canvasContainer canvas {
+#canvas-container canvas {
   max-width: 512px;
   max-height: 512px;
   width: 100%;   /* Make the canvas responsive */
@@ -66,21 +66,21 @@ body {
   transform: translate(-50%, -50%);  /* Center the canvases within the container */
 }
 
-#runAreaCanvas {
+#image-canvas {
   z-index: 1;
 }
 
-#annotationCanvas {
+#bounding-box-canvas {
   z-index: 2;
 } 
 
-#blocklyArea {
+#blockly-area {
   width: 40%;
   background: #ffffff;
   text-align: center;
 }
 
-#columnResizer {
+#column-resizer {
   display: block;
   top: 0;
   right: 0;
@@ -116,7 +116,7 @@ body {
   padding-left: 10px;
 }
 
-#buttonrow {
+#button-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -144,20 +144,20 @@ body {
   color: yellow;
 }
 
-#run {
+#run-button {
   background-image: url(../static/icons/run.svg);
   padding-top: 30px; /* Adjust this value based on the height of your SVG image */
   flex-direction: column;
   align-items: center;
 }
 
-#stop {
+#stop-button {
   background-image: url(../static/icons/stop.svg);
   background-repeat: no-repeat;
   padding-top: 30px;
 }
 
-#examples {
+#examples-button {
   background-image: url(../static/icons/media.svg);
   background-repeat: no-repeat;
   padding-top: 30px;
@@ -165,7 +165,7 @@ body {
   margin-right: 10px; 
 }
 
-#image-upload>input {
+#image-upload-button>input {
   display: none;
 } 
 
@@ -187,7 +187,7 @@ body {
   margin-bottom: 0px; /* Creates space between the image and the text. Adjust as needed */
 }
 
-#download {
+#download-button {
   background-image: url(../static/icons/download.svg);
   background-repeat: no-repeat;
   padding-top: 30px;
@@ -195,13 +195,13 @@ body {
   margin-right: 10px; 
 }
 
-#clear {
+#clear-button {
   background-image: url(../static/icons/delete.svg);
   background-repeat: no-repeat;
   padding-top: 30px;
 }
 
-#help {
+#help-button {
   background-image: url(../static/icons/help.svg);
   background-repeat: no-repeat;
   padding-top: 30px;

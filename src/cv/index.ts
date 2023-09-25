@@ -152,6 +152,6 @@ export class CV {
   }
 
   public async displayMat(mat: any) {
-    cv2.imshow("runAreaCanvas", mat);
+    cv2.imshow("image-canvas", mat);
   }
 }

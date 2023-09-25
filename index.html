@@ -18,12 +18,12 @@
   <body>
     <div id="container">
       <div id="header">
-        <div id="buttonrow">
+        <div id="button-row">
           <img id="logo" src="./static/icons/logo.svg" alt="Code.org logo" />
           <p></p>
-          <button id="run" class="button">Run</button>
-          <button id="stop" class="button">Stop</button>
-          <button id="examples" class="button">Examples</button>
+          <button id="run-button" class="button">Run</button>
+          <button id="stop-button" class="button">Stop</button>
+          <button id="examples-button" class="button">Examples</button>
           <div id="examples-dropdown">
             <button
               class="examples-dropdown-item"
@@ -33,32 +33,32 @@
               Starter
             </button>
           </div>
-          <div id="image-upload">
+          <div id="image-upload-button">
             <label id="image-upload-label" for="upload">
               <img src="./static/icons/upload.svg" class="button" />Upload
             </label>
             <input id="upload" type="file" />
           </div>
-          <button id="download" class="button">Download</button>
-          <button id="clear" class="button">Clear</button>
-          <button id="help" class="button">Help</button>
+          <button id="download-button" class="button">Download</button>
+          <button id="clear-button" class="button">Clear</button>
+          <button id="help-button" class="button">Help</button>
         </div>
       </div>
       <div id="split">
-        <div id="blocklyArea">Loading Workspace...</div>
-        <span id="columnResizer"
+        <div id="blockly-area">Loading Workspace...</div>
+        <span id="column-resizer"
           ><img id="drag" src="./static/icons/drag.svg"
         /></span>
-        <div id="runArea">
-          <img id="hiddenImage" />
-          <div id="canvasContainer">
-            <canvas id="runAreaCanvas"></canvas>
-            <canvas id="annotationCanvas"></canvas>
+        <div id="run-area">
+          <img id="hidden-image" />
+          <div id="canvas-container">
+            <canvas id="image-canvas"></canvas>
+            <canvas id="bounding-box-canvas"></canvas>
           </div>
         </div>
       </div>
     </div>
-    <div id="blocklyDiv" style="position: absolute"></div>
+    <div id="blockly-div" style="position: absolute"></div>
     <script type="module" src="src/index.ts"></script>
   </body>
 </html>

@@ -34,12 +34,12 @@ async function init() {
     // Blockly.serialization.workspaces.load(json, workspace);
   }
 
-  document.getElementById("run").onclick = async () => {
+  document.getElementById("run-button").onclick = async () => {
     console.log("run button pressed");
     await run();
   };
 
-  document.getElementById("clear").onclick = () => {
+  document.getElementById("clear-button").onclick = () => {
     console.log("clear session button pressed");
     if (confirm("Clearing the workspace will lose all unsaved work. Continue?")) {
       sessionStorage.removeItem("workspace");
@@ -47,7 +47,7 @@ async function init() {
     }
   };
 
-  document.getElementById("download").onclick = () => {
+  document.getElementById("download-button").onclick = () => {
     console.log("download workspace button pressed");
     let file = new Blob([sessionStorage.getItem("workspace")], {
       type: "text/json",
@@ -84,11 +84,11 @@ async function init() {
     if (e.clientX < 200 || e.clientX > window.innerWidth - 200) return;
 
     let windowWidth = window.innerWidth;
-    let runArea = document.getElementById("runArea");
+    let runArea = document.getElementById("run-area");
     runArea.style.width = `${((window.innerWidth - e.clientX) / windowWidth) * 100}%`;
 
 
-    let blocklyArea = document.getElementById("blocklyArea");
+    let blocklyArea = document.getElementById("blockly-area");
     blocklyArea.style.width = `${(e.clientX / windowWidth) * 100}%`;
 
     let columnResizedEvent = new Event("resize");
@@ -96,7 +96,7 @@ async function init() {
   };
 
   // Column resizer control using pointer events to support mouse and touch
-  document.getElementById("columnResizer").onpointerdown = () => {
+  document.getElementById("column-resizer").onpointerdown = () => {
     document.addEventListener("pointermove", broadcastColumnResize);
     document.onpointerup = () => {
       console.log("resize complete");

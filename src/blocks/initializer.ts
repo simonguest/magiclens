@@ -28,7 +28,7 @@ Blockly.Theme.defineTheme("theme", {
   fontStyle: { family: "Roboto Mono", size: 10 },
 });
 
-let workspace = Blockly.inject("blocklyDiv", {
+let workspace = Blockly.inject("blockly-div", {
   toolbox: toolbox,
   horizontalLayout: false,
   toolboxPosition: "start",
@@ -63,8 +63,8 @@ const createCustomBlocks = () => {
 };
 
 const handleBlocklyResize = () => {
-  let blocklyArea = document.getElementById("blocklyArea");
-  let blocklyDiv = document.getElementById("blocklyDiv");
+  let blocklyArea = document.getElementById("blockly-area");
+  let blocklyDiv = document.getElementById("blockly-div");
 
   let onresize = function () {
     // Compute the absolute coordinates and dimensions of blocklyArea.
