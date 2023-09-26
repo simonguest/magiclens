@@ -107,32 +107,36 @@ export class CV {
       const klass = box.label;
       const color = "#cccccc";
       const score = (box.probability * 100).toFixed(1);
-      const [x1, y1, width, height] = box.bounding;
+      let [x1, y1, width, height] = box.bounding;
+      x1 = x1 * 2 * 0.8;
+      y1 = y1 * 2 * 0.8;
+      width = width * 2 * 0.8;
+      height = height * 2 * 0.8;
+
   
       // draw border box
       ctx.strokeStyle = color;
-      ctx.lineWidth = Math.max(Math.min(512, 512) / 200, 2.5);
+      ctx.lineWidth = Math.max(Math.min(1024, 1024) / 200, 2.5);
 
-      ctx.strokeRect(x1*2*0.8, y1*2*0.8, width*2*0.8, height*2*0.8);
-      console.log(10, 10, 502, 502);
-      //ctx.strokeRect(10*2, 10*2, 502*2, 502*2);
+      //ctx.strokeRect(x1*2*0.8, y1*2*0.8, width*2*0.8, height*2*0.8);
+      ctx.strokeRect(x1, y1, width, height);
       
   
-      // // draw the label background.
-      // ctx.fillStyle = color;
-      // const textWidth = ctx.measureText(klass + " - " + score + "%").width;
-      // const textHeight = parseInt(font, 10); // base 10
-      // const yText = y1 - (textHeight + ctx.lineWidth);
-      // ctx.fillRect(
-      //   x1 - 1,
-      //   yText < 0 ? 0 : yText,
-      //   textWidth + ctx.lineWidth,
-      //   textHeight + ctx.lineWidth
-      // );
+      // draw the label background.
+      ctx.fillStyle = color;
+      const textWidth = ctx.measureText(klass + " - " + score + "%").width;
+      const textHeight = parseInt(font, 10); // base 10
+      const yText = y1 - (textHeight + ctx.lineWidth);
+      ctx.fillRect(
+        x1 - 1,
+        yText < 0 ? 0 : yText,
+        textWidth + ctx.lineWidth,
+        textHeight + ctx.lineWidth
+      );
   
-      // // Draw labels
-      // ctx.fillStyle = "#ffffff";
-      // ctx.fillText(klass + " - " + score + "%", x1 - 1, yText < 0 ? 1 : yText + 1);
+      // Draw labels
+      ctx.fillStyle = "#ffffff";
+      ctx.fillText(klass + " - " + score + "%", x1 - 1, yText < 0 ? 1 : yText + 1);
     });
   }
 
