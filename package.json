@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "CV Lab",
   "scripts": {
-    "build": "rm -rf ./dist && rm -rf ./.parcel-cache && npx parcel build --public-url '.' index.html",
+    "clean": "rm -rf ./dist && rm -rf ./.parcel-cache",
+    "build": "npx parcel build --public-url '.' index.html",
     "server": "npm run build && npx parcel serve index.html -p 55000"
   },
   "staticFiles": [
