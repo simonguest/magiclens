@@ -94,6 +94,48 @@ export class CV {
     return [input, xRatio, yRatio];
   }
 
+  private drawBoxes (ctx, boxes) {
+    // font configs
+    const font = `${Math.max(
+      Math.round(Math.max(ctx.canvas.width, ctx.canvas.height) / 40),
+      14
+    )}px Arial`;
+    ctx.font = font;
+    ctx.textBaseline = "top";
+  
+    boxes.forEach((box) => {
+      const klass = box.label;
+      const color = "#cccccc";
+      const score = (box.probability * 100).toFixed(1);
+      const [x1, y1, width, height] = box.bounding;
+  
+      // draw border box
+      ctx.strokeStyle = color;
+      ctx.lineWidth = Math.max(Math.min(512, 512) / 200, 2.5);
+
+      ctx.strokeRect(x1*2*0.8, y1*2*0.8, width*2*0.8, height*2*0.8);
+      console.log(10, 10, 502, 502);
+      //ctx.strokeRect(10*2, 10*2, 502*2, 502*2);
+      
+  
+      // // draw the label background.
+      // ctx.fillStyle = color;
+      // const textWidth = ctx.measureText(klass + " - " + score + "%").width;
+      // const textHeight = parseInt(font, 10); // base 10
+      // const yText = y1 - (textHeight + ctx.lineWidth);
+      // ctx.fillRect(
+      //   x1 - 1,
+      //   yText < 0 ? 0 : yText,
+      //   textWidth + ctx.lineWidth,
+      //   textHeight + ctx.lineWidth
+      // );
+  
+      // // Draw labels
+      // ctx.fillStyle = "#ffffff";
+      // ctx.fillText(klass + " - " + score + "%", x1 - 1, yText < 0 ? 1 : yText + 1);
+    });
+  }
+
   public async detectObjects(mat: any) {
     console.log("Loading yolov8 models and labels");
     const yolov8ModelFile = await fetch(`/models/yolov8-seg-onnxruntime-web/yolov8n-seg.onnx`);
@@ -108,7 +150,7 @@ export class CV {
     const labels = await labelsFile.json();
 
     console.log("Preprocessing image");
-    const [input, xRatio, yRatio] = this.preprocess(mat, 640, 640);
+    let [input, xRatio, yRatio] = this.preprocess(mat, 640, 640);
 
     const modelInputShape = [1, 3, 640, 640];
     const topk = 100;
@@ -134,6 +176,17 @@ export class CV {
     const { selected } = await yolov8NmsSession.run({ detection: output0, config: config });
     console.log(selected);
 
+    const boxes = [];
+    const maxSize = Math.max(640, 640); // max size in input model
+
+    const overflowBoxes = (box, maxSize) => {
+      box[0] = box[0] >= 0 ? box[0] : 0;
+      box[1] = box[1] >= 0 ? box[1] : 0;
+      box[2] = box[0] + box[2] <= maxSize ? box[2] : maxSize - box[0];
+      box[3] = box[1] + box[3] <= maxSize ? box[3] : maxSize - box[1];
+      return box;
+    };
+
     for (let idx = 0; idx < selected.dims[1]; idx++) {
       const data = selected.data.slice(idx * selected.dims[2], (idx + 1) * selected.dims[2]); // get rows
       let box = data.slice(0, 4); // det boxes
@@ -141,10 +194,47 @@ export class CV {
       const score = Math.max(...scores); // maximum probability scores
       const label = scores.indexOf(score); // class id of maximum probability scores
   
-      console.log(labels[label])
-      console.log(box)
+
   
+      box = overflowBoxes(
+        [
+          box[0] - 0.5 * box[2], // before upscale x
+          box[1] - 0.5 * box[3], // before upscale y
+          box[2], // before upscale w
+          box[3], // before upscale h
+        ],
+        maxSize
+      ); // keep boxes in maxSize range
+  
+      const [x, y, w, h] = overflowBoxes(
+        [
+          Math.floor(box[0] * xRatio), // upscale left
+          Math.floor(box[1] * yRatio), // upscale top
+          Math.floor(box[2] * xRatio), // upscale width
+          Math.floor(box[3] * yRatio), // upscale height
+        ],
+        maxSize
+      ); // upscale boxes
+  
+      boxes.push({
+        label: labels[label],
+        probability: score,
+        bounding: [x, y, w, h], // upscale box
+      }); // update boxes to draw later
+
+      console.log(labels[label])
+      console.log(boxes)
+
+      const ctx = document.getElementById("image-canvas").getContext("2d");
+      //ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      this.drawBoxes(ctx, boxes);
     }
+
+    
+
+
+
+
 
 
     return ["test"];
