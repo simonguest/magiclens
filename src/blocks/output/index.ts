@@ -1,2 +1,4 @@
 import { display } from "./display";
-export { display }
+import { displayBoundingBoxes } from "./displayBoundingBoxes";
+
+export { display, displayBoundingBoxes }

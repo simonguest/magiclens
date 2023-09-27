@@ -8,6 +8,9 @@ blocklyInit();
 
 // Code execution
 async function run() {
+  // Initialize the canvas collection
+  cv.init();
+
   // Execute the required code
   let code = javascriptGenerator.workspaceToCode(workspace);
   console.log(`CODE: ${code}`);

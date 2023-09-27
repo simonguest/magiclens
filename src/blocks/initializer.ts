@@ -59,6 +59,7 @@ const createCustomBlocks = () => {
   createCustomBlock("rotate_right", transform.rotateRight);
   createCustomBlock("detect_objects", models.detectObjects);
   createCustomBlock("display", output.display);
+  createCustomBlock("display_bounding_boxes", output.displayBoundingBoxes);
 
 };
 

@@ -42,6 +42,10 @@ export let toolbox = {
         {
           kind: "block",
           type: "display",
+        },
+        {
+          kind: "block",
+          type: "display_bounding_boxes",
         }
       ],
     },
