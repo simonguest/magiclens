@@ -229,8 +229,12 @@ export class CV {
       console.log(labels[label])
       console.log(boxes)
 
-      const ctx = document.getElementById("image-canvas").getContext("2d");
-      //ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      let boundingmat = new cv2.Mat(1024,1024, cv2.CV_8UC4, [0,0,0,0]);
+      cv2.imshow("bounding-box-canvas", boundingmat);
+
+      const ctx = document.getElementById("bounding-box-canvas").getContext("2d");
+    
+
       this.drawBoxes(ctx, boxes);
     }
 
