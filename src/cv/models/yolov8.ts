@@ -2,6 +2,9 @@ import { Debug } from "../../debug";
 
 import cv2 from "../../../lib/opencv.js";
 import { Tensor, InferenceSession } from "onnxruntime-web";
+import { Colors } from "./colors";
+
+const colors = new Colors();
 
 export class YoloV8 {
 
@@ -77,6 +80,11 @@ export class YoloV8 {
     const yolov8NmsModel = await yolov8NmsModelFile.arrayBuffer();
     const yolov8NmsSession = await InferenceSession.create(yolov8NmsModel);
 
+    Debug.write("Loading yolov8 segmentation model");
+    const yolov8SegModelFile = await fetch(`/models/yolov8-seg-onnxruntime-web/mask-yolov8-seg.onnx`);
+    const yolov8SegModel = await yolov8SegModelFile.arrayBuffer();
+    const yolov8SegSession = await InferenceSession.create(yolov8SegModel);
+
     Debug.write("Loading yolov8 nms labels");
     const labelsFile = await fetch(`/models/yolov8-seg-onnxruntime-web/labels.json`);
     const labels = await labelsFile.json();
@@ -95,7 +103,7 @@ export class YoloV8 {
       ])
     ); // nms config tensor
 
-    const seg = (await this.segment(mat))
+    const seg = await this.segment(mat)
 
     const detection = seg.detection;
     const xRatio = seg.xRatio;
@@ -104,9 +112,14 @@ export class YoloV8 {
 
     Debug.write("Running yolov8 nms model");
     const { selected } = await yolov8NmsSession.run({ detection: detection, config: config });
-    //console.log(selected);
+    console.log(selected);
 
     const boxes = [];
+    let overlay = new Tensor("uint8", new Uint8Array(640 * 640 * 4), [
+      640,
+      640,
+      4,
+    ]);
     const maxSize = Math.max(640, 640); // max size in input model
 
     const overflowBoxes = (box, maxSize) => {
@@ -123,6 +136,7 @@ export class YoloV8 {
       const scores = data.slice(4, 4 + labels.length); // det classes probability scores
       const score = Math.max(...scores); // maximum probability scores
       const label = scores.indexOf(score); // class id of maximum probability scores
+      const color = colors.get(label);
 
       box = overflowBoxes(
         [
@@ -148,10 +162,48 @@ export class YoloV8 {
         label: labels[label],
         probability: score,
         bounding: [x, y, w, h], // upscale box
+        color: color
       }); // update boxes to draw later
 
+      Debug.write("Detecting segmentation mask");
+
+      const mask = new Tensor(
+        "float32",
+        new Float32Array([
+          ...box, // original scale box
+          ...data.slice(4 + labels.length), // mask data
+        ])
+      ); // mask input
+
+      const maskConfig = new Tensor(
+        "float32",
+        new Float32Array([
+          maxSize,
+          x, // upscale x
+          y, // upscale y
+          w, // upscale width
+          h, // upscale height
+          ...Colors.hexToRgba(color, 120),
+        ])
+      ); // mask config
+
+      Debug.write("Running segmentation model");
+      const { mask_filter } = await yolov8SegSession.run({
+        detection: mask,
+        mask: seg.mask,
+        config: maskConfig,
+        overlay: overlay,
+      }); // perform post-process to get mask
+
+      overlay = mask_filter; // update overlay
+     
     }
 
-    return boxes;
+    console.log(overlay);
+
+    const mask_img = new ImageData(new Uint8ClampedArray(overlay.data), 640, 640);
+    console.log(mask_img); // create image data from mask overlay
+
+    return { boxes: boxes, mask: mask_img };
   }
 }

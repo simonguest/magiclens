@@ -71,8 +71,12 @@ body {
 }
 
 #bounding-box-canvas {
-  z-index: 2;
+  z-index: 3;
 } 
+
+#segmentation-mask-canvas {
+  z-index: 2;
+}
 
 #blockly-area {
   width: 40%;

@@ -19,7 +19,7 @@ export let loadSampleImage = {
         "IMAGE"
       )
     this.setInputsInline(false);
-    this.setOutput(true, "MATRIX");
+    this.setOutput(true, "IMAGE");
     this.setPreviousStatement(false, null);
     this.setNextStatement(false, null);
     this.setColour(295);

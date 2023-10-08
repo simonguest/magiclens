@@ -53,6 +53,13 @@ export class CV {
     return dst;
   }
 
+  private drawSegments(ctx, mask_img) {
+    console.log(mask_img);
+    Debug.write("Drawing segmentation mask");
+    ctx.putImageData(mask_img, 0, 0); // put overlay to canvas
+  }
+
+
   private drawBoxes(ctx, boxes) {
     Debug.write("Drawing bounding boxes");
     // font configs
@@ -105,7 +112,7 @@ export class CV {
     return this.yolov8.detectObjects(mat);
   }
 
-  public async displayMat(mat: any) {
+  public async displayImage(mat: any) {
     cv2.imshow("image-canvas", mat);
   }
 
@@ -119,11 +126,17 @@ export class CV {
     cv2.imshow("bounding-box-canvas", boundingmat);
   }
 
-  public async displayBoundingBoxes(boxes: any) {
-    this.clearBoundingBoxes();
+  public clearSegmentationMask() {
+    let segmat = new cv2.Mat(640, 640, cv2.CV_8UC4, [0, 0, 0, 0]);
+    cv2.imshow("segmentation-mask-canvas", segmat);
+  }
 
+  public async displayBoundingBoxes(objects: any) {
+    this.clearBoundingBoxes();
     const ctx = document.getElementById("bounding-box-canvas").getContext("2d");
-    this.drawBoxes(ctx, boxes);
+    this.drawBoxes(ctx, objects.boxes);
+    const seg_ctx = document.getElementById("segmentation-mask-canvas").getContext("2d");
+    this.drawSegments(seg_ctx, objects.mask);
   }
 
   public init() {
@@ -131,6 +144,7 @@ export class CV {
     Debug.write("Initializing CV");
     this.clearImage();
     this.clearBoundingBoxes();
+    this.clearSegmentationMask();
   }
 
 }

@@ -3,7 +3,7 @@ export let toolbox = {
   contents: [
     {
       kind: "category",
-      name: "Input Images",
+      name: "Sample Images",
       contents: [
         {
           kind: "block",

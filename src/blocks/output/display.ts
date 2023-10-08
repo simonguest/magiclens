@@ -12,6 +12,6 @@ export let display = {
       let object = generator.valueToCode(block, 'OBJECT', generator.ORDER_NONE);
       if (object === "") return "";
 
-      return `cv.displayMat(${object});`;
+      return `cv.displayImage(${object});`;
   }
 };
