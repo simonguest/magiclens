@@ -1,3 +1,5 @@
+import { Debug } from "../../debug";
+
 import cv2 from "../../../lib/opencv.js";
 import { Tensor, InferenceSession } from "onnxruntime-web";
 
@@ -19,6 +21,7 @@ export class YoloV8 {
   }
 
   private preprocess(mat, modelWidth, modelHeight, stride = 32) {
+    Debug.write("Preprocessing image");
     const matC3 = new cv2.Mat(mat.rows, mat.cols, cv2.CV_8UC3); // new image matrix
     cv2.cvtColor(mat, matC3, cv2.COLOR_RGBA2BGR); // RGBA to BGR
 
@@ -44,7 +47,6 @@ export class YoloV8 {
     ); // preprocessing image matrix
 
     // release mat opencv
-    mat.delete();
     matC3.delete();
     matPad.delete();
 
@@ -52,29 +54,30 @@ export class YoloV8 {
   }
 
   public async segment(mat: cv2.Mat) {
-    console.log("Loading yolov8 segmentation model");
+    Debug.write("Loading yolov8 segmentation model");
     const modelFile = await fetch(`/models/yolov8-seg-onnxruntime-web/yolov8n-seg.onnx`);
     const model = await modelFile.arrayBuffer();
     const session = await InferenceSession.create(model);
 
-    console.log("Preprocessing image");
     let [input, xRatio, yRatio] = this.preprocess(mat, 640, 640);
 
     const modelInputShape = [1, 3, 640, 640];
 
     const tensor = new Tensor("float32", input.data32F, modelInputShape); // to ort.Tensor
 
-    console.log("Running yolov8 segmentation model");
+    Debug.write("Running yolov8 segmentation model");
     const { output0: detection, output1: mask } = await session.run({ images: tensor });
-    console.log(detection, mask);
+    //console.log(detection, mask);
     return { detection: detection, mask: mask, xRatio: xRatio, yRatio: yRatio };
   }
 
   public async detectObjects(mat: any) {
+    Debug.write("Loading yolov8 nms model");
     const yolov8NmsModelFile = await fetch(`/models/yolov8-seg-onnxruntime-web/nms-yolov8.onnx`);
     const yolov8NmsModel = await yolov8NmsModelFile.arrayBuffer();
     const yolov8NmsSession = await InferenceSession.create(yolov8NmsModel);
 
+    Debug.write("Loading yolov8 nms labels");
     const labelsFile = await fetch(`/models/yolov8-seg-onnxruntime-web/labels.json`);
     const labels = await labelsFile.json();
 
@@ -99,9 +102,9 @@ export class YoloV8 {
     const yRatio = seg.yRatio;
 
 
-    console.log("Running yolov8 nms model");
+    Debug.write("Running yolov8 nms model");
     const { selected } = await yolov8NmsSession.run({ detection: detection, config: config });
-    console.log(selected);
+    //console.log(selected);
 
     const boxes = [];
     const maxSize = Math.max(640, 640); // max size in input model

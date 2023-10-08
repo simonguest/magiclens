@@ -1,3 +1,5 @@
+import { Debug } from "./debug";
+
 import Blockly from "blockly";
 import { javascriptGenerator } from "blockly/javascript";
 import { CV } from "./cv";
@@ -13,7 +15,7 @@ async function run() {
 
   // Execute the required code
   let code = javascriptGenerator.workspaceToCode(workspace);
-  console.log(`CODE: ${code}`);
+  console.log(`${code}`);
   try {
     eval(
       `const run = async () => { ${code} }; run();`
@@ -25,7 +27,7 @@ async function run() {
 
 // Setup the UI
 async function init() {
-  console.log("Loading workspace from session storage");
+  Debug.write("Loading workspace from session storage");
   let jsonStr = sessionStorage.getItem("workspace");
   if (jsonStr) {
     Blockly.serialization.workspaces.load(JSON.parse(jsonStr), workspace);
@@ -38,12 +40,12 @@ async function init() {
   }
 
   document.getElementById("run-button").onclick = async () => {
-    console.log("run button pressed");
+    Debug.write("run button pressed");
     await run();
   };
 
   document.getElementById("clear-button").onclick = () => {
-    console.log("clear session button pressed");
+    Debug.write("clear button pressed");
     if (confirm("Clearing the workspace will lose all unsaved work. Continue?")) {
       sessionStorage.removeItem("workspace");
       location.reload();
@@ -51,7 +53,7 @@ async function init() {
   };
 
   document.getElementById("download-button").onclick = () => {
-    console.log("download workspace button pressed");
+    Debug.write("download button pressed");
     let file = new Blob([sessionStorage.getItem("workspace")], {
       type: "text/json",
     });
@@ -68,7 +70,7 @@ async function init() {
   };
 
   document.getElementById("upload").onchange = async (e) => {
-    console.log("upload workspace from file");
+    Debug.write("upload workspace from file");
     let file = e.target["files"][0];
     if (!file) {
       return;
@@ -102,7 +104,7 @@ async function init() {
   document.getElementById("column-resizer").onpointerdown = () => {
     document.addEventListener("pointermove", broadcastColumnResize);
     document.onpointerup = () => {
-      console.log("resize complete");
+      Debug.write("Windows resize complete");
       document.removeEventListener("pointermove", broadcastColumnResize);
     };
   };

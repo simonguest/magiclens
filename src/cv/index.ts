@@ -1,3 +1,5 @@
+import { Debug } from "../debug";
+
 import cv2 from "../../lib/opencv.js";
 
 import { YoloV8 } from "./models/yolov8.js";
@@ -7,8 +9,8 @@ export class CV {
 
   constructor(initCallback) {
     cv2["onRuntimeInitialized"] = async () => {
-      console.log("OpenCV.js is ready");
-      console.log(cv2.getBuildInformation());
+      Debug.write("OpenCV.js is ready");
+      Debug.write(cv2.getBuildInformation());
       initCallback();
     };
   }
@@ -31,11 +33,10 @@ export class CV {
 
   public async loadSampleImage(image: string) {
     return new Promise(async (resolve, reject) => {
-      console.log(`Loading the ${image} image`);
+      Debug.write(`Loading the ${image} image`);
       const imageEl = await this.loadImage(`./images/${image}`);
-      console.log('Image loaded');
+      Debug.write(`Image loaded`);
       let mat = cv2.imread(imageEl);
-      //console.log(mat);
       resolve(mat);
     });
   }
@@ -53,6 +54,7 @@ export class CV {
   }
 
   private drawBoxes(ctx, boxes) {
+    Debug.write("Drawing bounding boxes");
     // font configs
     const font = `${Math.max(
       Math.round(Math.max(ctx.canvas.width, ctx.canvas.height) / 40),
@@ -126,10 +128,9 @@ export class CV {
 
   public init() {
     // Set up everything for run
-    console.log("Initializing CV");
+    Debug.write("Initializing CV");
     this.clearImage();
     this.clearBoundingBoxes();
-
   }
 
 }

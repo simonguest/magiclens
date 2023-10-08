@@ -1,3 +1,5 @@
+import { Debug } from "../debug";
+
 import Blockly from "blockly";
 import { javascriptGenerator } from "blockly/javascript";
 
@@ -99,7 +101,7 @@ const eventInitializer = () => {
       ev.type === Blockly.Events.BLOCK_CREATE
     ) {
       // Write to session storage
-      console.log("Writing workspace to session storage");
+      Debug.write("Writing workspace to session storage");
       let json = Blockly.serialization.workspaces.save(workspace);
       sessionStorage.setItem("workspace", JSON.stringify(json));
     }
