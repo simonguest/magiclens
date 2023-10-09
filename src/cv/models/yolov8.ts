@@ -11,25 +11,10 @@ export class YoloV8 {
   public static MODEL_WIDTH = 640;
   public static MODEL_HEIGHT = 640;
 
-  private divStride(stride, width, height) {
-    if (width % stride !== 0) {
-      if (width % stride >= stride / 2) width = (Math.floor(width / stride) + 1) * stride;
-      else width = Math.floor(width / stride) * stride;
-    }
-    if (height % stride !== 0) {
-      if (height % stride >= stride / 2) height = (Math.floor(height / stride) + 1) * stride;
-      else height = Math.floor(height / stride) * stride;
-    }
-    return [width, height];
-  }
-
-  private preprocess(mat, modelWidth, modelHeight, stride = 32) {
+  private preprocess(mat, modelWidth, modelHeight) {
     Debug.write("Preprocessing image");
     const matC3 = new cv2.Mat(mat.rows, mat.cols, cv2.CV_8UC3); // new image matrix
     cv2.cvtColor(mat, matC3, cv2.COLOR_RGBA2BGR); // RGBA to BGR
-
-    const [w, h] = this.divStride(stride, matC3.cols, matC3.rows);
-    cv2.resize(matC3, matC3, new cv2.Size(w, h));
 
     // padding image to [n x n] dim
     const maxSize = Math.max(matC3.rows, matC3.cols); // get max size from width and height
