@@ -75,11 +75,6 @@ export class CV {
       const color = "#cccccc";
       const score = (box.probability * 100).toFixed(1);
       let [x1, y1, width, height] = box.bounding;
-      x1 = x1 * 2 * 0.8;
-      y1 = y1 * 2 * 0.8;
-      width = width * 2 * 0.8;
-      height = height * 2 * 0.8;
-
 
       // draw border box
       ctx.strokeStyle = color;
@@ -122,12 +117,12 @@ export class CV {
   }
 
   public clearBoundingBoxes() {
-    let boundingmat = new cv2.Mat(1024, 1024, cv2.CV_8UC4, [0, 0, 0, 0]);
+    let boundingmat = new cv2.Mat(YoloV8.MODEL_WIDTH, YoloV8.MODEL_HEIGHT, cv2.CV_8UC4, [0, 0, 0, 0]);
     cv2.imshow("bounding-box-canvas", boundingmat);
   }
 
   public clearSegmentationMask() {
-    let segmat = new cv2.Mat(640, 640, cv2.CV_8UC4, [0, 0, 0, 0]);
+    let segmat = new cv2.Mat(YoloV8.MODEL_WIDTH, YoloV8.MODEL_HEIGHT, cv2.CV_8UC4, [0, 0, 0, 0]);
     cv2.imshow("segmentation-mask-canvas", segmat);
   }
 

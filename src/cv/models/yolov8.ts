@@ -8,8 +8,8 @@ const colors = new Colors();
 
 export class YoloV8 {
 
-  public constructor() {
-  }
+  public static MODEL_WIDTH = 640;
+  public static MODEL_HEIGHT = 640;
 
   private divStride(stride, width, height) {
     if (width % stride !== 0) {
@@ -62,15 +62,14 @@ export class YoloV8 {
     const model = await modelFile.arrayBuffer();
     const session = await InferenceSession.create(model);
 
-    let [input, xRatio, yRatio] = this.preprocess(mat, 640, 640);
+    let [input, xRatio, yRatio] = this.preprocess(mat, YoloV8.MODEL_WIDTH, YoloV8.MODEL_HEIGHT);
 
-    const modelInputShape = [1, 3, 640, 640];
+    const modelInputShape = [1, 3, YoloV8.MODEL_WIDTH, YoloV8.MODEL_HEIGHT];
 
     const tensor = new Tensor("float32", input.data32F, modelInputShape); // to ort.Tensor
 
     Debug.write("Running yolov8 segmentation model");
     const { output0: detection, output1: mask } = await session.run({ images: tensor });
-    //console.log(detection, mask);
     return { detection: detection, mask: mask, xRatio: xRatio, yRatio: yRatio };
   }
 
@@ -112,15 +111,13 @@ export class YoloV8 {
 
     Debug.write("Running yolov8 nms model");
     const { selected } = await yolov8NmsSession.run({ detection: detection, config: config });
-    console.log(selected);
 
     const boxes = [];
-    let overlay = new Tensor("uint8", new Uint8Array(640 * 640 * 4), [
-      640,
-      640,
+    let overlay = new Tensor("uint8", new Uint8Array(YoloV8.MODEL_WIDTH * YoloV8.MODEL_HEIGHT * 4), [
+      YoloV8.MODEL_WIDTH, YoloV8.MODEL_HEIGHT,
       4,
     ]);
-    const maxSize = Math.max(640, 640); // max size in input model
+    const maxSize = Math.max(YoloV8.MODEL_WIDTH, YoloV8.MODEL_HEIGHT); // max size in input model
 
     const overflowBoxes = (box, maxSize) => {
       box[0] = box[0] >= 0 ? box[0] : 0;
@@ -196,14 +193,10 @@ export class YoloV8 {
       }); // perform post-process to get mask
 
       overlay = mask_filter; // update overlay
-     
+
     }
 
-    console.log(overlay);
-
-    const mask_img = new ImageData(new Uint8ClampedArray(overlay.data), 640, 640);
-    console.log(mask_img); // create image data from mask overlay
-
+    const mask_img = new ImageData(new Uint8ClampedArray(overlay.data), YoloV8.MODEL_WIDTH, YoloV8.MODEL_HEIGHT);
     return { boxes: boxes, mask: mask_img };
   }
 }
