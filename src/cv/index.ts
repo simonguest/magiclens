@@ -135,8 +135,12 @@ export class CV {
     this.clearBoundingBoxes();
     const ctx = document.getElementById("bounding-box-canvas").getContext("2d");
     this.drawBoxes(ctx, objects.boxes);
-    const seg_ctx = document.getElementById("segmentation-mask-canvas").getContext("2d");
-    this.drawSegments(seg_ctx, objects.mask);
+  }
+
+  public async displaySegmentation(objects: any) {
+    this.clearSegmentationMask();
+    const ctx = document.getElementById("segmentation-mask-canvas").getContext("2d");
+    this.drawSegments(ctx, objects.mask);
   }
 
   public init() {

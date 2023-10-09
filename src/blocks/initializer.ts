@@ -62,6 +62,7 @@ const createCustomBlocks = () => {
   createCustomBlock("detect_objects", models.detectObjects);
   createCustomBlock("display", output.display);
   createCustomBlock("display_bounding_boxes", output.displayBoundingBoxes);
+  createCustomBlock("display_segmentation", output.displaySegmentation);
 
 };
 
