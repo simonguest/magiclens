@@ -12,6 +12,6 @@ export let display = {
       let object = generator.valueToCode(block, 'OBJECT', generator.ORDER_NONE);
       if (object === "") return "";
 
-      return `cv.displayImage(${object});`;
+      return `await cv.displayImage(${object});`;
   }
 };
