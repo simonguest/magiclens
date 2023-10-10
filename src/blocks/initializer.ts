@@ -10,6 +10,7 @@ import * as models from "./models";
 import * as output from "./output";
 
 import { toolbox } from "./toolbox";
+import { create } from "domain";
 
 Blockly.Theme.defineTheme("theme", {
   base: Blockly.Themes.Zelos,
@@ -57,6 +58,7 @@ const createCustomBlock = (name, blockType) => {
 const createCustomBlocks = () => {
   createCustomBlock("debug", math.debug);
   createCustomBlock("input_load_sample_image", input.loadSampleImage);
+  createCustomBlock("input_webcam_image", input.webcamImage);
   createCustomBlock("convert_to_gray", transform.convertToGray);
   createCustomBlock("rotate_right", transform.rotateRight);
   createCustomBlock("detect_objects", models.detectObjects);

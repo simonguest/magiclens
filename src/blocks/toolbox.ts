@@ -8,7 +8,11 @@ export let toolbox = {
         {
           kind: "block",
           type: "input_load_sample_image",
-        }
+        },
+        {
+          kind: "block",
+          type: "input_webcam_image",
+        },
       ],
     },
     {

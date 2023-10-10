@@ -1,2 +1,4 @@
 import { loadSampleImage } from "./loadSampleImage";
-export { loadSampleImage };
+import { webcamImage } from "./webcamImage";
+
+export { loadSampleImage, webcamImage };
