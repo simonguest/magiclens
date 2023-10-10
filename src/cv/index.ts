@@ -2,10 +2,12 @@ import { Debug } from "../debug";
 
 import cv2 from "../../lib/opencv.js";
 
-import { YoloV8 } from "./models/yolov8.js";
+import { YoloV8 } from "./models/yolov8";
+import { Webcam } from "./webcam";
 export class CV {
 
   private yolov8 = new YoloV8();
+  private webcam = new Webcam();
 
   constructor(initCallback) {
     cv2["onRuntimeInitialized"] = async () => {
@@ -41,43 +43,7 @@ export class CV {
     });
   }
 
-  private streaming: boolean = false;
-
-  private async startWebcam(callback) {
-    if (this.streaming) callback();
-    let videoElement = document.getElementById('hidden-video') as HTMLVideoElement;
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(function (stream) {
-        videoElement.srcObject = stream;
-        videoElement.play();
-      })
-      .catch(function (err) {
-        console.error("An error occurred: " + err);
-      });
-
-    let that = this;
-    videoElement.addEventListener("canplay", function (ev) {
-      if (!that.streaming) {
-        that.streaming = true;
-        callback();
-      }
-    }, false);
-  }
-
-  public async webcamImage() {
-    Debug.write(`Loading webcam image`);
-    return new Promise(async (resolve, reject) => {
-      this.startWebcam(async () => {
-        Debug.write("Webcam started");
-        let videoElement = document.getElementById('hidden-video') as HTMLVideoElement;
-        let src = new cv2.Mat(videoElement.height, videoElement.width, cv2.CV_8UC4);
-        let cap = new cv2.VideoCapture(videoElement);
-        await cap.read(src);
-        console.log(src);
-        resolve(src);
-      });
-    });
-  }
+  
 
   public convertMatToGray(mat: any) {
     let gray = new cv2.Mat();
@@ -92,10 +58,23 @@ export class CV {
   }
 
   private drawSegments(ctx, mask_img) {
-    console.log(mask_img);
     Debug.write("Drawing segmentation mask");
     ctx.putImageData(mask_img, 0, 0); // put overlay to canvas
   }
+
+  public async startWebcam() {
+    await this.webcam.start();
+  }
+
+  public async stopWebcam() {
+    await this.webcam.stop();
+  }
+
+  public async captureWebcamImage() {
+    return await this.webcam.captureImage();
+  } 
+
+
 
 
   private drawBoxes(ctx, boxes) {

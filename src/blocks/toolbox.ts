@@ -3,16 +3,30 @@ export let toolbox = {
   contents: [
     {
       kind: "category",
+      name: "Webcam",
+      contents: [
+        {
+          kind: "block",
+          type: "start_webcam",
+        },
+        {
+          kind: "block",
+          type: "stop_webcam",
+        },
+        {
+          kind: "block",
+          type: "capture_webcam_image",
+        },
+      ],
+    },
+    {
+      kind: "category",
       name: "Sample Images",
       contents: [
         {
           kind: "block",
           type: "input_load_sample_image",
-        },
-        {
-          kind: "block",
-          type: "input_webcam_image",
-        },
+        }
       ],
     },
     {

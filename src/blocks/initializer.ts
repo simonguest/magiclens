@@ -3,6 +3,7 @@ import { Debug } from "../debug";
 import Blockly from "blockly";
 import { javascriptGenerator } from "blockly/javascript";
 
+import * as webcam from "./webcam";
 import * as input from "./input";
 import * as math from "./math";
 import * as transform from "./transform";
@@ -57,8 +58,10 @@ const createCustomBlock = (name, blockType) => {
 
 const createCustomBlocks = () => {
   createCustomBlock("debug", math.debug);
+  createCustomBlock("start_webcam", webcam.startWebcam);
+  createCustomBlock("stop_webcam", webcam.stopWebcam);
+  createCustomBlock("capture_webcam_image", webcam.captureWebcamImage);
   createCustomBlock("input_load_sample_image", input.loadSampleImage);
-  createCustomBlock("input_webcam_image", input.webcamImage);
   createCustomBlock("convert_to_gray", transform.convertToGray);
   createCustomBlock("rotate_right", transform.rotateRight);
   createCustomBlock("detect_objects", models.detectObjects);

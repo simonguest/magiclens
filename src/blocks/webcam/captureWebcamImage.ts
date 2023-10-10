@@ -1,7 +1,7 @@
-export let webcamImage = {
+export let captureWebcamImage = {
   init: function () {
     this.appendDummyInput()
-      .appendField("Image from WebCam")
+      .appendField("capture webcam image")
     this.setInputsInline(false);
     this.setOutput(true, "IMAGE");
     this.setPreviousStatement(false, null);
@@ -11,6 +11,6 @@ export let webcamImage = {
   },
 
   transpile: function (block, generator) {
-    return [`await cv.webcamImage()`, generator.ORDER_NONE];
+    return [`await cv.captureWebcamImage()`, generator.ORDER_NONE];
   },
 };

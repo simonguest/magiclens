@@ -15,10 +15,10 @@ async function run() {
 
   // Execute the required code
   let code = javascriptGenerator.workspaceToCode(workspace);
-  console.log(`${code}`);
+  console.log(`${code}`); 
   try {
     eval(
-      `const run = async () => { ${code} }; run();`
+      `const run = async () => { ${code} await cv.stopWebcam(); }; run();` // dispose any open webcams
     );
   } catch (err) {
     console.error(err);
