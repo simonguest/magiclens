@@ -12,21 +12,21 @@ export class Webcam {
 
   private wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  public async start() {
+  public async start(deviceId: string) {
     Debug.write(`Starting webcam`);
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {08
       if (this.currentStream) {
         Debug.write("Webcam is already on.");
         return resolve(this.currentStream);
       }
       let that = this;
-      navigator.mediaDevices.getUserMedia({ video: true })
+      navigator.mediaDevices.getUserMedia({ video: { deviceId: deviceId }})
         .then(async function (stream) {
           that.currentStream = stream;
           that.videoElement.srcObject = stream;
           that.videoElement.addEventListener("canplay", that.canPlayCallback, false);
           await that.videoElement.play();
-          await that.wait(500); // Wait for the webcam to receive enough light before capturing an image
+          await that.wait(500); // Wait for the webcam to receive enough light after startup before capturing an image
           resolve(that.currentStream);
         })
         .catch(function (err) {

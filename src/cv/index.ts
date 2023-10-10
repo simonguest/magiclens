@@ -13,6 +13,12 @@ export class CV {
     cv2["onRuntimeInitialized"] = async () => {
       Debug.write("OpenCV.js is ready");
       Debug.write(cv2.getBuildInformation());
+
+      // get all video input devices
+      let devices = await navigator.mediaDevices.enumerateDevices();
+      // iterate through every device and filter out non-cameras
+      window["devices"] = devices.filter(device => device.kind === "videoinput");
+
       initCallback();
     };
   }
@@ -62,8 +68,8 @@ export class CV {
     ctx.putImageData(mask_img, 0, 0); // put overlay to canvas
   }
 
-  public async startWebcam() {
-    await this.webcam.start();
+  public async startWebcam(deviceId : string) {
+    await this.webcam.start(deviceId);
   }
 
   public async stopWebcam() {
