@@ -20,7 +20,7 @@ export class Webcam {
         return resolve(this.currentStream);
       }
       let that = this;
-      navigator.mediaDevices.getUserMedia({ video: { deviceId: deviceId }})
+      navigator.mediaDevices.getUserMedia({ video: { deviceId: deviceId } })
         .then(async function (stream) {
           that.currentStream = stream;
           that.videoElement.srcObject = stream;
@@ -55,6 +55,9 @@ export class Webcam {
     });
   }
 
+  private videoCapture = new cv2.VideoCapture(this.videoElement);
+  private currentFrame = null;
+
   public async captureImage() {
     Debug.write("Trying to capture webcam image");
     return new Promise(async (resolve, reject) => {
@@ -64,11 +67,13 @@ export class Webcam {
         let frame = new cv2.Mat(1024, 1024, cv2.CV_8UC4, [0, 255, 0, 255]);
         resolve(frame);
       }
-      let frame = new cv2.Mat(this.videoElement.height, this.videoElement.width, cv2.CV_8UC4);
-      let cap = new cv2.VideoCapture(this.videoElement);
-      await cap.read(frame);
+      //let cap = new cv2.VideoCapture(this.videoElement);
+      if (!this.currentFrame) {
+        this.currentFrame = new cv2.Mat(this.videoElement.height, this.videoElement.width, cv2.CV_8UC4);
+      }
+      await this.videoCapture.read(this.currentFrame);
       Debug.write("Webcam image captured");
-      resolve(frame);
+      resolve(this.currentFrame);
     });
   };
 }

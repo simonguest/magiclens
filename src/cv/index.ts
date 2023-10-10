@@ -130,9 +130,12 @@ export class CV {
     return this.yolov8.detectObjects(mat);
   }
 
+  private wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
   public async displayImage(mat: any) {
     Debug.write("Displaying image");
     cv2.imshow("image-canvas", mat);
+    await this.wait(1); // Wait for 1ms to allow the image to be displayed
   }
 
   public clearImage() {
