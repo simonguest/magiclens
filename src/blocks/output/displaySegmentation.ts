@@ -12,6 +12,6 @@ export let displaySegmentation = {
       let object = generator.valueToCode(block, 'OBJECT', generator.ORDER_NONE);
       if (object === "") return "";
 
-      return `cv.displaySegmentation(${object});`;
+      return `await cv.displaySegmentation(${object});`;
   }
 };

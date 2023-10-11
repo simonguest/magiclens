@@ -6,6 +6,8 @@ import { YoloV8 } from "./models/yolov8";
 import { Webcam } from "./webcam";
 export class CV {
 
+  private DISPLAY_WAIT_TIME = 1; // ms to wait for image to be displayed before continuing
+
   private yolov8 = new YoloV8();
   private webcam = new Webcam();
 
@@ -19,6 +21,12 @@ export class CV {
       // iterate through every device and filter out non-cameras
       window["devices"] = devices.filter(device => device.kind === "videoinput");
 
+      // load yolov8 models
+      await this.yolov8.loadModel();
+      await this.yolov8.loadNmsModel();
+      await this.yolov8.loadSegModel();
+      await this.yolov8.loadLabels();
+      
       initCallback();
     };
   }
@@ -135,7 +143,7 @@ export class CV {
   public async displayImage(mat: any) {
     Debug.write("Displaying image");
     cv2.imshow("image-canvas", mat);
-    await this.wait(1); // Wait for 1ms to allow the image to be displayed
+    await this.wait(this.DISPLAY_WAIT_TIME); // Wait to allow the image to be displayed
   }
 
   public clearImage() {
@@ -157,12 +165,14 @@ export class CV {
     this.clearBoundingBoxes();
     const ctx = document.getElementById("bounding-box-canvas").getContext("2d");
     this.drawBoxes(ctx, objects.boxes);
+    await this.wait(this.DISPLAY_WAIT_TIME); // Wait to allow the image to be displayed
   }
 
   public async displaySegmentation(objects: any) {
     this.clearSegmentationMask();
     const ctx = document.getElementById("segmentation-mask-canvas").getContext("2d");
     this.drawSegments(ctx, objects.mask);
+    await this.wait(this.DISPLAY_WAIT_TIME); // Wait to allow the image to be displayed
   }
 
   public init() {

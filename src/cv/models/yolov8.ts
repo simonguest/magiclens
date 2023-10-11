@@ -11,6 +11,39 @@ export class YoloV8 {
   public static MODEL_WIDTH = 640;
   public static MODEL_HEIGHT = 640;
 
+  private session = null;  //yolov8 session
+  private nmsSession = null; //yolov8 nms session
+  private segSession = null; //yolov8 segmentation session
+  public labels = []; //yolov8 labels
+
+  public loadModel = async () => {
+    Debug.write("Loading yolov8 model");
+    const modelFile = await fetch(`/models/yolov8-seg-onnxruntime-web/yolov8n-seg.onnx`);
+    const model = await modelFile.arrayBuffer();
+    this.session = await InferenceSession.create(model);
+  }
+
+  public loadNmsModel = async () => {
+    Debug.write("Loading yolov8 nms model");
+    const yolov8NmsModelFile = await fetch(`/models/yolov8-seg-onnxruntime-web/nms-yolov8.onnx`);
+    const yolov8NmsModel = await yolov8NmsModelFile.arrayBuffer();
+    this.nmsSession = await InferenceSession.create(yolov8NmsModel);
+  }
+
+  public loadSegModel = async () => {
+    Debug.write("Loading yolov8 segmentation model");
+    const yolov8SegModelFile = await fetch(`/models/yolov8-seg-onnxruntime-web/mask-yolov8-seg.onnx`);
+    const yolov8SegModel = await yolov8SegModelFile.arrayBuffer();
+    this.segSession = await InferenceSession.create(yolov8SegModel);
+  }
+
+  public loadLabels = async () => {
+    Debug.write("Loading yolov8 nms labels");
+    const labelsFile = await fetch(`/models/yolov8-seg-onnxruntime-web/labels.json`);
+    this.labels = await labelsFile.json();
+  }
+
+
   private preprocess(mat, modelWidth, modelHeight) {
     Debug.write("Preprocessing image");
     const matC3 = new cv2.Mat(mat.rows, mat.cols, cv2.CV_8UC3); // new image matrix
@@ -42,37 +75,18 @@ export class YoloV8 {
   }
 
   public async segment(mat: cv2.Mat) {
-    Debug.write("Loading yolov8 segmentation model");
-    const modelFile = await fetch(`/models/yolov8-seg-onnxruntime-web/yolov8n-seg.onnx`);
-    const model = await modelFile.arrayBuffer();
-    const session = await InferenceSession.create(model);
-
     let [input, xRatio, yRatio] = this.preprocess(mat, YoloV8.MODEL_WIDTH, YoloV8.MODEL_HEIGHT);
 
     const modelInputShape = [1, 3, YoloV8.MODEL_WIDTH, YoloV8.MODEL_HEIGHT];
 
     const tensor = new Tensor("float32", input.data32F, modelInputShape); // to ort.Tensor
 
-    Debug.write("Running yolov8 segmentation model");
-    const { output0: detection, output1: mask } = await session.run({ images: tensor });
+    Debug.write("Running yolov8 model");
+    const { output0: detection, output1: mask } = await this.session.run({ images: tensor });
     return { detection: detection, mask: mask, xRatio: xRatio, yRatio: yRatio };
   }
 
   public async detectObjects(mat: any) {
-    Debug.write("Loading yolov8 nms model");
-    const yolov8NmsModelFile = await fetch(`/models/yolov8-seg-onnxruntime-web/nms-yolov8.onnx`);
-    const yolov8NmsModel = await yolov8NmsModelFile.arrayBuffer();
-    const yolov8NmsSession = await InferenceSession.create(yolov8NmsModel);
-
-    Debug.write("Loading yolov8 segmentation model");
-    const yolov8SegModelFile = await fetch(`/models/yolov8-seg-onnxruntime-web/mask-yolov8-seg.onnx`);
-    const yolov8SegModel = await yolov8SegModelFile.arrayBuffer();
-    const yolov8SegSession = await InferenceSession.create(yolov8SegModel);
-
-    Debug.write("Loading yolov8 nms labels");
-    const labelsFile = await fetch(`/models/yolov8-seg-onnxruntime-web/labels.json`);
-    const labels = await labelsFile.json();
-
     const topk = 100;
     const iouThreshold = 0.45;
     const scoreThreshold = 0.25;
@@ -80,7 +94,7 @@ export class YoloV8 {
     const config = new Tensor(
       "float32",
       new Float32Array([
-        labels.length, // num class
+        this.labels.length, // num class
         topk, // topk per class
         iouThreshold, // iou threshold
         scoreThreshold, // score threshold
@@ -95,7 +109,7 @@ export class YoloV8 {
 
 
     Debug.write("Running yolov8 nms model");
-    const { selected } = await yolov8NmsSession.run({ detection: detection, config: config });
+    const { selected } = await this.nmsSession.run({ detection: detection, config: config });
 
     const boxes = [];
     let overlay = new Tensor("uint8", new Uint8Array(YoloV8.MODEL_WIDTH * YoloV8.MODEL_HEIGHT * 4), [
@@ -115,7 +129,7 @@ export class YoloV8 {
     for (let idx = 0; idx < selected.dims[1]; idx++) {
       const data = selected.data.slice(idx * selected.dims[2], (idx + 1) * selected.dims[2]); // get rows
       let box = data.slice(0, 4); // det boxes
-      const scores = data.slice(4, 4 + labels.length); // det classes probability scores
+      const scores = data.slice(4, 4 + this.labels.length); // det classes probability scores
       const score = Math.max(...scores); // maximum probability scores
       const label = scores.indexOf(score); // class id of maximum probability scores
       const color = colors.get(label);
@@ -141,7 +155,7 @@ export class YoloV8 {
       ); // upscale boxes
 
       boxes.push({
-        label: labels[label],
+        label: this.labels[label],
         probability: score,
         bounding: [x, y, w, h], // upscale box
         color: color
@@ -153,7 +167,7 @@ export class YoloV8 {
         "float32",
         new Float32Array([
           ...box, // original scale box
-          ...data.slice(4 + labels.length), // mask data
+          ...data.slice(4 + this.labels.length), // mask data
         ])
       ); // mask input
 
@@ -170,7 +184,7 @@ export class YoloV8 {
       ); // mask config
 
       Debug.write("Running segmentation model");
-      const { mask_filter } = await yolov8SegSession.run({
+      const { mask_filter } = await this.segSession.run({
         detection: mask,
         mask: seg.mask,
         config: maskConfig,

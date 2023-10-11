@@ -12,6 +12,6 @@ export let displayBoundingBoxes = {
       let object = generator.valueToCode(block, 'OBJECT', generator.ORDER_NONE);
       if (object === "") return "";
 
-      return `cv.displayBoundingBoxes(${object});`;
+      return `await cv.displayBoundingBoxes(${object});`;
   }
 };
