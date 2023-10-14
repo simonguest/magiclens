@@ -8,10 +8,12 @@ import { CV } from "./cv";
 import { blocklyInit, workspace } from "./blocks/initializer";
 blocklyInit();
 
+const cv = new CV();
+
 // Code execution
 async function run() {
   // Initialize the canvas collection
-  cv.init();
+  cv.clearCanvasCollection();
 
   // Execute the required code
   let code = javascriptGenerator.workspaceToCode(workspace);
@@ -27,6 +29,8 @@ async function run() {
 
 // Setup the UI
 async function init() {
+  await cv.init();
+
   Debug.write("Loading workspace from session storage");
   let jsonStr = sessionStorage.getItem("workspace");
   if (jsonStr) {
@@ -110,5 +114,4 @@ async function init() {
   };
 }
 
-// Initiatlize all of the CV libs
-const cv = new CV(() => init());
+init();

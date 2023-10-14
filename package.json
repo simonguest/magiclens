@@ -12,7 +12,10 @@
       "staticPath": "./static"
     },
     {
-      "staticPath": "./node_modules/onnxruntime-web/dist/ort-wasm-simd.wasm"
+      "staticPath": "./node_modules/@mediapipe/tasks-vision/wasm/vision_wasm_internal.js"
+    },
+    {
+      "staticPath": "./node_modules/@mediapipe/tasks-vision/wasm/vision_wasm_internal.wasm"
     }
   ],
   "author": "Simon Guest",
@@ -29,7 +32,8 @@
     "stream-browserify": "^3.0.0"
   },
   "dependencies": {
-    "blockly": "^10.1.3",
-    "onnxruntime-web": "^1.16.0"
+    "@mediapipe/tasks-vision": "^0.10.7",
+    "@techstark/opencv-js": "^4.8.0-release.8",
+    "blockly": "^10.1.3"
   }
 }

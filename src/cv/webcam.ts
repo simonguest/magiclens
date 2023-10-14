@@ -1,10 +1,11 @@
 import { Debug } from "../debug";
 
-import cv2 from "../../lib/opencv.js";
+// import * as cv2 from "@techstark/opencv-js"
 
 export class Webcam {
   private currentStream = null;
   private videoElement = document.getElementById('hidden-video') as HTMLVideoElement;
+  private videoCanvas = document.getElementById('hidden-video-canvas') as HTMLCanvasElement;
 
   private canPlayCallback = () => {
     Debug.write("Webcam started");
@@ -14,7 +15,7 @@ export class Webcam {
 
   public async start(deviceId: string) {
     Debug.write(`Starting webcam`);
-    return new Promise(async (resolve, reject) => {08
+    return new Promise(async (resolve, reject) => {
       if (this.currentStream) {
         Debug.write("Webcam is already on.");
         return resolve(this.currentStream);
@@ -55,8 +56,30 @@ export class Webcam {
     });
   }
 
-  private videoCapture = new cv2.VideoCapture(this.videoElement);
+  //private videoCapture = new cv2.VideoCapture(this.videoElement);
   private currentFrame = null;
+
+  private createGreenImageData() {
+    const width = 1024;
+    const height = 1024;
+
+    // Create an offscreen canvas
+    const offscreenCanvas = document.createElement('canvas');
+    const context = offscreenCanvas.getContext('2d');
+
+    // Create an empty ImageData object
+    const imageData = context.createImageData(width, height);
+
+    // Fill the ImageData object with green
+    for (let i = 0; i < width * height * 4; i += 4) {
+        imageData.data[i + 0] = 0;       // Red: 0
+        imageData.data[i + 1] = 255;     // Green: 255
+        imageData.data[i + 2] = 0;       // Blue: 0
+        imageData.data[i + 3] = 255;     // Alpha: 255 (fully opaque)
+    }
+
+    return imageData;
+}
 
   public async captureImage() {
     Debug.write("Trying to capture webcam image");
@@ -64,16 +87,12 @@ export class Webcam {
       if (!this.currentStream) {
         Debug.write("Webcam is not started.");
         // Create a default green image instead
-        let frame = new cv2.Mat(1024, 1024, cv2.CV_8UC4, [0, 255, 0, 255]);
-        resolve(frame);
+        resolve(this.createGreenImageData());
       }
-      //let cap = new cv2.VideoCapture(this.videoElement);
-      if (!this.currentFrame) {
-        this.currentFrame = new cv2.Mat(this.videoElement.height, this.videoElement.width, cv2.CV_8UC4);
-      }
-      await this.videoCapture.read(this.currentFrame);
-      Debug.write("Webcam image captured");
-      resolve(this.currentFrame);
+      let ctx = this.videoCanvas.getContext('2d');
+      ctx.drawImage(this.videoElement, 0, 0, 1024, 1024);
+      let imageData = ctx.getImageData(0, 0, 1024, 1024);
+      resolve(imageData);
     });
-  };
+  }
 }
