@@ -1,7 +1,5 @@
 import { Debug } from "../debug";
 
-import * as cv2 from "@techstark/opencv-js"
-
 import { Webcam } from "./webcam";
 import { MP } from "./models/mp";
 export class CV {
@@ -55,7 +53,23 @@ export class CV {
   //   ctx.putImageData(mask_img, 0, 0); // put overlay to canvas
   // }
 
+  private displayStartingWebCamImage() {
+    const canvas = document.getElementById("image-canvas") as HTMLCanvasElement;
+    canvas.width = 1024;
+    canvas.height = 1024;
+    const ctx = canvas.getContext("2d");
+    ctx.fillRect(0,0,1024,1024);
+    ctx.font = '28px sans-serif';           // You can adjust the size and font-family to your liking
+    ctx.fillStyle = 'white';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Draw the text in the center of the canvas
+    ctx.fillText('Starting Webcam', canvas.width / 2, canvas.height / 2);
+  }
+
   public async startWebcam(deviceId: string) {
+    this.displayStartingWebCamImage();
     await this.webcam.start(deviceId);
   }
 
@@ -118,25 +132,30 @@ export class CV {
 
   public async displayImage(image: ImageData) {
     Debug.write("Displaying image");
-    // cv2.imshow("image-canvas", mat);
     const ctx = document.getElementById("image-canvas").getContext("2d");
     ctx.putImageData(image, 0, 0); // put overlay to canvas
     await this.wait(this.DISPLAY_WAIT_TIME); // Wait to allow the image to be displayed
   }
 
   public clearImage() {
-    let imagemat = new cv2.Mat(1024, 1024, cv2.CV_8UC4, [0, 0, 0, 255]);
-    cv2.imshow("image-canvas", imagemat);
+    // Create a new ImageData of 1024 x 1024
+    const canvas = document.getElementById("image-canvas") as HTMLCanvasElement;
+    canvas.width = 1024;
+    canvas.height = 1024;
+    const ctx = canvas.getContext("2d");
+    ctx.fillRect(0,0,1024,1024);
   }
 
   public clearBoundingBoxes() {
-    let boundingmat = new cv2.Mat(1024, 1024, cv2.CV_8UC4, [0, 0, 0, 0]);
-    cv2.imshow("bounding-box-canvas", boundingmat);
+    const canvas = document.getElementById("bounding-box-canvas") as HTMLCanvasElement;
+    canvas.width = 1024;
+    canvas.height = 1024;
   }
 
   public clearSegmentationMask() {
-    let segmat = new cv2.Mat(1024, 1024, cv2.CV_8UC4, [0, 0, 0, 0]);
-    cv2.imshow("segmentation-mask-canvas", segmat);
+    const canvas = document.getElementById("segmentation-mask-canvas") as HTMLCanvasElement;
+    canvas.width = 1024;
+    canvas.height = 1024;
   }
 
   public clearCanvasCollection() {

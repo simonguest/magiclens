@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "^0.10.7",
-    "@techstark/opencv-js": "^4.8.0-release.8",
     "blockly": "^10.1.3"
   }
 }
