@@ -58,7 +58,7 @@ export class CV {
     canvas.width = 1024;
     canvas.height = 1024;
     const ctx = canvas.getContext("2d");
-    ctx.fillRect(0,0,1024,1024);
+    ctx.fillRect(0, 0, 1024, 1024);
     ctx.font = '28px sans-serif';           // You can adjust the size and font-family to your liking
     ctx.fillStyle = 'white';
     ctx.textAlign = 'center';
@@ -71,6 +71,11 @@ export class CV {
   public async startWebcam(deviceId: string) {
     this.displayStartingWebCamImage();
     await this.webcam.start(deviceId);
+    const canvas = document.getElementById("image-canvas") as HTMLCanvasElement;
+    canvas.width = 1024;
+    canvas.height = 1024;
+    const ctx = canvas.getContext("2d");
+    ctx.fillRect(0, 0, 1024, 1024);
   }
 
   public async stopWebcam() {
@@ -88,7 +93,6 @@ export class CV {
       const label = detection.categories[0].categoryName;
       const color = "#777777";
       const score = (detection.categories[0].score * 100).toFixed(1);
-      console.log(detection);
       let { originX, originY, width, height } = detection.boundingBox;
 
       // draw border box
@@ -117,15 +121,57 @@ export class CV {
   }
 
   public async displayBoundingBoxes(objects: any) {
+    Debug.write("Displaying bounding boxes");
     this.clearBoundingBoxes();
     const ctx = document.getElementById("bounding-box-canvas").getContext("2d");
     this.drawBoxes(ctx, objects);
     await this.wait(this.DISPLAY_WAIT_TIME); // Wait to allow the image to be displayed
   }
 
-  public async detectObjects(mat: any) {
-    let detections = this.mp.detectObjects(mat);
+  public async detectObjects(image: ImageData) {
+    Debug.write("Detecting objects");
+    let detections = this.mp.detectObjects(image);
     return detections;
+  }
+
+  private drawPoses(ctx, data) {
+    // Draw keypoints
+    data.landmarks[0].forEach(point => {
+      const x = point.x * 1024;
+      const y = point.y * 1024;
+
+      ctx.beginPath();
+      ctx.arc(x, y, 5, 0, 2 * Math.PI);
+      ctx.fillStyle = 'red';
+      ctx.fill();
+    });
+
+    // Draw connections
+    this.mp.POSE_CONNECTIONS.forEach(conn => {
+      const start = data.landmarks[0][conn.start];
+      const end = data.landmarks[0][conn.end];
+
+      ctx.beginPath();
+      ctx.moveTo(start.x * 1024, start.y * 1024);
+      ctx.lineTo(end.x * 1024, end.y * 1024);
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    });
+  }
+
+  public async displayPose(poses: any) {
+    Debug.write("Drawing poses");
+    this.clearPoses();
+    const ctx = document.getElementById("pose-canvas").getContext("2d");
+    this.drawPoses(ctx, poses);
+    await this.wait(this.DISPLAY_WAIT_TIME); // Wait to allow the image to be displayed
+  }
+
+  public async detectPose(mat: ImageData) {
+    Debug.write("Detecting poses");
+    let poses = this.mp.detectPoses(mat);
+    return poses;
   }
 
   private wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -143,7 +189,7 @@ export class CV {
     canvas.width = 1024;
     canvas.height = 1024;
     const ctx = canvas.getContext("2d");
-    ctx.fillRect(0,0,1024,1024);
+    ctx.fillRect(0, 0, 1024, 1024);
   }
 
   public clearBoundingBoxes() {
@@ -158,12 +204,19 @@ export class CV {
     canvas.height = 1024;
   }
 
+  public clearPoses() {
+    const canvas = document.getElementById("pose-canvas") as HTMLCanvasElement;
+    canvas.width = 1024;
+    canvas.height = 1024;
+  }
+
   public clearCanvasCollection() {
     // Set up everything for run
     Debug.write("Clearing canvas collection");
     this.clearImage();
     this.clearBoundingBoxes();
     this.clearSegmentationMask();
+    this.clearPoses();
   }
 
   // public async displaySegmentation(objects: any) {

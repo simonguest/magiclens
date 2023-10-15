@@ -1,2 +1,4 @@
 import { detectObjects } from "./detectObjects";
-export { detectObjects };
+import { detectPose } from "./detectPose";
+
+export { detectObjects, detectPose };

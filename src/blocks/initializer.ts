@@ -65,8 +65,10 @@ const createCustomBlocks = () => {
   createCustomBlock("convert_to_gray", transform.convertToGray);
   createCustomBlock("rotate_right", transform.rotateRight);
   createCustomBlock("detect_objects", models.detectObjects);
+  createCustomBlock("detect_pose", models.detectPose);
   createCustomBlock("display", output.display);
   createCustomBlock("display_bounding_boxes", output.displayBoundingBoxes);
+  createCustomBlock("display_pose", output.displayPose);
   createCustomBlock("display_segmentation", output.displaySegmentation);
 
 };

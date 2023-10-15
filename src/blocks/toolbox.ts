@@ -50,6 +50,10 @@ export let toolbox = {
         {
           kind: "block",
           type: "detect_objects"
+        },
+        {
+          kind: "block",
+          type: "detect_pose"
         }
       ]
     },
@@ -64,6 +68,10 @@ export let toolbox = {
         {
           kind: "block",
           type: "display_bounding_boxes",
+        },
+        {
+          kind: "block",
+          type: "display_pose",
         },
         {
           kind: "block",

@@ -78,6 +78,10 @@ body {
   z-index: 2;
 }
 
+#pose-canvas {
+  z-index: 4;
+}
+
 #blockly-area {
   width: 40%;
   background: #ffffff;
