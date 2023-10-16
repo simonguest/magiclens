@@ -54,6 +54,10 @@ export let toolbox = {
         {
           kind: "block",
           type: "detect_pose"
+        },
+        {
+          kind: "block",
+          type: "detect_segmentation"
         }
       ]
     },

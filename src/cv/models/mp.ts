@@ -1,6 +1,6 @@
 import { Debug } from "../../debug";
 
-import { FilesetResolver, ObjectDetector, PoseLandmarker } from "@mediapipe/tasks-vision";
+import { FilesetResolver, ObjectDetector, PoseLandmarker, ImageSegmenter } from "@mediapipe/tasks-vision";
 
 export class MP {
 
@@ -9,6 +9,7 @@ export class MP {
   private vision = null;
   private objectDetector = null;
   private poseLandmarker = null;
+  private imageSegmenter = null;
 
   public async init() {
     return new Promise(async (resolve, reject) => {
@@ -28,11 +29,22 @@ export class MP {
           delegate: "GPU",
         },
         runningMode: "IMAGE",
-        numPoses: 2,
+        numPoses: 1,
+      });
+      this.imageSegmenter = await ImageSegmenter.createFromOptions(this.vision, {
+        baseOptions: {
+          //modelAssetPath: './models/DeepLabv3/deeplabv3.tflite',
+          modelAssetPath: './models/SelfieSegmenter/selfie_segmenter.tflite',
+          delegate: 'GPU',
+        },
+        runningMode: 'IMAGE',
+        outputCategoryMask: true,
+        outputConfidenceMasks: false
       });
       Debug.write("MediaPipe initialized");
       resolve("MediaPipe initialized");
     });
+
   }
 
   public async detectObjects(image: ImageData) {
@@ -43,6 +55,11 @@ export class MP {
   public async detectPoses(image: ImageData) {
     const poses = await this.poseLandmarker.detect(image);
     return poses;
+  }
+
+  public async detectSegmentation(image: ImageData) {
+    const segmentation = await this.imageSegmenter.segment(image);
+    return segmentation;
   }
 
 }
