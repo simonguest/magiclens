@@ -45,7 +45,7 @@ export let toolbox = {
     },
     {
       kind: "category",
-      name: "Models",
+      name: "Operations",
       contents: [
         {
           kind: "block",
@@ -58,6 +58,22 @@ export let toolbox = {
         {
           kind: "block",
           type: "detect_segmentation"
+        }
+      ]
+    },
+    {
+      kind: "category",
+      name: "Models",
+      contents: [
+        {
+          kind: "category",
+          name: "Object Detection", 
+          contents: [
+            {
+              kind: "block",
+              type: "efficientdet_lite0"
+            }
+          ]
         }
       ]
     },

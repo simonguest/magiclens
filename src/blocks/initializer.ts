@@ -7,6 +7,7 @@ import * as webcam from "./webcam";
 import * as input from "./input";
 import * as math from "./math";
 import * as transform from "./transform";
+import * as operations from "./operations";
 import * as models from "./models";
 import * as output from "./output";
 
@@ -64,13 +65,14 @@ const createCustomBlocks = () => {
   createCustomBlock("input_load_sample_image", input.loadSampleImage);
   createCustomBlock("convert_to_gray", transform.convertToGray);
   createCustomBlock("rotate_right", transform.rotateRight);
-  createCustomBlock("detect_objects", models.detectObjects);
-  createCustomBlock("detect_pose", models.detectPose);
-  createCustomBlock("detect_segmentation", models.detectSegmentation);
+  createCustomBlock("detect_objects", operations.detectObjects);
+  createCustomBlock("detect_pose", operations.detectPose);
+  createCustomBlock("detect_segmentation", operations.detectSegmentation);
   createCustomBlock("display", output.display);
   createCustomBlock("display_bounding_boxes", output.displayBoundingBoxes);
   createCustomBlock("display_pose", output.displayPose);
   createCustomBlock("display_segmentation", output.displaySegmentation);
+  createCustomBlock("efficientdet_lite0", models.efficientdet_lite0);
 
 };
 

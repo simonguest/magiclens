@@ -1,5 +1,3 @@
-import { detectObjects } from "./detectObjects";
-import { detectPose } from "./detectPose";
-import { detectSegmentation } from "./detectSegmentation";
+import { efficientdet_lite0 } from "./object-detection/efficientdet_lite0";
 
-export { detectObjects, detectPose, detectSegmentation };
+export { efficientdet_lite0 };
