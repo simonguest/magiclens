@@ -49,7 +49,14 @@ export let toolbox = {
       contents: [
         {
           kind: "block",
-          type: "detect_objects"
+          type: "detect_objects",
+          inputs: {
+            MODEL: {
+              shadow: {
+                type: "efficientdet_lite0"
+              }
+            }
+          }
         },
         {
           kind: "block",
@@ -72,6 +79,14 @@ export let toolbox = {
             {
               kind: "block",
               type: "efficientdet_lite0"
+            },
+            {
+              kind: "block",
+              type: "efficientdet_lite2"
+            },
+            {
+              kind: "block",
+              type: "ssdmobilenet-v2"
             }
           ]
         }

@@ -1,14 +1,12 @@
 import Blockly from "blockly";
 
-const modelTypes = [{
-  id: "./models/object_detection/efficientdet_lite0/int8/efficientdet_lite0.tflite", title: "int8"
-},
-{
-  id: "./models/object_detection/efficientdet_lite0/float16/efficientdet_lite0.tflite", title: "float16"
-},
-{
-  id: "./models/object_detection/efficientdet_lite0/float32/efficientdet_lite0.tflite", title: "float32"
-}]
+const modelTypes = [
+  {
+    id: "./models/object-detection/EfficientDet-Lite0/float16/efficientdet_lite0.tflite", title: "float16"
+  },
+  {
+    id: "./models/object-detection/EfficientDet-Lite0/float32/efficientdet_lite0.tflite", title: "float32"
+  }]
 
 export let efficientdet_lite0 = {
   init: function () {
@@ -26,7 +24,7 @@ export let efficientdet_lite0 = {
   },
 
   transpile: function (block, generator) {
-    let model = block.getFieldValue("MODEL");
-    return [`{model: "${model}"}`, generator.ORDER_NONE];
+    let model = `[{name: "EfficientDet-Lite0", path: "${block.getFieldValue("MODEL")}"}]`;
+    return [model, generator.ORDER_NONE];
   },
 };

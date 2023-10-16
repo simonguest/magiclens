@@ -7,7 +7,8 @@ export class MP {
   public POSE_CONNECTIONS = PoseLandmarker.POSE_CONNECTIONS;
 
   private vision = null;
-  private objectDetector = null;
+  private objectDetector: ObjectDetector = null;
+  private objectDetectorModelAssetPath: string = null;
   private poseLandmarker = null;
   private imageSegmenter = null;
 
@@ -15,14 +16,7 @@ export class MP {
     return new Promise(async (resolve, reject) => {
       this.vision = await FilesetResolver.forVisionTasks(
       );
-      this.objectDetector = await ObjectDetector.createFromOptions(this.vision, {
-        baseOptions: {
-          modelAssetPath: `./models/EfficientDet-Lite0/efficientdet_lite0.tflite`,
-          delegate: "GPU",
-        },
-        scoreThreshold: 0.5,
-        runningMode: "IMAGE",
-      });
+
       this.poseLandmarker = await PoseLandmarker.createFromOptions(this.vision, {
         baseOptions: {
           modelAssetPath: `./models/PoseLandmarker/pose_landmarker_lite.task`,
@@ -47,7 +41,23 @@ export class MP {
 
   }
 
-  public async detectObjects(image: ImageData) {
+  public async detectObjects(image: ImageData, model: Model) {
+    if (this.objectDetectorModelAssetPath !== model.path) {
+      this.objectDetector = null;
+      this.objectDetectorModelAssetPath = model.path;
+    }
+
+    if (this.objectDetector === null){
+      this.objectDetector = await ObjectDetector.createFromOptions(this.vision, {
+        baseOptions: {
+          modelAssetPath: model.path,
+          delegate: "GPU",
+        },
+        scoreThreshold: 0.5,
+        runningMode: "IMAGE",
+      });
+    }
+
     const detections = await this.objectDetector.detect(image);
     return detections;
   }

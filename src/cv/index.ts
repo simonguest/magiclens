@@ -124,9 +124,9 @@ export class CV {
     await this.wait(this.DISPLAY_WAIT_TIME); // Wait to allow the image to be displayed
   }
 
-  public async detectObjects(image: ImageData) {
+  public async detectObjects(image: ImageData, model: Model[]) {
     Debug.write("Detecting objects");
-    let detections = this.mp.detectObjects(image);
+    let detections = this.mp.detectObjects(image, model[0]);
     return detections;
   }
 

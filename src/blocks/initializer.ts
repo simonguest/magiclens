@@ -73,7 +73,8 @@ const createCustomBlocks = () => {
   createCustomBlock("display_pose", output.displayPose);
   createCustomBlock("display_segmentation", output.displaySegmentation);
   createCustomBlock("efficientdet_lite0", models.efficientdet_lite0);
-
+  createCustomBlock("efficientdet_lite2", models.efficientdet_lite2);
+  createCustomBlock("ssdmobilenet-v2", models.ssdmobilenet_v2);
 };
 
 const handleBlocklyResize = () => {
