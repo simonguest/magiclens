@@ -7,10 +7,14 @@ export class MP {
   public POSE_CONNECTIONS = PoseLandmarker.POSE_CONNECTIONS;
 
   private vision = null;
+
   private objectDetector: ObjectDetector = null;
   private objectDetectorModelAssetPath: string = null;
+  
+  private imageSegmenter: ImageSegmenter = null;
+  private imageSegmenterModelAssetPath: string = null;
+
   private poseLandmarker = null;
-  private imageSegmenter = null;
 
   public async init() {
     return new Promise(async (resolve, reject) => {
@@ -25,16 +29,7 @@ export class MP {
         runningMode: "IMAGE",
         numPoses: 1,
       });
-      this.imageSegmenter = await ImageSegmenter.createFromOptions(this.vision, {
-        baseOptions: {
-          //modelAssetPath: './models/DeepLabv3/deeplabv3.tflite',
-          modelAssetPath: './models/SelfieSegmenter/selfie_segmenter.tflite',
-          delegate: 'GPU',
-        },
-        runningMode: 'IMAGE',
-        outputCategoryMask: true,
-        outputConfidenceMasks: false
-      });
+
       Debug.write("MediaPipe initialized");
       resolve("MediaPipe initialized");
     });
@@ -62,14 +57,32 @@ export class MP {
     return detections;
   }
 
+  public async segment(image: ImageData, model: Model) {
+    if (this.imageSegmenterModelAssetPath !== model.path) {
+      this.imageSegmenter = null;
+      this.imageSegmenterModelAssetPath = model.path; 
+    }
+
+    if (this.imageSegmenter === null){
+      this.imageSegmenter = await ImageSegmenter.createFromOptions(this.vision, {
+        baseOptions: {
+          modelAssetPath: model.path,
+          delegate: 'GPU',
+        },
+        runningMode: 'IMAGE',
+        outputCategoryMask: true,
+        outputConfidenceMasks: false
+      });
+    }
+    const segments = await this.imageSegmenter.segment(image);
+    return segments;
+  }
+
   public async detectPoses(image: ImageData) {
     const poses = await this.poseLandmarker.detect(image);
     return poses;
   }
 
-  public async detectSegmentation(image: ImageData) {
-    const segmentation = await this.imageSegmenter.segment(image);
-    return segmentation;
-  }
+
 
 }

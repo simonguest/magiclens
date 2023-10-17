@@ -220,9 +220,9 @@ export class CV {
     await this.wait(this.DISPLAY_WAIT_TIME); // Wait to allow the image to be displayed
   }
 
-  public async detectSegmentation(image: ImageData) {
-    Debug.write("Detecting segmentation");
-    let segmentation = this.mp.detectSegmentation(image);
+  public async segment(image: ImageData, model: Model) {
+    Debug.write("Segment Image");
+    let segmentation = this.mp.segment(image, model[0]);
     return segmentation;
   }
 

@@ -49,22 +49,7 @@ export let toolbox = {
       contents: [
         {
           kind: "block",
-          type: "detect_objects",
-          inputs: {
-            MODEL: {
-              shadow: {
-                type: "efficientdet_lite0"
-              }
-            }
-          }
-        },
-        {
-          kind: "block",
           type: "detect_pose"
-        },
-        {
-          kind: "block",
-          type: "detect_segmentation"
         }
       ]
     },
@@ -78,6 +63,17 @@ export let toolbox = {
           contents: [
             {
               kind: "block",
+              type: "detect_objects",
+              inputs: {
+                MODEL: {
+                  shadow: {
+                    type: "efficientdet_lite0"
+                  }
+                }
+              }
+            },
+            {
+              kind: "block",
               type: "efficientdet_lite0"
             },
             {
@@ -87,6 +83,39 @@ export let toolbox = {
             {
               kind: "block",
               type: "ssdmobilenet-v2"
+            }
+          ]
+        },
+        {
+          kind: "category",
+          name: "Image Segmentation",
+          contents: [
+            {
+              kind: "block",
+              type: "segment",
+              inputs: {
+                MODEL: {
+                  shadow: {
+                    type: "selfiesegmenter"
+                  }
+                }
+              }
+            },
+            {
+              kind: "block",
+              type: "selfiesegmenter"
+            },
+            {
+              kind: "block",
+              type: "hairsegmenter"
+            },
+            {
+              kind: "block",
+              type: "selfiemulticlass"
+            },
+            {
+              kind: "block",
+              type: "deeplab_v3"
             }
           ]
         }
