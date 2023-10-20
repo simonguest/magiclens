@@ -7,7 +7,6 @@ import * as webcam from "./webcam";
 import * as input from "./input";
 import * as math from "./math";
 import * as transform from "./transform";
-import * as operations from "./operations";
 import * as models from "./models";
 import * as output from "./output";
 
@@ -64,22 +63,26 @@ const createCustomBlocks = () => {
   createCustomBlock("input_load_sample_image", input.loadSampleImage);
   createCustomBlock("convert_to_gray", transform.convertToGray);
   createCustomBlock("rotate_right", transform.rotateRight);
-  createCustomBlock("detect_pose", operations.detectPose);
   createCustomBlock("display", output.display);
   createCustomBlock("display_bounding_boxes", output.displayBoundingBoxes);
   createCustomBlock("display_pose", output.displayPose);
   createCustomBlock("display_segmentation", output.displaySegmentation);
-
   createCustomBlock("detect_objects", models.detectObjects);
+
   createCustomBlock("efficientdet_lite0", models.efficientdet_lite0);
   createCustomBlock("efficientdet_lite2", models.efficientdet_lite2);
   createCustomBlock("ssdmobilenet-v2", models.ssdmobilenet_v2);
-
   createCustomBlock("segment", models.segment);
+
   createCustomBlock("selfiesegmenter", models.selfiesegmenter)
   createCustomBlock("hairsegmenter", models.hairsegmenter)
   createCustomBlock("selfiemulticlass", models.selfiemulticlass)
   createCustomBlock("deeplab_v3", models.deeplab_v3)
+
+  createCustomBlock("detect_pose", models.detectPose);
+  createCustomBlock("poselandmarker_lite", models.poselandmarker_lite);
+  createCustomBlock("poselandmarker_full", models.poselandmarker_full);
+  createCustomBlock("poselandmarker_heavy", models.poselandmarker_heavy);
 
 };
 

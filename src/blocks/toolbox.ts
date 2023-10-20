@@ -45,21 +45,11 @@ export let toolbox = {
     },
     {
       kind: "category",
-      name: "Operations",
-      contents: [
-        {
-          kind: "block",
-          type: "detect_pose"
-        }
-      ]
-    },
-    {
-      kind: "category",
       name: "Models",
       contents: [
         {
           kind: "category",
-          name: "Object Detection", 
+          name: "Object Detection",
           contents: [
             {
               kind: "block",
@@ -116,6 +106,28 @@ export let toolbox = {
             {
               kind: "block",
               type: "deeplab_v3"
+            }
+          ]
+        },
+        {
+          kind: "category",
+          name: "Pose Estimation",
+          contents: [
+            {
+              kind: "block",
+              type: "detect_pose",
+            },
+            {
+              kind: "block",
+              type: "poselandmarker_lite",
+            },
+            {
+              kind: "block",
+              type: "poselandmarker_full",
+            },
+            {
+              kind: "block",
+              type: "poselandmarker_heavy",
             }
           ]
         }

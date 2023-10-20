@@ -1,7 +1,8 @@
-import {Debug} from "../debug";
+import { Debug } from "../debug";
 
-import {Webcam} from "./webcam";
-import {MP} from "./models/mp";
+import { Webcam } from "./webcam";
+import { MP } from "./models/mp";
+
 export class CV {
 
   private DISPLAY_WAIT_TIME = 1; // ms to wait for image to be displayed before continuing
@@ -89,7 +90,7 @@ export class CV {
       const label = detection.categories[0].categoryName;
       const color = "#777777";
       const score = (detection.categories[0].score * 100).toFixed(1);
-      let {originX, originY, width, height} = detection.boundingBox;
+      let { originX, originY, width, height } = detection.boundingBox;
 
       // draw border box
       ctx.strokeStyle = color;
@@ -164,9 +165,9 @@ export class CV {
     await this.wait(this.DISPLAY_WAIT_TIME); // Wait to allow the image to be displayed
   }
 
-  public async detectPose(mat: ImageData) {
+  public async detectPose(image: ImageData, model: Model) {
     Debug.write("Detecting poses");
-    let poses = this.mp.detectPoses(mat);
+    let poses = this.mp.detectPose(image, model[0]);
     return poses;
   }
 

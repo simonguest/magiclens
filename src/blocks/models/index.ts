@@ -9,6 +9,13 @@ import { hairsegmenter } from "./image-segmentation/hairsegmenter";
 import { selfiemulticlass } from "./image-segmentation/selfiemulticlass";
 import { deeplab_v3 } from "./image-segmentation/deeplab_v3";
 
+import { detectPose } from "./pose-estimation/detectPose";
+import { poselandmarker_lite } from "./pose-estimation/poselandmarker_lite";
+import { poselandmarker_full } from "./pose-estimation/poselandmarker_full";
+import { poselandmarker_heavy } from "./pose-estimation/poselandmarker_heavy";
+
 export { detectObjects, efficientdet_lite0, efficientdet_lite2, ssdmobilenet_v2 };
 
 export { segment, selfiesegmenter, hairsegmenter, selfiemulticlass, deeplab_v3 };
+
+export { detectPose, poselandmarker_lite, poselandmarker_full, poselandmarker_heavy }
