@@ -24,7 +24,7 @@ export let ssdmobilenet_v2 = {
   },
 
   transpile: function (block, generator) {
-    let model = `[{name: "SSDMobileNet-V2", path: "${block.getFieldValue("MODEL")}"}]`;
+    let model = `({name: "SSDMobileNet-V2", path: "${block.getFieldValue("MODEL")}"})`;
     return [model, generator.ORDER_NONE];
   },
 };

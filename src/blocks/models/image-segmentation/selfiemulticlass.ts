@@ -10,7 +10,7 @@ export let selfiemulticlass = {
   },
 
   transpile: function (block, generator) {
-    let model = `[{name: "SelfieMulticlass", path: "./models/image-segmentation/SelfieMulticlass/float32/selfie_multiclass_256x256.tflite"}]`;
+    let model = `({name: "SelfieMulticlass", path: "./models/image-segmentation/SelfieMulticlass/float32/selfie_multiclass_256x256.tflite"})`;
     return [model, generator.ORDER_NONE];
   },
 };

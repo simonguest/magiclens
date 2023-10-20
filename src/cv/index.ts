@@ -125,9 +125,9 @@ export class CV {
     await this.wait(this.DISPLAY_WAIT_TIME); // Wait to allow the image to be displayed
   }
 
-  public async detectObjects(image: ImageData, model: Model[]) {
+  public async detectObjects(image: ImageData, model: Model) {
     Debug.write("Detecting objects");
-    let detections = this.mp.detectObjects(image, model[0]);
+    let detections = this.mp.detectObjects(image, model);
     return detections;
   }
 
@@ -167,7 +167,7 @@ export class CV {
 
   public async detectPose(image: ImageData, model: Model) {
     Debug.write("Detecting poses");
-    let poses = this.mp.detectPose(image, model[0]);
+    let poses = this.mp.detectPose(image, model);
     return poses;
   }
 
@@ -223,7 +223,7 @@ export class CV {
 
   public async segment(image: ImageData, model: Model) {
     Debug.write("Segment Image");
-    let segmentation = await this.mp.segment(image, model[0]);
+    let segmentation = await this.mp.segment(image, model);
     return segmentation;
   }
 

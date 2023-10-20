@@ -10,7 +10,7 @@ export let deeplab_v3 = {
   },
 
   transpile: function (block, generator) {
-    let model = `[{name: "DeepLab-V3", path: "./models/image-segmentation/DeepLab-V3/float32/deeplab_v3.tflite"}]`;
+    let model = `({name: "DeepLab-V3", path: "./models/image-segmentation/DeepLab-V3/float32/deeplab_v3.tflite"})`;
     return [model, generator.ORDER_NONE];
   },
 };

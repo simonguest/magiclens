@@ -24,7 +24,7 @@ export let efficientdet_lite2 = {
   },
 
   transpile: function (block, generator) {
-    let model = `[{name: "EfficientDet-Lite2", path: "${block.getFieldValue("MODEL")}"}]`;
+    let model = `({name: "EfficientDet-Lite2", path: "${block.getFieldValue("MODEL")}"})`;
     return [model, generator.ORDER_NONE];
   },
 };

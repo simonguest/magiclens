@@ -10,7 +10,7 @@ export let poselandmarker_lite = {
   },
 
   transpile: function (block, generator) {
-    let model = `[{name: "PoseLandmarker-Lite", path: "./models/pose-estimation/PoseLandmarker/lite/float16/pose_landmarker_lite.task"}]`;
+    let model = `({name: "PoseLandmarker-Lite", path: "./models/pose-estimation/PoseLandmarker/lite/float16/pose_landmarker_lite.task"})`;
     return [model, generator.ORDER_NONE];
   },
 };

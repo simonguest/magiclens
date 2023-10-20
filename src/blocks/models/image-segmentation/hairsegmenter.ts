@@ -10,7 +10,7 @@ export let hairsegmenter = {
   },
 
   transpile: function (block, generator) {
-    let model = `[{name: "HairSegmenter", path: "./models/image-segmentation/HairSegmenter/float32/hair_segmenter.tflite"}]`;
+    let model = `({name: "HairSegmenter", path: "./models/image-segmentation/HairSegmenter/float32/hair_segmenter.tflite"})`;
     return [model, generator.ORDER_NONE];
   },
 };

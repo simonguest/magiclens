@@ -10,7 +10,7 @@ export let selfiesegmenter = {
   },
 
   transpile: function (block, generator) {
-    let model = `[{name: "SelfieSegmenter", path: "./models/image-segmentation/SelfieSegmentation/float16/selfie_segmenter.tflite"}]`;
+    let model = `({name: "SelfieSegmenter", path: "./models/image-segmentation/SelfieSegmentation/float16/selfie_segmenter.tflite"})`;
     return [model, generator.ORDER_NONE];
   },
 };
