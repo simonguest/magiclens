@@ -1,11 +1,39 @@
-import { Debug } from "../debug";
-
-// import * as cv2 from "@techstark/opencv-js"
+import {Debug} from "../debug";
 
 export class Webcam {
+
+  private static FPSCounter = class {
+    private readonly sampleSize: number;
+    private readonly timestamps: number[];
+
+    constructor(sampleSize = 5) {
+      this.sampleSize = sampleSize;
+      this.timestamps = [];
+    }
+
+    calculateFPS(time) {
+      this.timestamps.push(time);
+
+      // If we have more than the sample size, remove the oldest timestamp
+      if (this.timestamps.length > this.sampleSize) {
+        this.timestamps.shift();
+      }
+
+      // Calculate Average FPS
+      const averageDuration = this.timestamps[this.timestamps.length - 1] - this.timestamps[0];
+      const averageFPS = (this.timestamps.length - 1) / (averageDuration / 1000);
+
+      return {
+        averageFPS
+      };
+    }
+  }
+
   private currentStream = null;
   private videoElement = document.getElementById('hidden-video') as HTMLVideoElement;
   private videoCanvas = document.getElementById('hidden-video-canvas') as HTMLCanvasElement;
+
+  private fpsCounter = new Webcam.FPSCounter();
 
   private canPlayCallback = () => {
     Debug.write("Webcam started");
@@ -21,7 +49,7 @@ export class Webcam {
         return resolve(this.currentStream);
       }
       let that = this;
-      navigator.mediaDevices.getUserMedia({ video: { deviceId: deviceId } })
+      navigator.mediaDevices.getUserMedia({video: {deviceId: deviceId}})
         .then(async function (stream) {
           that.currentStream = stream;
           that.videoElement.srcObject = stream;
@@ -56,9 +84,6 @@ export class Webcam {
     });
   }
 
-  //private videoCapture = new cv2.VideoCapture(this.videoElement);
-  private currentFrame = null;
-
   private createGreenImageData() {
     const width = 1024;
     const height = 1024;
@@ -72,14 +97,14 @@ export class Webcam {
 
     // Fill the ImageData object with green
     for (let i = 0; i < width * height * 4; i += 4) {
-        imageData.data[i + 0] = 0;       // Red: 0
-        imageData.data[i + 1] = 255;     // Green: 255
-        imageData.data[i + 2] = 0;       // Blue: 0
-        imageData.data[i + 3] = 255;     // Alpha: 255 (fully opaque)
+      imageData.data[i + 0] = 0;       // Red: 0
+      imageData.data[i + 1] = 255;     // Green: 255
+      imageData.data[i + 2] = 0;       // Blue: 0
+      imageData.data[i + 3] = 255;     // Alpha: 255 (fully opaque)
     }
 
     return imageData;
-}
+  }
 
   public async captureImage() {
     Debug.write("Trying to capture webcam image");
@@ -91,6 +116,14 @@ export class Webcam {
       }
       let ctx = this.videoCanvas.getContext('2d');
       ctx.drawImage(this.videoElement, 0, 0, 1024, 1024);
+      let averageFPS = this.fpsCounter.calculateFPS(Date.now()).averageFPS;
+      ctx.font = '20px Arial';
+      ctx.fillStyle = 'white';
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = 3;
+      ctx.strokeText(`FPS: ${averageFPS.toFixed(2)}`, 10, 25);
+      ctx.fillText(`FPS: ${averageFPS.toFixed(2)}`, 10, 25);
+
       let imageData = ctx.getImageData(0, 0, 1024, 1024);
       resolve(imageData);
     });

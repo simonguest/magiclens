@@ -1,7 +1,7 @@
-import { Debug } from "../debug";
+import {Debug} from "../debug";
 
-import { Webcam } from "./webcam";
-import { MP } from "./models/mp";
+import {Webcam} from "./webcam";
+import {MP} from "./models/mp";
 export class CV {
 
   private DISPLAY_WAIT_TIME = 1; // ms to wait for image to be displayed before continuing
@@ -89,7 +89,7 @@ export class CV {
       const label = detection.categories[0].categoryName;
       const color = "#777777";
       const score = (detection.categories[0].score * 100).toFixed(1);
-      let { originX, originY, width, height } = detection.boundingBox;
+      let {originX, originY, width, height} = detection.boundingBox;
 
       // draw border box
       ctx.strokeStyle = color;
@@ -159,7 +159,7 @@ export class CV {
   public async displayPose(poses: any) {
     Debug.write("Drawing poses");
     this.clearPoses();
-    const ctx = document.getElementById("pose-canvas").getContext("2d");
+    const ctx = (document.getElementById("pose-canvas") as HTMLCanvasElement).getContext("2d");
     this.drawPoses(ctx, poses);
     await this.wait(this.DISPLAY_WAIT_TIME); // Wait to allow the image to be displayed
   }
@@ -222,7 +222,7 @@ export class CV {
 
   public async segment(image: ImageData, model: Model) {
     Debug.write("Segment Image");
-    let segmentation = this.mp.segment(image, model[0]);
+    let segmentation = await this.mp.segment(image, model[0]);
     return segmentation;
   }
 
