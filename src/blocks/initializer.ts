@@ -4,11 +4,10 @@ import Blockly from "blockly";
 import { javascriptGenerator } from "blockly/javascript";
 
 import * as webcam from "./webcam";
-import * as input from "./input";
-import * as math from "./math";
+import * as samples from "./samples";
 import * as transform from "./transform";
 import * as models from "./models";
-import * as output from "./output";
+import * as display from "./display";
 
 import { toolbox } from "./toolbox";
 
@@ -56,19 +55,21 @@ const createCustomBlock = (name, blockType) => {
 };
 
 const createCustomBlocks = () => {
-  createCustomBlock("debug", math.debug);
   createCustomBlock("start_webcam", webcam.startWebcam);
   createCustomBlock("stop_webcam", webcam.stopWebcam);
   createCustomBlock("capture_webcam_image", webcam.captureWebcamImage);
-  createCustomBlock("input_load_sample_image", input.loadSampleImage);
+
+  createCustomBlock("input_load_sample_image", samples.loadSampleImage);
+
   createCustomBlock("convert_to_gray", transform.convertToGray);
   createCustomBlock("rotate_right", transform.rotateRight);
-  createCustomBlock("display", output.display);
-  createCustomBlock("display_bounding_boxes", output.displayBoundingBoxes);
-  createCustomBlock("display_pose", output.displayPose);
-  createCustomBlock("display_segmentation", output.displaySegmentation);
-  createCustomBlock("detect_objects", models.detectObjects);
 
+  createCustomBlock("display", display.display);
+  createCustomBlock("display_bounding_boxes", display.displayBoundingBoxes);
+  createCustomBlock("display_pose", display.displayPose);
+  createCustomBlock("display_segmentation", display.displaySegmentation);
+
+  createCustomBlock("detect_objects", models.detectObjects);
   createCustomBlock("efficientdet_lite0", models.efficientdet_lite0);
   createCustomBlock("efficientdet_lite2", models.efficientdet_lite2);
   createCustomBlock("ssdmobilenet-v2", models.ssdmobilenet_v2);

@@ -41,7 +41,24 @@ export class Webcam {
 
   private wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  public async start(deviceId: string) {
+  private displayStartingWebCamImage(canvas: HTMLCanvasElement) {
+    canvas.width = 1024;
+    canvas.height = 1024;
+    const ctx = canvas.getContext("2d");
+    ctx.fillRect(0, 0, 1024, 1024);
+    ctx.font = '28px sans-serif';           // You can adjust the size and font-family to your liking
+    ctx.fillStyle = 'white';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Draw the text in the center of the canvas
+    ctx.fillText('Starting Webcam', canvas.width / 2, canvas.height / 2);
+  }
+
+  public async start(deviceId: string, canvas: HTMLCanvasElement) {
+    Debug.write("Displaying starting webcam image");
+    this.displayStartingWebCamImage(canvas);
+
     Debug.write(`Starting webcam`);
     return new Promise(async (resolve, reject) => {
       if (this.currentStream) {
@@ -67,7 +84,7 @@ export class Webcam {
 
   public async stop() {
     Debug.write("Stopping webcam");
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
       if (!this.currentStream) {
         Debug.write("Webcam is not started.")
         return resolve("Webcam is not started.");
@@ -97,7 +114,7 @@ export class Webcam {
 
     // Fill the ImageData object with green
     for (let i = 0; i < width * height * 4; i += 4) {
-      imageData.data[i + 0] = 0;       // Red: 0
+      imageData.data[i] = 0;       // Red: 0
       imageData.data[i + 1] = 255;     // Green: 255
       imageData.data[i + 2] = 0;       // Blue: 0
       imageData.data[i + 3] = 255;     // Alpha: 255 (fully opaque)
@@ -108,7 +125,7 @@ export class Webcam {
 
   public async captureImage() {
     Debug.write("Trying to capture webcam image");
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
       if (!this.currentStream) {
         Debug.write("Webcam is not started.");
         // Create a default green image instead
@@ -116,6 +133,8 @@ export class Webcam {
       }
       let ctx = this.videoCanvas.getContext('2d');
       ctx.drawImage(this.videoElement, 0, 0, 1024, 1024);
+
+      // Overlay the FPS counter in the top left corner
       let averageFPS = this.fpsCounter.calculateFPS(Date.now()).averageFPS;
       ctx.font = '20px Arial';
       ctx.fillStyle = 'white';
@@ -124,6 +143,7 @@ export class Webcam {
       ctx.strokeText(`FPS: ${averageFPS.toFixed(2)}`, 10, 25);
       ctx.fillText(`FPS: ${averageFPS.toFixed(2)}`, 10, 25);
 
+      // Extract the image data and return
       let imageData = ctx.getImageData(0, 0, 1024, 1024);
       resolve(imageData);
     });

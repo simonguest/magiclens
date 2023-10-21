@@ -21,7 +21,7 @@ export let toolbox = {
     },
     {
       kind: "category",
-      name: "Sample Images",
+      name: "Samples",
       contents: [
         {
           kind: "block",
@@ -135,7 +135,7 @@ export let toolbox = {
     },
     {
       kind: "category",
-      name: "Output",
+      name: "Display",
       contents: [
         {
           kind: "block",
@@ -223,10 +223,6 @@ export let toolbox = {
       kind: "category",
       name: "Math",
       contents: [
-        {
-          kind: "block",
-          type: "math_number",
-        },
         {
           kind: "block",
           type: "math_arithmetic",

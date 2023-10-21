@@ -1,10 +1,10 @@
-import { Debug } from "../../debug";
+import { Debug } from "../debug";
 
 import { FilesetResolver, ObjectDetector, PoseLandmarker, ImageSegmenter } from "@mediapipe/tasks-vision";
 
-export class MP {
+export class MediaPipe {
 
-  public POSE_CONNECTIONS = PoseLandmarker.POSE_CONNECTIONS;
+  public static POSE_CONNECTIONS = PoseLandmarker.POSE_CONNECTIONS;
 
   private vision = null;
 
@@ -14,11 +14,11 @@ export class MP {
   private imageSegmenter: ImageSegmenter = null;
   private imageSegmenterModelAssetPath: string = null;
 
-  private poseLandmarker = null;
+  private poseLandmarker : PoseLandmarker = null;
   private poseLandmarkerModelAssetPath: string = null;
 
   public async init() {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
       this.vision = await FilesetResolver.forVisionTasks(
       );
       Debug.write("MediaPipe initialized");
@@ -27,7 +27,7 @@ export class MP {
 
   }
 
-  public async detectObjects(image: ImageData, model: Model) {
+  public async detectObjects(image: ImageData, model: ModelData) {
     if (this.objectDetectorModelAssetPath !== model.path) {
       this.objectDetector = null;
       this.objectDetectorModelAssetPath = model.path;
@@ -44,11 +44,10 @@ export class MP {
       });
     }
 
-    const detections = await this.objectDetector.detect(image);
-    return detections;
+    return this.objectDetector.detect(image);
   }
 
-  public async segment(image: ImageData, model: Model) {
+  public async segment(image: ImageData, model: ModelData) {
     if (this.imageSegmenterModelAssetPath !== model.path) {
       this.imageSegmenter = null;
       this.imageSegmenterModelAssetPath = model.path;
@@ -65,11 +64,10 @@ export class MP {
         outputConfidenceMasks: false
       });
     }
-    const segments = await this.imageSegmenter.segment(image);
-    return segments;
+    return this.imageSegmenter.segment(image);
   }
 
-  public async detectPose(image: ImageData, model: Model) {
+  public async detectPose(image: ImageData, model: ModelData) {
     if (this.poseLandmarkerModelAssetPath !== model.path) {
       this.poseLandmarker = null;
       this.poseLandmarkerModelAssetPath = model.path;
@@ -85,8 +83,7 @@ export class MP {
         numPoses: 1,
       });
     }
-    const pose = await this.poseLandmarker.detect(image);
-    return pose;
+    return this.poseLandmarker.detect(image);
   }
 
 
