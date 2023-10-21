@@ -74,11 +74,12 @@ const createCustomBlocks = () => {
   createCustomBlock("ssdmobilenet-v2", models.ssdmobilenet_v2);
   createCustomBlock("segment", models.segment);
 
-  createCustomBlock("selfiesegmenter", models.selfiesegmenter)
-  createCustomBlock("hairsegmenter", models.hairsegmenter)
-  createCustomBlock("selfiemulticlass", models.selfiemulticlass)
-  createCustomBlock("deeplab_v3", models.deeplab_v3)
-  createCustomBlock("colorSegment", models.colorSegment)
+  createCustomBlock("selfiesegmenter", models.selfiesegmenter);
+  createCustomBlock("hairsegmenter", models.hairsegmenter);
+  createCustomBlock("selfiemulticlass", models.selfiemulticlass);
+  createCustomBlock("deeplab_v3", models.deeplab_v3);
+  createCustomBlock("color_segment", models.colorSegment);
+  createCustomBlock("replace_segment_with_image", models.replaceSegmentWithImage);
 
   createCustomBlock("detect_pose", models.detectPose);
   createCustomBlock("poselandmarker_lite", models.poselandmarker_lite);

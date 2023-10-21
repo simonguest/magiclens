@@ -1,6 +1,7 @@
 import { Debug } from "../debug";
 import { MediaPipe } from "./mediapipe";
 import { ImageSegmenterResult } from "@mediapipe/tasks-vision";
+import { replaceSegmentWithImage } from "../blocks/models";
 
 export class ImageSegmentation {
 
@@ -28,6 +29,36 @@ export class ImageSegmentation {
     const dataNew = new ImageData(uint8Array, 1024, 1024);
     ctx.putImageData(dataNew, 0, 0);
     Debug.write("Done color segment")
+  }
+
+  public async replaceSegmentWithImage(canvas: HTMLCanvasElement, result: ImageSegmenterResult, category: number, image: ImageData, transparency: number) {
+    Debug.write("Replace segment with image");
+
+    // Get the image data for the current canvas
+    const ctx = canvas.getContext("2d");
+    let imageDataObj = ctx.getImageData(0, 0, 1024, 1024);
+    let imageData = imageDataObj.data;
+    const mask = result.categoryMask.getAsUint8Array();
+    const len = mask.length;
+
+    // Get the image data for the image to replace the segment with
+    let replacementImageData = image.data;
+
+    for (let i = 0; i < len; i++) {
+      if (mask[i] === category) {
+        const idx = i * 4;
+        imageData[idx] = replacementImageData[idx];
+        imageData[idx + 1] = replacementImageData[idx + 1];
+        imageData[idx + 2] = replacementImageData[idx + 2];
+        imageData[idx + 3] = transparency;
+      }
+    }
+    ctx.putImageData(imageDataObj, 0, 0);
+    const uint8Array = new Uint8ClampedArray(imageData.buffer);
+    const dataNew = new ImageData(uint8Array, 1024, 1024);
+    ctx.putImageData(dataNew, 0, 0);
+    Debug.write("Done replace segment with image")
+
   }
 
   public async segment(mp: MediaPipe, image: ImageData, model: ModelData) {

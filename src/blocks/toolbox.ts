@@ -109,7 +109,11 @@ export let toolbox = {
             },
             {
               kind: "block",
-              type: "colorSegment"
+              type: "color_segment"
+            },
+            {
+              kind: "block",
+              type: "replace_segment_with_image"
             }
           ]
         },

@@ -24,7 +24,7 @@ export let colorSegment = {
     let color = block.getFieldValue("COLOR");
     const rgb = color.match(/[A-Za-z0-9]{2}/g).map((v) => parseInt(v, 16));
     let transparency = block.getFieldValue("TRANSPARENCY");
-    rgb.push(Math.round(transparency * 255));
+    rgb.push(Math.round((1 - transparency) * 255));
 
     return `await cv.colorSegment(${object}, [${rgb}]);`;
   }

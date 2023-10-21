@@ -95,6 +95,12 @@ export class CV {
     await this.wait(this.DISPLAY_WAIT_TIME);
   }
 
+  public async replaceSegmentWithImage(data: {result: ImageSegmenterResult, category:number}, image: ImageData, transparency: number) {
+    this.clearCanvas(this.segmentationMaskCanvas);
+    await this.imageSegmentation.replaceSegmentWithImage(this.segmentationMaskCanvas, data.result, data.category, image, transparency);
+    await this.wait(this.DISPLAY_WAIT_TIME);
+  }
+
   /*************************
    Pose Detection
    *************************/
