@@ -67,7 +67,6 @@ const createCustomBlocks = () => {
   createCustomBlock("display", display.display);
   createCustomBlock("display_bounding_boxes", display.displayBoundingBoxes);
   createCustomBlock("display_pose", display.displayPose);
-  createCustomBlock("display_segmentation", display.displaySegmentation);
 
   createCustomBlock("detect_objects", models.detectObjects);
   createCustomBlock("efficientdet_lite0", models.efficientdet_lite0);
@@ -79,6 +78,7 @@ const createCustomBlocks = () => {
   createCustomBlock("hairsegmenter", models.hairsegmenter)
   createCustomBlock("selfiemulticlass", models.selfiemulticlass)
   createCustomBlock("deeplab_v3", models.deeplab_v3)
+  createCustomBlock("colorSegment", models.colorSegment)
 
   createCustomBlock("detect_pose", models.detectPose);
   createCustomBlock("poselandmarker_lite", models.poselandmarker_lite);

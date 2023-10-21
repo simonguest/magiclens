@@ -106,6 +106,10 @@ export let toolbox = {
             {
               kind: "block",
               type: "deeplab_v3"
+            },
+            {
+              kind: "block",
+              type: "colorSegment"
             }
           ]
         },
@@ -148,10 +152,6 @@ export let toolbox = {
         {
           kind: "block",
           type: "display_pose",
-        },
-        {
-          kind: "block",
-          type: "display_segmentation",
         }
       ],
     },

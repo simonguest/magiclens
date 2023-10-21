@@ -64,7 +64,7 @@ export class MediaPipe {
         outputConfidenceMasks: false
       });
     }
-    return this.imageSegmenter.segment(image);
+    return { result: this.imageSegmenter.segment(image), category: model.category };
   }
 
   public async detectPose(image: ImageData, model: ModelData) {

@@ -89,9 +89,9 @@ export class CV {
     return this.imageSegmentation.segment(this.mp, image, model);
   }
 
-  public async displaySegmentation(result: ImageSegmenterResult) {
+  public async colorSegment(data: {result: ImageSegmenterResult, category: number}, rgb: number[]) {
     this.clearCanvas(this.segmentationMaskCanvas);
-    await this.imageSegmentation.displaySegmentation(this.segmentationMaskCanvas, result);
+    await this.imageSegmentation.colorSegment(this.segmentationMaskCanvas, data.result, data.category, rgb);
     await this.wait(this.DISPLAY_WAIT_TIME);
   }
 
