@@ -97,15 +97,11 @@ export let toolbox = {
             },
             {
               kind: "block",
-              type: "hairsegmenter"
-            },
-            {
-              kind: "block",
               type: "selfiemulticlass"
             },
             {
               kind: "block",
-              type: "deeplab_v3"
+              type: "hairsegmenter"
             },
             {
               kind: "block",

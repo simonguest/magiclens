@@ -1,7 +1,21 @@
+import Blockly from "blockly";
+
+const categories = [
+  {
+    id: "1", title: "hair"
+  },
+  {
+    id: "0", title: "background"
+  }
+]
 export let hairsegmenter = {
   init: function () {
     this.appendDummyInput()
-      .appendField("HairSegmenter")
+      .appendField("Hair Segmenter")
+      .appendField(
+        new Blockly.FieldDropdown(categories.map(l => [l.title, l.id])),
+        "CATEGORY"
+      )
     this.setInputsInline(false);
     this.setOutput(true, "MODEL");
     this.setPreviousStatement(false, null);
@@ -10,7 +24,7 @@ export let hairsegmenter = {
   },
 
   transpile: function (block, generator) {
-    let model = `({name: "HairSegmenter", path: "./models/image-segmentation/HairSegmenter/float32/hair_segmenter.tflite"})`;
+    let model = `({name: "HairSegmenter", path: "./models/image-segmentation/HairSegmenter/float32/hair_segmenter.tflite", category: ${block.getFieldValue("CATEGORY")}})`;
     return [model, generator.ORDER_NONE];
   },
 };
