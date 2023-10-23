@@ -73,6 +73,10 @@ export let toolbox = {
             {
               kind: "block",
               type: "ssdmobilenet-v2"
+            },
+            {
+              kind: "block",
+              type: "objects_contain"
             }
           ]
         },

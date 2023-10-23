@@ -43,4 +43,14 @@ export class ObjectDetection {
       ctx.fillText(label + " - " + score + "%", originX - 1, textY < 0 ? 1 : textY + 1);
     });
   }
+
+  public objectContains(result: ObjectDetectorResult, label: string) {
+    let contains = false;
+    result.detections.forEach((detection) => {
+      if (detection.categories[0].categoryName === label) {
+        contains = true;
+      }
+    });
+    return contains;
+  }
 }

@@ -81,6 +81,10 @@ export class CV {
     await this.wait(this.DISPLAY_WAIT_TIME);
   }
 
+  public objectsContain(result: ObjectDetectorResult, label: string) {
+    return this.objectDetection.objectContains(result, label);
+  }
+
   /*************************
    Image Segmentation
    *************************/

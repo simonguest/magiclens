@@ -72,8 +72,9 @@ const createCustomBlocks = () => {
   createCustomBlock("efficientdet_lite0", models.efficientdet_lite0);
   createCustomBlock("efficientdet_lite2", models.efficientdet_lite2);
   createCustomBlock("ssdmobilenet-v2", models.ssdmobilenet_v2);
-  createCustomBlock("segment", models.segment);
+  createCustomBlock("objects_contain", models.objectsContain)
 
+  createCustomBlock("segment", models.segment);
   createCustomBlock("selfiesegmenter", models.selfiesegmenter);
   createCustomBlock("hairsegmenter", models.hairsegmenter);
   createCustomBlock("selfiemulticlass", models.selfiemulticlass);
