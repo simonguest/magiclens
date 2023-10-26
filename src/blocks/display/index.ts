@@ -1,5 +1,3 @@
-import { display } from "./display";
-import { displayBoundingBoxes } from "./displayBoundingBoxes";
-import { displayPose } from "./displayPose";
+import { displayFrame} from "./displayFrame";
 
-export { display, displayBoundingBoxes, displayPose }
+export { displayFrame }

@@ -8,7 +8,7 @@ export let objectsContain = {
     this.appendDummyInput()
       .appendField("contain")
       .appendField(
-        new Blockly.FieldDropdown(labels.map(l => [l, l])),
+        new Blockly.FieldDropdown(labels.sort().map(l => [l, l])),
         "LABEL"
       )
     this.setInputsInline(true);

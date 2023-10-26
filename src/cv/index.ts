@@ -8,6 +8,8 @@ import { ObjectDetection } from "./objectDetection";
 import { ImageSegmenterResult, ObjectDetectorResult, PoseLandmarkerResult } from "@mediapipe/tasks-vision";
 import { ImageSegmentation } from "./imageSegmentation";
 import { PoseEstimation } from "./poseEstimation";
+import { Transform } from "./transform";
+import { Display } from "./display";
 
 // noinspection JSUnusedGlobalSymbols,JSUnusedLocalSymbols
 export class CV {
@@ -17,15 +19,18 @@ export class CV {
   private mp = new MediaPipe();
   private webcam = new Webcam();
   private samples = new Samples();
+  private transform = new Transform();
   private objectDetection = new ObjectDetection();
   private imageSegmentation = new ImageSegmentation();
   private poseEstimation = new PoseEstimation();
+  private display = new Display();
 
   /*************************
    Canvas Collection
    *************************/
 
   private imageCanvas = document.getElementById("image-canvas") as HTMLCanvasElement;
+  private hiddenImageCanvas = document.getElementById("hidden-image-canvas") as HTMLCanvasElement;
   private boundingBoxCanvas = document.getElementById("bounding-box-canvas") as HTMLCanvasElement;
   private segmentationMaskCanvas = document.getElementById("segmentation-mask-canvas") as HTMLCanvasElement;
   private poseCanvas = document.getElementById("pose-canvas") as HTMLCanvasElement;
@@ -65,6 +70,10 @@ export class CV {
    Transform
    *************************/
 
+  public addImageToFrame(image: ImageData) {
+    return this.transform.addImageToFrame(this.hiddenImageCanvas, image);
+  }
+
   // TODO: Need to convert these from prior OpenCV methods
 
   /*************************
@@ -75,10 +84,8 @@ export class CV {
     return this.objectDetection.detectObjects(this.mp, image, model);
   }
 
-  public async displayBoundingBoxes(result: ObjectDetectorResult) {
-    this.clearCanvas(this.boundingBoxCanvas);
+  public async drawBoundingBoxes(result: ObjectDetectorResult) {
     await this.objectDetection.displayBoundingBoxes(this.boundingBoxCanvas, result);
-    await this.wait(this.DISPLAY_WAIT_TIME);
   }
 
   public objectsContain(result: ObjectDetectorResult, label: string) {
@@ -94,15 +101,11 @@ export class CV {
   }
 
   public async colorSegment(data: {result: ImageSegmenterResult, category: number}, rgb: number[]) {
-    this.clearCanvas(this.segmentationMaskCanvas);
     await this.imageSegmentation.colorSegment(this.segmentationMaskCanvas, data.result, data.category, rgb);
-    await this.wait(this.DISPLAY_WAIT_TIME);
   }
 
   public async replaceSegmentWithImage(data: {result: ImageSegmenterResult, category:number}, image: ImageData, transparency: number) {
-    this.clearCanvas(this.segmentationMaskCanvas);
     await this.imageSegmentation.replaceSegmentWithImage(this.segmentationMaskCanvas, data.result, data.category, image, transparency);
-    await this.wait(this.DISPLAY_WAIT_TIME);
   }
 
   /*************************
@@ -113,21 +116,24 @@ export class CV {
     return await this.poseEstimation.detectPose(this.mp, image, model);
   }
 
-  public async displayPose(pose: PoseLandmarkerResult) {
+  public async drawPose(pose: PoseLandmarkerResult) {
     this.clearCanvas(this.poseCanvas);
     await this.poseEstimation.displayPose(this.poseCanvas, pose);
-    await this.wait(this.DISPLAY_WAIT_TIME); // Wait to allow the image to be displayed
   }
 
   /*************************
    Other Display Methods
    *************************/
 
-  public async displayImage(image: ImageData) {
-    Debug.write("Displaying image");
-    const ctx = this.imageCanvas.getContext("2d");
-    ctx.putImageData(image, 0, 0); // put overlay to canvas
-    await this.wait(this.DISPLAY_WAIT_TIME); // Wait to allow the image to be displayed
+  public async displayFrame() {
+    Debug.write("Display frame");
+    this.clearCanvas(this.imageCanvas);
+    await this.display.displayFrame(this.imageCanvas, this.hiddenImageCanvas, this.boundingBoxCanvas, this.segmentationMaskCanvas, this.poseCanvas);
+    // Clear the hidden image canvas
+    this.clearCanvas(this.hiddenImageCanvas);
+    this.clearCanvas(this.boundingBoxCanvas);
+    this.clearCanvas(this.segmentationMaskCanvas);
+    this.clearCanvas(this.poseCanvas);
   }
 
   private clearCanvas(canvas: HTMLCanvasElement) {

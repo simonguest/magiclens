@@ -22,7 +22,7 @@ export class Samples {
     Debug.write(`Loading the ${filename} image`);
     const imageEl = await this.loadImage(`./images/${filename}`);
     Debug.write(`Image loaded`);
-    let ctx = (document.getElementById("hidden-image-canvas") as HTMLCanvasElement).getContext("2d");
+    let ctx = (document.getElementById("sample-image-canvas") as HTMLCanvasElement).getContext("2d");
     ctx.drawImage(imageEl, 0, 0);
     return ctx.getImageData(0, 0, 1024, 1024);
   }

@@ -1,4 +1,5 @@
-export let toolbox = {
+// Should be typed to ToolboxInfo, but bug in blockly ts definitions doesn't handle custom fields.
+export let toolbox: any = {
   kind: "categoryToolbox",
   contents: [
     {
@@ -16,7 +17,7 @@ export let toolbox = {
         {
           kind: "block",
           type: "capture_webcam_image",
-        },
+        }
       ],
     },
     {
@@ -40,12 +41,17 @@ export let toolbox = {
         {
           kind: "block",
           type: "rotate_right"
+        },
+        {
+          kind: "block",
+          type: "add_image_to_frame",
         }
       ]
     },
     {
       kind: "category",
       name: "Models",
+      expanded: true,
       contents: [
         {
           kind: "category",
@@ -73,6 +79,10 @@ export let toolbox = {
             {
               kind: "block",
               type: "ssdmobilenet-v2"
+            },
+            {
+              kind: "block",
+              type: "draw_bounding_boxes"
             },
             {
               kind: "block",
@@ -136,6 +146,10 @@ export let toolbox = {
             {
               kind: "block",
               type: "poselandmarker_heavy",
+            },
+            {
+              kind: "block",
+              type: "draw_pose",
             }
           ]
         }
@@ -147,15 +161,7 @@ export let toolbox = {
       contents: [
         {
           kind: "block",
-          type: "display",
-        },
-        {
-          kind: "block",
-          type: "display_bounding_boxes",
-        },
-        {
-          kind: "block",
-          type: "display_pose",
+          type: "display_frame",
         }
       ],
     },
@@ -382,10 +388,6 @@ export let toolbox = {
               },
             },
           },
-        },
-        {
-          kind: "block",
-          type: "debug",
         },
       ],
     },

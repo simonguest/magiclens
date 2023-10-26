@@ -63,28 +63,29 @@ const createCustomBlocks = () => {
 
   createCustomBlock("convert_to_gray", transform.convertToGray);
   createCustomBlock("rotate_right", transform.rotateRight);
+  createCustomBlock("add_image_to_frame", transform.addImageToFrame);
 
-  createCustomBlock("display", display.display);
-  createCustomBlock("display_bounding_boxes", display.displayBoundingBoxes);
-  createCustomBlock("display_pose", display.displayPose);
-
+  createCustomBlock("display_frame", display.displayFrame);
   createCustomBlock("detect_objects", models.detectObjects);
   createCustomBlock("efficientdet_lite0", models.efficientdet_lite0);
+
   createCustomBlock("efficientdet_lite2", models.efficientdet_lite2);
   createCustomBlock("ssdmobilenet-v2", models.ssdmobilenet_v2);
+  createCustomBlock("draw_bounding_boxes", models.drawBoundingBoxes);
   createCustomBlock("objects_contain", models.objectsContain)
-
   createCustomBlock("segment", models.segment);
+
   createCustomBlock("selfiesegmenter", models.selfiesegmenter);
   createCustomBlock("hairsegmenter", models.hairsegmenter);
   createCustomBlock("selfiemulticlass", models.selfiemulticlass);
   createCustomBlock("color_segment", models.colorSegment);
   createCustomBlock("replace_segment_with_image", models.replaceSegmentWithImage);
-
   createCustomBlock("detect_pose", models.detectPose);
+
   createCustomBlock("poselandmarker_lite", models.poselandmarker_lite);
   createCustomBlock("poselandmarker_full", models.poselandmarker_full);
   createCustomBlock("poselandmarker_heavy", models.poselandmarker_heavy);
+  createCustomBlock("draw_pose", models.drawPose);
 
 };
 

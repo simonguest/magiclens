@@ -1,69 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="utf-8"/>
     <title>CV Lab</title>
-    <meta name="description" content="CV Lab" />
-    <meta name="author" content="Simon Guest" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="CV Lab"/>
+    <meta name="author" content="Simon Guest"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link
-      rel="preload"
-      href="./static/fonts/RobotoMono-VariableFont_wght.ttf"
-      as="font"
-      type="font/ttf"
-      crossorigin
+            rel="preload"
+            href="./static/fonts/RobotoMono-VariableFont_wght.ttf"
+            as="font"
+            type="font/ttf"
+            crossorigin
     />
-    <link rel="stylesheet" href="styles/main.css" />
-  </head>
-  <body>
-    <div id="container">
-      <div id="header">
+    <link rel="stylesheet" href="styles/main.css"/>
+</head>
+<body>
+<div id="container">
+    <div id="header">
         <div id="button-row">
-          <img id="logo" src="./static/icons/logo.svg" alt="Code.org logo" />
-          <p></p>
-          <button id="run-button" class="button">Run</button>
-          <button id="stop-button" class="button">Stop</button>
-          <button id="examples-button" class="button">Examples</button>
-          <div id="examples-dropdown">
-            <button
-              class="examples-dropdown-item"
-              data-file="starter.json"
-              data-physics="off"
-            >
-              Starter
-            </button>
-          </div>
-          <div id="image-upload-button">
-            <label id="image-upload-label" for="upload">
-              <img src="./static/icons/upload.svg" class="button" />Upload
-            </label>
-            <input id="upload" type="file" />
-          </div>
-          <button id="download-button" class="button">Download</button>
-          <button id="clear-button" class="button">Clear</button>
-          <button id="help-button" class="button">Help</button>
+            <img id="logo" src="./static/icons/logo.svg" alt="Code.org logo"/>
+            <p></p>
+            <button id="run-button" class="button">Run</button>
+            <button id="stop-button" class="button">Stop</button>
+            <button id="examples-button" class="button">Examples</button>
+            <div id="examples-dropdown">
+                <button
+                        class="examples-dropdown-item"
+                        data-file="starter.json"
+                        data-physics="off"
+                >
+                    Starter
+                </button>
+            </div>
+            <div id="image-upload-button">
+                <label id="image-upload-label" for="upload">
+                    <img src="./static/icons/upload.svg" class="button" alt="Upload"/>Upload
+                </label>
+                <input id="upload" type="file"/>
+            </div>
+            <button id="download-button" class="button">Download</button>
+            <button id="clear-button" class="button">Clear</button>
+            <button id="help-button" class="button">Help</button>
         </div>
-      </div>
-      <div id="split">
-        <div id="blockly-area">Loading Workspace...</div>
-        <span id="column-resizer"
-          ><img id="drag" src="./static/icons/drag.svg"
-        /></span>
-        <div id="run-area">
-          <img id="hidden-image" />
-          <div id="canvas-container">
-            <canvas id="image-canvas"></canvas>
-            <canvas id="bounding-box-canvas"></canvas>
-            <canvas id="segmentation-mask-canvas"></canvas>
-            <canvas id="pose-canvas"></canvas>
-          </div>
-          <video id="hidden-video" width="1024" height="1024" autoplay></video>
-          <canvas id="hidden-video-canvas" width="1024" height="1024"></canvas>
-          <canvas id="hidden-image-canvas" width="1024" height="1024"></canvas>
-        </div>
-      </div>
     </div>
-    <div id="blockly-div" style="position: absolute"></div>
-    <script type="module" src="src/index.ts"></script>
-  </body>
+    <div id="split">
+        <div id="blockly-area">Loading Workspace...</div>
+        <span id="column-resizer">
+        <img id="drag" src="./static/icons/drag.svg" alt="Drag"/></span>
+        <div id="run-area">
+            <div id="canvas-container">
+                <canvas id="image-canvas"></canvas>
+            </div>
+            <video id="hidden-video" width="1024" height="1024" autoplay></video>
+            <canvas id="hidden-video-canvas" width="1024" height="1024"></canvas>
+            <canvas id="hidden-image-canvas" width="1024" height="1024"></canvas>
+            <canvas id="bounding-box-canvas" width="1024" height="1024"></canvas>
+            <canvas id="segmentation-mask-canvas" width="1024" height="1024"></canvas>
+            <canvas id="pose-canvas" width="1024" height="1024"></canvas>
+            <canvas id="sample-image-canvas" width="1024" height="1024"></canvas>
+        </div>
+    </div>
+</div>
+<div id="blockly-div" style="position: absolute"></div>
+<script type="module" src="src/index.ts"></script>
+</body>
 </html>
