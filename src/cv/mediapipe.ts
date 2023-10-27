@@ -8,14 +8,7 @@ export class MediaPipe {
 
   private vision = null;
 
-  private objectDetector: ObjectDetector = null;
-  private objectDetectorModelAssetPath: string = null;
-
-  private imageSegmenter: ImageSegmenter = null;
-  private imageSegmenterModelAssetPath: string = null;
-
-  private poseLandmarker : PoseLandmarker = null;
-  private poseLandmarkerModelAssetPath: string = null;
+  private models = {};
 
   public async init() {
     return new Promise(async (resolve) => {
@@ -24,17 +17,22 @@ export class MediaPipe {
       Debug.write("MediaPipe initialized");
       resolve("MediaPipe initialized");
     });
+  }
 
+  private getModel(path: string) {
+    Debug.write(`Trying to load model ${path} from cache`);
+    return this.models[path];
+  }
+
+  private cacheModel(path: string, model: any) {
+    Debug.write(`Saving model ${path} to cache`);
+    this.models[path] = model;
   }
 
   public async detectObjects(image: ImageData, model: ModelData) {
-    if (this.objectDetectorModelAssetPath !== model.path) {
-      this.objectDetector = null;
-      this.objectDetectorModelAssetPath = model.path;
-    }
-
-    if (this.objectDetector === null) {
-      this.objectDetector = await ObjectDetector.createFromOptions(this.vision, {
+    let detector = this.getModel(model.path);
+    if (!detector) {
+      detector = await ObjectDetector.createFromOptions(this.vision, {
         baseOptions: {
           modelAssetPath: model.path,
           delegate: "GPU",
@@ -42,19 +40,16 @@ export class MediaPipe {
         scoreThreshold: 0.5,
         runningMode: "IMAGE",
       });
+      this.cacheModel(model.path, detector);
     }
 
-    return this.objectDetector.detect(image);
+    return detector.detect(image);
   }
 
   public async segment(image: ImageData, model: ModelData) {
-    if (this.imageSegmenterModelAssetPath !== model.path) {
-      this.imageSegmenter = null;
-      this.imageSegmenterModelAssetPath = model.path;
-    }
-
-    if (this.imageSegmenter === null) {
-      this.imageSegmenter = await ImageSegmenter.createFromOptions(this.vision, {
+    let segmenter = this.getModel(model.path);
+    if (!segmenter) {
+      segmenter = await ImageSegmenter.createFromOptions(this.vision, {
         baseOptions: {
           modelAssetPath: model.path,
           delegate: 'GPU',
@@ -63,18 +58,16 @@ export class MediaPipe {
         outputCategoryMask: true,
         outputConfidenceMasks: false
       });
+      this.cacheModel(model.path, segmenter);
     }
-    return { result: this.imageSegmenter.segment(image), category: model.category };
+
+    return { result: segmenter.segment(image), category: model.category };
   }
 
   public async detectPose(image: ImageData, model: ModelData) {
-    if (this.poseLandmarkerModelAssetPath !== model.path) {
-      this.poseLandmarker = null;
-      this.poseLandmarkerModelAssetPath = model.path;
-    }
-
-    if (this.poseLandmarker === null) {
-      this.poseLandmarker = await PoseLandmarker.createFromOptions(this.vision, {
+    let poseLandmarker = this.getModel(model.path);
+    if (!poseLandmarker) {
+      poseLandmarker = await PoseLandmarker.createFromOptions(this.vision, {
         baseOptions: {
           modelAssetPath: model.path,
           delegate: 'GPU',
@@ -82,9 +75,9 @@ export class MediaPipe {
         runningMode: 'IMAGE',
         numPoses: 1,
       });
+      this.cacheModel(model.path, poseLandmarker);
     }
-    return this.poseLandmarker.detect(image);
+    return poseLandmarker.detect(image);
   }
-
 
 }
