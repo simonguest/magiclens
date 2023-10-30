@@ -43,7 +43,6 @@ export let getPositionOf = {
         new Blockly.FieldDropdown(bodyParts.map(l => [l.title.toString(), l.id])),
         "BODY_PART"
       )
-    console.log(bodyParts.map(l => [l.title.toString(), l.id]));
     this.appendValueInput("POSE")
       .appendField("in pose")
     this.setInputsInline(true);

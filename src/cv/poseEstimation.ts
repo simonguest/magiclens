@@ -37,19 +37,16 @@ export class PoseEstimation {
   }
 
   public getPositionOf(bodyPart: number, pose: PoseLandmarkerResult) {
+    if (pose.landmarks.length === 0) {
+      Debug.write("No landmarks detected");
+      return null;
+    }
     let coords = pose.landmarks[0][bodyPart];
     let x = coords.x * 1024;
     let y = coords.y * 1024;
     let position: Position = { x: x, y: y };
     Debug.write(`Getting position of body part id: ${bodyPart} at ${position.x},${position.y}`);
     return position;
-
-    // let canvas = document.getElementById("pose-canvas") as HTMLCanvasElement;
-    // let ctx = canvas.getContext("2d");
-    // ctx.beginPath();
-    // ctx.arc(x, y, 10, 0, 2 * Math.PI);
-    // ctx.fillStyle = 'yellow';
-    // ctx.fill();
   }
 
 }

@@ -57,6 +57,10 @@ export class Display {
   }
 
   public drawTextAt(userCanvas: HTMLCanvasElement, text: string, position: Position, font: string, size: number, color: string) {
+    if (position === null){
+      Debug.write("No position provided");
+      return;
+    }
     Debug.write(`Drawing text ${text} at ${position.x},${position.y}`);
     let ctx = userCanvas.getContext("2d");
     // draw the label background
