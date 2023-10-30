@@ -34,6 +34,7 @@ export class CV {
   private boundingBoxCanvas = document.getElementById("bounding-box-canvas") as HTMLCanvasElement;
   private segmentationMaskCanvas = document.getElementById("segmentation-mask-canvas") as HTMLCanvasElement;
   private poseCanvas = document.getElementById("pose-canvas") as HTMLCanvasElement;
+  private userCanvas = document.getElementById("user-canvas") as HTMLCanvasElement;
 
   /*************************
    Display Methods
@@ -121,6 +122,10 @@ export class CV {
     await this.poseEstimation.displayPose(this.poseCanvas, pose);
   }
 
+  public getPositionOf(bodyPart: number, pose: PoseLandmarkerResult){
+    return this.poseEstimation.getPositionOf(bodyPart, pose);
+  }
+
   /*************************
    Other Display Methods
    *************************/
@@ -128,12 +133,17 @@ export class CV {
   public async displayFrame() {
     Debug.write("Display frame");
     this.clearCanvas(this.imageCanvas);
-    await this.display.displayFrame(this.imageCanvas, this.hiddenImageCanvas, this.boundingBoxCanvas, this.segmentationMaskCanvas, this.poseCanvas);
+    await this.display.displayFrame(this.imageCanvas, this.hiddenImageCanvas, this.boundingBoxCanvas, this.segmentationMaskCanvas, this.poseCanvas, this.userCanvas);
     // Clear the hidden image canvas
     this.clearCanvas(this.hiddenImageCanvas);
     this.clearCanvas(this.boundingBoxCanvas);
     this.clearCanvas(this.segmentationMaskCanvas);
     this.clearCanvas(this.poseCanvas);
+    this.clearCanvas(this.userCanvas);
+  }
+
+  public drawTextAt(text: string, position: Position, font: string, size: number, color:string) {
+    this.display.drawTextAt(this.userCanvas, text, position, font, size, color);
   }
 
   private clearCanvas(canvas: HTMLCanvasElement) {
@@ -147,6 +157,7 @@ export class CV {
     this.clearCanvas(this.boundingBoxCanvas);
     this.clearCanvas(this.segmentationMaskCanvas);
     this.clearCanvas(this.poseCanvas);
+    this.clearCanvas(this.userCanvas);
   }
 
   public async init() {

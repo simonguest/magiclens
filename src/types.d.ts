@@ -4,3 +4,8 @@ type ModelData = {
   modelCardURL: string;
   category: number;
 }
+
+type Position = {
+  x: number;
+  y: number;
+}

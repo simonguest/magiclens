@@ -1,3 +1,5 @@
+import { Debug } from "../debug";
+
 export class Display {
 
   private static FPSCounter = class {
@@ -33,12 +35,13 @@ export class Display {
 
   private wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  public async displayFrame(imageCanvas: HTMLCanvasElement, hiddenImageCanvas: HTMLCanvasElement, boundingBoxCanvas: HTMLCanvasElement, segmentationMaskCanvas: HTMLCanvasElement, poseCanvas: HTMLCanvasElement) {
+  public async displayFrame(imageCanvas: HTMLCanvasElement, hiddenImageCanvas: HTMLCanvasElement, boundingBoxCanvas: HTMLCanvasElement, segmentationMaskCanvas: HTMLCanvasElement, poseCanvas: HTMLCanvasElement, userCanvas: HTMLCanvasElement) {
     const ctx = imageCanvas.getContext("2d");
     ctx.drawImage(hiddenImageCanvas, 0, 0);
     ctx.drawImage(segmentationMaskCanvas,0, 0);
     ctx.drawImage(boundingBoxCanvas, 0, 0);
     ctx.drawImage(poseCanvas, 0, 0);
+    ctx.drawImage(userCanvas, 0, 0);
 
     // Overlay the FPS counter in the top left corner
     let averageFPS = this.fpsCounter.calculateFPS(Date.now()).averageFPS;
@@ -51,6 +54,30 @@ export class Display {
 
     // Wait for screen to update
     await this.wait(this.DISPLAY_WAIT_TIME); // Wait to allow the image to be displayed
+  }
+
+  public drawTextAt(userCanvas: HTMLCanvasElement, text: string, position: Position, font: string, size: number, color: string) {
+    Debug.write(`Drawing text ${text} at ${position.x},${position.y}`);
+    let ctx = userCanvas.getContext("2d");
+    // draw the label background
+    ctx.font = `${size}px ${font}`;
+    ctx.fillStyle = color;
+
+    // Calculate text width
+    const textWidth = ctx.measureText(text).width;
+
+    // Set x and y coordinates to center the text
+    const x = position.x - (textWidth / 2);
+    const y = position.y - (size / 2);
+
+    // Set the background stroke
+    const strokeColor = "#000000"; // Black color
+    const strokeWidth = 3; // Width of the stroke in pixels
+    ctx.strokeStyle = strokeColor;
+    ctx.lineWidth = strokeWidth;
+
+    ctx.strokeText(text, x, y);
+    ctx.fillText(text, x, y);
   }
 
 }

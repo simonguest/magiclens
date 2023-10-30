@@ -66,9 +66,10 @@ const createCustomBlocks = () => {
   createCustomBlock("add_image_to_frame", transform.addImageToFrame);
 
   createCustomBlock("display_frame", display.displayFrame);
+  createCustomBlock("draw_text_at", display.drawTextAt);
+
   createCustomBlock("detect_objects", models.detectObjects);
   createCustomBlock("efficientdet_lite0", models.efficientdet_lite0);
-
   createCustomBlock("efficientdet_lite2", models.efficientdet_lite2);
   createCustomBlock("ssdmobilenet-v2", models.ssdmobilenet_v2);
   createCustomBlock("draw_bounding_boxes", models.drawBoundingBoxes);
@@ -86,6 +87,7 @@ const createCustomBlocks = () => {
   createCustomBlock("poselandmarker_full", models.poselandmarker_full);
   createCustomBlock("poselandmarker_heavy", models.poselandmarker_heavy);
   createCustomBlock("draw_pose", models.drawPose);
+  createCustomBlock("get_position_of", models.getPositionOf);
 
 };
 

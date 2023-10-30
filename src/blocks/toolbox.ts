@@ -150,6 +150,10 @@ export let toolbox: any = {
             {
               kind: "block",
               type: "draw_pose",
+            },
+            {
+              kind: "block",
+              type: "get_position_of"
             }
           ]
         }
@@ -162,6 +166,10 @@ export let toolbox: any = {
         {
           kind: "block",
           type: "display_frame",
+        },
+        {
+          kind: "block",
+          type: "draw_text_at"
         }
       ],
     },
