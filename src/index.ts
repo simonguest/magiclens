@@ -15,9 +15,16 @@ async function run() {
   // Initialize the canvas collection
   cv.clearCanvasCollection();
 
-  // Execute the required code
+  // Generate the required code
   let code = javascriptGenerator.workspaceToCode(workspace);
-  console.log(`${code}`); 
+
+  // Check to see if the user has included a displayFrame block
+  if (!code.includes("cv.displayFrame()")) {
+    alert("You must include a 'display frame' block in your code");
+    return;
+  }
+  console.log(`${code}`);
+  window["cancelRequest"] = false;
   try {
     eval(
       `const run = async () => { ${code} await cv.stopWebcam(); }; run();` // dispose any open webcams
@@ -50,6 +57,7 @@ async function init() {
 
   document.getElementById("stop-button").onclick = async () => {
     Debug.write("stop button pressed");
+    window["cancelRequest"] = true;
   }
 
   document.getElementById("clear-button").onclick = () => {

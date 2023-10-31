@@ -131,6 +131,11 @@ export class CV {
    *************************/
 
   public async displayFrame() {
+    // Check to see whether user has hit the stop button
+    // noinspection TypeScriptUnresolvedReference
+    if (window["cancelRequest"]) {
+      throw "User canceled code execution"
+    }
     Debug.write("Display frame");
     this.clearCanvas(this.imageCanvas);
     await this.display.displayFrame(this.imageCanvas, this.hiddenImageCanvas, this.boundingBoxCanvas, this.segmentationMaskCanvas, this.poseCanvas, this.userCanvas);
