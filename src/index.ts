@@ -48,6 +48,10 @@ async function init() {
     await run();
   };
 
+  document.getElementById("stop-button").onclick = async () => {
+    Debug.write("stop button pressed");
+  }
+
   document.getElementById("clear-button").onclick = () => {
     Debug.write("clear button pressed");
     if (confirm("Clearing the workspace will lose all unsaved work. Continue?")) {

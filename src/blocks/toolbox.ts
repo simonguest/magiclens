@@ -221,6 +221,10 @@ export let toolbox: any = {
             },
           },
         },
+        {
+          kind: "block",
+          type: "controls_whileUntil"
+        }
       ],
     },
     {
@@ -235,6 +239,14 @@ export let toolbox: any = {
           kind: "block",
           type: "controls_if",
         },
+        {
+          kind: "block",
+          type: "logic_operation",
+        },
+        {
+          kind: "block",
+          type: "logic_boolean",
+        }
       ],
     },
     {
