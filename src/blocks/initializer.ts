@@ -11,25 +11,6 @@ import * as display from "./display";
 
 import { toolbox } from "./toolbox";
 
-Blockly.Theme.defineTheme("theme", {
-  base: Blockly.Themes.Zelos,
-  name: "theme",
-  componentStyles: {
-    workspaceBackgroundColour: "#ddd",
-    toolboxBackgroundColour: "#5d5d73",
-    toolboxForegroundColour: "#fff",
-    flyoutBackgroundColour: "#3d3d53",
-    flyoutForegroundColour: "#ddd",
-    flyoutOpacity: 0.7,
-    scrollbarColour: "#797979",
-    insertionMarkerColour: "#fff",
-    insertionMarkerOpacity: 0.3,
-    scrollbarOpacity: 0.4,
-    cursorColour: "#d0d0d0",
-  },
-  fontStyle: { family: "Roboto Mono", size: 10 },
-});
-
 let workspace = Blockly.inject("blockly-div", {
   toolbox: toolbox,
   horizontalLayout: false,
@@ -42,8 +23,7 @@ let workspace = Blockly.inject("blockly-div", {
     drag: true,
     wheel: true,
   },
-  theme: "theme",
-  zoom: { controls: true, wheel: true, startScale: 0.9, maxScale: 3, minScale: 0.3, scaleSpeed: 1.2 },
+  zoom: { controls: true, wheel: true, startScale: 1.0, maxScale: 3, minScale: 0.3, scaleSpeed: 1.2 },
   trashcan: false,
 });
 

@@ -6,42 +6,23 @@
     <meta name="description" content="CV Lab"/>
     <meta name="author" content="Simon Guest"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link
-            rel="preload"
-            href="./static/fonts/RobotoMono-VariableFont_wght.ttf"
-            as="font"
-            type="font/ttf"
-            crossorigin
-    />
     <link rel="stylesheet" href="styles/main.css"/>
 </head>
 <body>
 <div id="container">
     <div id="header">
         <div id="button-row">
-            <img id="logo" src="./static/icons/logo.svg" alt="Code.org logo"/>
-            <p></p>
             <button id="run-button" class="button">Run</button>
             <button id="stop-button" class="button">Stop</button>
-            <button id="examples-button" class="button">Examples</button>
-            <div id="examples-dropdown">
-                <button
-                        class="examples-dropdown-item"
-                        data-file="starter.json"
-                        data-physics="off"
-                >
-                    Starter
-                </button>
-            </div>
-            <div id="image-upload-button">
-                <label id="image-upload-label" for="upload">
-                    <img src="./static/icons/upload.svg" class="button" alt="Upload"/>Upload
-                </label>
-                <input id="upload" type="file"/>
-            </div>
-            <button id="download-button" class="button">Download</button>
-            <button id="clear-button" class="button">Clear</button>
-            <button id="help-button" class="button">Help</button>
+            <button id="clear-button" class="button">Clear Workspace</button>
+            <button id="download-button" class="button">Export Workspace</button>
+            <label for="examples" class="button-row-label">Load Sample Workspace: </label>
+            <select id="examples">
+                <option value="" selected="selected">Select...</option>
+                <option value="sample.json">Sample Workspace</option>
+            </select>
+            <span class="button-row-label">Import from:</span>
+            <input type="file" id="upload"/>
         </div>
     </div>
     <div id="split">

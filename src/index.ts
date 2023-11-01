@@ -10,8 +10,25 @@ blocklyInit();
 
 const cv = new CV();
 
+// Setup UI components
+const runButton = document.getElementById("run-button");
+const stopButton = document.getElementById("stop-button");
+stopButton.setAttribute("disabled", "true");
+const clearButton = document.getElementById("clear-button");
+const downloadButton = document.getElementById("download-button");
+const uploadButton = document.getElementById("upload");
+
 // Code execution
 async function run() {
+
+  const enableRunButton = () => {
+    runButton.removeAttribute("disabled");
+    stopButton.setAttribute("disabled", "true");
+  }
+  const disableRunButton = () => {
+    runButton.setAttribute("disabled", "true");
+    stopButton.removeAttribute("disabled");
+  }
   // Initialize the canvas collection
   cv.clearCanvasCollection();
 
@@ -27,14 +44,27 @@ async function run() {
   window["cancelRequest"] = false;
   try {
     eval(
-      `const run = async () => { ${code} await cv.stopWebcam(); }; run();` // dispose any open webcams
+      `
+          disableRunButton();
+          const run = async () => {
+              try {
+                  ${code}
+                  await cv.stopWebcam();
+              } catch (err) {
+                  // Exception caught in user code - probably user canceled execution
+              }
+          };
+          run().then(async () => {
+              await cv.stopWebcam();
+              enableRunButton();
+          });
+      `
     );
   } catch (err) {
     console.error(err);
   }
 }
 
-// Setup the UI
 async function init() {
   await cv.init();
 
@@ -50,17 +80,17 @@ async function init() {
     // Blockly.serialization.workspaces.load(json, workspace);
   }
 
-  document.getElementById("run-button").onclick = async () => {
+  runButton.onclick = async () => {
     Debug.write("run button pressed");
     await run();
   };
 
-  document.getElementById("stop-button").onclick = async () => {
+  stopButton.onclick = async () => {
     Debug.write("stop button pressed");
     window["cancelRequest"] = true;
   }
 
-  document.getElementById("clear-button").onclick = () => {
+  clearButton.onclick = () => {
     Debug.write("clear button pressed");
     if (confirm("Clearing the workspace will lose all unsaved work. Continue?")) {
       sessionStorage.removeItem("workspace");
@@ -68,7 +98,7 @@ async function init() {
     }
   };
 
-  document.getElementById("download-button").onclick = () => {
+  downloadButton.onclick = () => {
     Debug.write("download button pressed");
     let file = new Blob([sessionStorage.getItem("workspace")], {
       type: "text/json",
@@ -85,7 +115,7 @@ async function init() {
     }, 0);
   };
 
-  document.getElementById("upload").onchange = async (e) => {
+  uploadButton.onchange = async (e) => {
     Debug.write("upload workspace from file");
     let file = e.target["files"][0];
     if (!file) {
