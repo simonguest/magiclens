@@ -151,6 +151,16 @@ export class CV {
     this.display.drawTextAt(this.userCanvas, text, position, font, size, color);
   }
 
+  public drawEmojiAt(emoji: string, position: Position) {
+    this.display.drawEmojiAt(this.userCanvas, emoji, position);
+  }
+
+  public inProximityOf(first: Position, second: Position, radius: number){
+    if (first === null) return;
+    if (second === null) return;
+    return Math.sqrt((second.x - first.x) ** 2 + (second.y - first.y) ** 2) <= radius;
+  }
+
   private clearCanvas(canvas: HTMLCanvasElement) {
     canvas.width = 1024;
     canvas.height = 1024;

@@ -1,5 +1,7 @@
 import { Debug } from "../debug";
 
+import { emojis } from "../blocks/display/drawEmojiAt";
+
 export class Display {
 
   private static FPSCounter = class {
@@ -38,7 +40,7 @@ export class Display {
   public async displayFrame(imageCanvas: HTMLCanvasElement, hiddenImageCanvas: HTMLCanvasElement, boundingBoxCanvas: HTMLCanvasElement, segmentationMaskCanvas: HTMLCanvasElement, poseCanvas: HTMLCanvasElement, userCanvas: HTMLCanvasElement) {
     const ctx = imageCanvas.getContext("2d");
     ctx.drawImage(hiddenImageCanvas, 0, 0);
-    ctx.drawImage(segmentationMaskCanvas,0, 0);
+    ctx.drawImage(segmentationMaskCanvas, 0, 0);
     ctx.drawImage(boundingBoxCanvas, 0, 0);
     ctx.drawImage(poseCanvas, 0, 0);
     ctx.drawImage(userCanvas, 0, 0);
@@ -57,7 +59,7 @@ export class Display {
   }
 
   public drawTextAt(userCanvas: HTMLCanvasElement, text: string, position: Position, font: string, size: number, color: string) {
-    if (position === null){
+    if (position === null) {
       Debug.write("No position provided");
       return;
     }
@@ -82,6 +84,20 @@ export class Display {
 
     ctx.strokeText(text, x, y);
     ctx.fillText(text, x, y);
+  }
+
+
+  public drawEmojiAt(userCanvas: HTMLCanvasElement, emoji: string, position: Position) {
+    if (position === null) {
+      Debug.write("No position provided");
+      return;
+    }
+    Debug.write(`Drawing emoji ${emoji} at ${position.x},${position.y}`);
+    let ctx = userCanvas.getContext("2d");
+    // draw the label background
+    ctx.font = "70px serif";
+    let icon = emojis.find(e => e.id === emoji).title;
+    ctx.fillText(icon, position.x, position.y);
   }
 
 }

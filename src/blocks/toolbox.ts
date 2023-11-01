@@ -154,6 +154,10 @@ export let toolbox: any = {
             {
               kind: "block",
               type: "get_position_of"
+            },
+            {
+              kind: "block",
+              type: "in_proximity_of"
             }
           ]
         }
@@ -170,6 +174,36 @@ export let toolbox: any = {
         {
           kind: "block",
           type: "draw_text_at"
+        },
+        {
+          kind: "block",
+          type: "draw_emoji_at"
+        },
+        {
+          kind: "block",
+          type: "position",
+          inputs: {
+            X: {
+              shadow: {
+                type: "math_number",
+                fields: {
+                  NUM: 512,
+                },
+              },
+            },
+            Y: {
+              shadow: {
+                type: "math_number",
+                fields: {
+                  NUM: 512,
+                },
+              },
+            },
+          },
+        },
+        {
+          kind: "block",
+          type: "prefixed_position",
         }
       ],
     },
@@ -253,6 +287,10 @@ export let toolbox: any = {
       kind: "category",
       name: "Math",
       contents: [
+        {
+          kind: "block",
+          type: "math_number",
+        },
         {
           kind: "block",
           type: "math_arithmetic",
@@ -410,6 +448,20 @@ export let toolbox: any = {
           },
         },
       ],
+    },
+    {
+      kind: "category",
+      name: "Text",
+      contents: [
+        {
+          kind: "block",
+          type: "text",
+        },
+        {
+          kind: "block",
+          type: "text_join",
+        }
+      ]
     },
     {
       kind: "category",

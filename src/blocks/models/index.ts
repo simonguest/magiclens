@@ -18,9 +18,10 @@ import { poselandmarker_full } from "./pose-estimation/poselandmarker_full";
 import { poselandmarker_heavy } from "./pose-estimation/poselandmarker_heavy";
 import { drawPose } from "./pose-estimation/drawPose";
 import { getPositionOf} from "./pose-estimation/getPositionOf";
+import { inProximityOf } from "./pose-estimation/inProximityOf";
 
 export { detectObjects, efficientdet_lite0, efficientdet_lite2, ssdmobilenet_v2, drawBoundingBoxes, objectsContain };
 
 export { segment, selfiesegmenter, hairsegmenter, selfiemulticlass, colorSegment, replaceSegmentWithImage };
 
-export { detectPose, poselandmarker_lite, poselandmarker_full, poselandmarker_heavy, drawPose, getPositionOf }
+export { detectPose, poselandmarker_lite, poselandmarker_full, poselandmarker_heavy, drawPose, getPositionOf, inProximityOf }

@@ -10,9 +10,9 @@ const fonts = [
 
 export let drawTextAt = {
   init: function () {
-    this.appendValueInput("POSITION")
+    this.appendValueInput("TEXT")
       .appendField("draw text")
-      .appendField(new Blockly.FieldTextInput("hello world"), "TEXT")
+    this.appendValueInput("POSITION")
       .appendField("at");
     this.appendDummyInput()
       .appendField("with font")
@@ -32,9 +32,12 @@ export let drawTextAt = {
   },
 
   transpile: function (block, generator) {
+    let text = generator.valueToCode(block, 'TEXT', generator.ORDER_NONE);
+    if (text === "") return "";
+
     let position = generator.valueToCode(block, 'POSITION', generator.ORDER_NONE);
     if (position === "") return "";
 
-    return `cv.drawTextAt("${block.getFieldValue('TEXT')}",${position}, "${block.getFieldValue('FONT')}", ${block.getFieldValue('FONT_SIZE')}, "${block.getFieldValue('FONT_COLOR')}");`;
+    return `cv.drawTextAt(${text},${position}, "${block.getFieldValue('FONT')}", ${block.getFieldValue('FONT_SIZE')}, "${block.getFieldValue('FONT_COLOR')}");`;
   }
 };

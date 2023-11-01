@@ -52,6 +52,7 @@ async function run() {
                   await cv.stopWebcam();
               } catch (err) {
                   // Exception caught in user code - probably user canceled execution
+                  console.error(err);
               }
           };
           run().then(async () => {

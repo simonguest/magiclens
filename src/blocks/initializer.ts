@@ -47,6 +47,9 @@ const createCustomBlocks = () => {
 
   createCustomBlock("display_frame", display.displayFrame);
   createCustomBlock("draw_text_at", display.drawTextAt);
+  createCustomBlock("draw_emoji_at", display.drawEmojiAt);
+  createCustomBlock("position", display.position);
+  createCustomBlock("prefixed_position", display.prefixedPosition);
 
   createCustomBlock("detect_objects", models.detectObjects);
   createCustomBlock("efficientdet_lite0", models.efficientdet_lite0);
@@ -62,6 +65,7 @@ const createCustomBlocks = () => {
   createCustomBlock("color_segment", models.colorSegment);
   createCustomBlock("replace_segment_with_image", models.replaceSegmentWithImage);
   createCustomBlock("detect_pose", models.detectPose);
+  createCustomBlock("in_proximity_of", models.inProximityOf);
 
   createCustomBlock("poselandmarker_lite", models.poselandmarker_lite);
   createCustomBlock("poselandmarker_full", models.poselandmarker_full);
