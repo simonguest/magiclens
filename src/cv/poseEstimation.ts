@@ -10,6 +10,10 @@ export class PoseEstimation {
   }
 
   public async displayPose(canvas: HTMLCanvasElement, pose: PoseLandmarkerResult) {
+    if (pose.landmarks.length === 0) {
+      Debug.write("No landmarks detected");
+      return null;
+    }
     Debug.write("Drawing poses");
     const ctx = canvas.getContext("2d");
     pose.landmarks[0].forEach(point => {
