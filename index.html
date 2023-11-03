@@ -15,11 +15,13 @@
             <button id="run-button" class="button">Run</button>
             <button id="stop-button" class="button">Stop</button>
             <button id="clear-button" class="button">Clear Workspace</button>
-            <button id="download-button" class="button">Export Workspace</button>
-            <label for="examples" class="button-row-label">Load Sample Workspace: </label>
-            <select id="examples">
+            <button id="export-button" class="button">Export Workspace</button>
+            <label for="example-dropdown" class="button-row-label">Load Example Workspace: </label>
+            <select id="example-dropdown">
                 <option value="" selected="selected">Select...</option>
-                <option value="sample.json">Sample Workspace</option>
+                <option value="starter.json">Cat Detector (Starter)</option>
+                <option value="space-background.json">Space Background</option>
+                <option value="cellphone-detector.json">No Cellphones!</option>
             </select>
             <span class="button-row-label">Import from:</span>
             <input type="file" id="upload"/>

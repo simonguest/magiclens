@@ -4,8 +4,8 @@ import Blockly from "blockly";
 import { javascriptGenerator } from "blockly/javascript";
 import { CV } from "./cv";
 
-// Initialize Blockly and the workspace
 import { blocklyInit, workspace } from "./blocks/initializer";
+
 blocklyInit();
 
 const cv = new CV();
@@ -15,7 +15,8 @@ const runButton = document.getElementById("run-button");
 const stopButton = document.getElementById("stop-button");
 stopButton.setAttribute("disabled", "true");
 const clearButton = document.getElementById("clear-button");
-const downloadButton = document.getElementById("download-button");
+const exportButton = document.getElementById("export-button");
+const exampleDropdown = document.getElementById("example-dropdown") as HTMLSelectElement;
 const uploadButton = document.getElementById("upload");
 
 // Code execution
@@ -75,10 +76,10 @@ async function init() {
     Blockly.serialization.workspaces.load(JSON.parse(jsonStr), workspace);
   } else {
     // Load the sample workspace
-    // console.log("Loading starter workspace...");
-    // const response = await fetch(`./examples/starter.json`);
-    // const json = await response.json();
-    // Blockly.serialization.workspaces.load(json, workspace);
+    Debug.write("Loading starter workspace...");
+    const response = await fetch(`./examples/starter.json`);
+    const json = await response.json();
+    Blockly.serialization.workspaces.load(json, workspace);
   }
 
   runButton.onclick = async () => {
@@ -99,7 +100,7 @@ async function init() {
     }
   };
 
-  downloadButton.onclick = () => {
+  exportButton.onclick = () => {
     Debug.write("download button pressed");
     let file = new Blob([sessionStorage.getItem("workspace")], {
       type: "text/json",
@@ -115,6 +116,20 @@ async function init() {
       window.URL.revokeObjectURL(url);
     }, 0);
   };
+
+  exampleDropdown.onchange = async (e) => {
+    Debug.write("Example workspace dropdown changed");
+    // noinspection TypeScriptUnresolvedReference
+    let file = e.target.value;
+    if (file) {
+      if (confirm("Loading this example workspace will lose all unsaved work. Continue?")) {
+        const response = await fetch(`./examples/${file}`);
+        const json = await response.json();
+        Blockly.serialization.workspaces.load(json, workspace);
+      }
+    }
+    exampleDropdown.value = "";
+  }
 
   uploadButton.onchange = async (e) => {
     Debug.write("upload workspace from file");

@@ -3,12 +3,16 @@ import Blockly from "blockly";
 const sampleImages = [{
   id: "dogs_walking_in_park.png", title: "Dogs walking in park"
 },
-{
-  id: "cat_sitting_on_chair.png", title: "Cat sitting on a chair"
-},
-{
-  id: "skateboarder.png", title: "Skateboarder"
-}]
+  {
+    id: "cat_sitting_on_chair.png", title: "Cat sitting on a chair"
+  },
+  {
+    id: "skateboarder.png", title: "Skateboarder"
+  },
+  {
+    id: "space_background.png", title: "Space background"
+  }
+]
 
 export let sampleImage = {
   init: function () {
