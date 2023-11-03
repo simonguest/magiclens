@@ -1,4 +1,4 @@
-import { convertToGray } from "./convertToGray";  
+import { convertToGrayscale } from "./convertToGrayscale";
 import { rotateRight } from "./rotateRight";
 
-export { convertToGray, rotateRight }
+export { convertToGrayscale, rotateRight }

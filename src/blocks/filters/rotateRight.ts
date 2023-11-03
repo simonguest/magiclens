@@ -6,7 +6,7 @@ export let rotateRight = {
     this.appendDummyInput()
       .appendField("right 90 degrees")
     this.setInputsInline(true);
-    this.setOutput(true, "IMAGE");
+    this.setOutput(true, "Image");
     this.setPreviousStatement(false, null);
     this.setNextStatement(false, null);
     this.setColour("%{BKY_FILTERS_HUE}");

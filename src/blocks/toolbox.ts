@@ -30,7 +30,7 @@ export let toolbox: any = {
       contents: [
         {
           kind: "block",
-          type: "convert_to_gray"
+          type: "convert_to_grayscale"
         },
         {
           kind: "block",

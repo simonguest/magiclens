@@ -19,7 +19,7 @@ export class CV {
   private mp = new MediaPipe();
   private webcam = new Webcam();
   private samples = new Samples();
-  private transform = new Filters();
+  private filters = new Filters();
   private objectDetection = new ObjectDetection();
   private imageSegmentation = new ImageSegmentation();
   private poseEstimation = new PoseEstimation();
@@ -68,10 +68,16 @@ export class CV {
   }
 
   /*************************
-   Transform
+   Filters
    *************************/
 
-  // TODO: Need to convert these from prior OpenCV methods
+  public convertToGrayscale(image: ImageData) {
+    return this.filters.convertToGrayscale(image);
+  }
+
+  public rotateRight(image: ImageData) {
+    return this.filters.rotateRight(image);
+  }
 
   /*************************
    Object Detection
