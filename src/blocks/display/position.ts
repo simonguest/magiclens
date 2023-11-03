@@ -9,10 +9,10 @@ export let position = {
       .appendField("y:")
       .setCheck("Number");
     this.setInputsInline(true);
-    this.setOutput(true, "POSITION");
+    this.setOutput(true, "Position");
     this.setPreviousStatement(false, null);
     this.setNextStatement(false, null);
-    this.setColour(100);
+    this.setColour("%{BKY_POSITION_HUE}");
   },
 
   transpile: function (block, generator) {
@@ -21,7 +21,7 @@ export let position = {
     let y = generator.valueToCode(block, 'Y', generator.ORDER_NONE);
     if (y === "") return "";
 
-    let model = `({x: ${x}, y: ${y}})`;
-    return [model, generator.ORDER_NONE];
+    let position = `({x: ${x}, y: ${y}})`;
+    return [position, generator.ORDER_NONE];
   },
 };

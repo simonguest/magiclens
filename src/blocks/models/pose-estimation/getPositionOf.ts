@@ -44,12 +44,13 @@ export let getPositionOf = {
         "BODY_PART"
       )
     this.appendValueInput("POSE")
+      .setCheck("Pose")
       .appendField("in pose")
     this.setInputsInline(true);
-    this.setOutput(true, "POSITION");
+    this.setOutput(true, "Position");
     this.setPreviousStatement(false, null);
     this.setNextStatement(false, null);
-    this.setColour(250);
+    this.setColour("%{BKY_POSITION_HUE}");
   },
 
   transpile: function (block, generator) {

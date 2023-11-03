@@ -1,9 +1,8 @@
 import Blockly from "blockly";
 
 export let startWebcam = {
-  getDevices: function(){
-    if (window["devices"])
-    {
+  getDevices: function () {
+    if (window["devices"]) {
       return window["devices"].map((device) => {
         return [device.label.replace(/\s*\([0-9A-Fa-f]+:[0-9A-Fa-f]+\)\s*$/, ''), device.deviceId];
       });
@@ -17,10 +16,10 @@ export let startWebcam = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(295);
+    this.setColour("%{BKY_CAPTURE_HUE}");
   },
 
-  transpile: function (block, generator) {
+  transpile: function (block) {
     let device = block.getFieldValue("DEVICE");
     return `await cv.startWebcam("${device}");`;
   },

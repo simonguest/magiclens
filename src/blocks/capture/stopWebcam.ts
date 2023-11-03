@@ -5,10 +5,10 @@ export let stopWebcam = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(295);
+    this.setColour("%{BKY_CAPTURE_HUE}");
   },
 
-  transpile: function (block, generator) {
+  transpile: function () {
     return `await cv.stopWebcam();`;
   },
 };

@@ -8,7 +8,7 @@ import { ObjectDetection } from "./objectDetection";
 import { ImageSegmenterResult, ObjectDetectorResult, PoseLandmarkerResult } from "@mediapipe/tasks-vision";
 import { ImageSegmentation } from "./imageSegmentation";
 import { PoseEstimation } from "./poseEstimation";
-import { Transform } from "./transform";
+import { Filters } from "./filters";
 import { Display } from "./display";
 
 // noinspection JSUnusedGlobalSymbols,JSUnusedLocalSymbols
@@ -19,7 +19,7 @@ export class CV {
   private mp = new MediaPipe();
   private webcam = new Webcam();
   private samples = new Samples();
-  private transform = new Transform();
+  private transform = new Filters();
   private objectDetection = new ObjectDetection();
   private imageSegmentation = new ImageSegmentation();
   private poseEstimation = new PoseEstimation();
@@ -70,10 +70,6 @@ export class CV {
   /*************************
    Transform
    *************************/
-
-  public addImageToFrame(image: ImageData) {
-    return this.transform.addImageToFrame(this.hiddenImageCanvas, image);
-  }
 
   // TODO: Need to convert these from prior OpenCV methods
 
@@ -129,6 +125,10 @@ export class CV {
   /*************************
    Other Display Methods
    *************************/
+
+  public addImageToFrame(image: ImageData) {
+    return this.display.addImageToFrame(this.hiddenImageCanvas, image);
+  }
 
   public async displayFrame() {
     // Check to see whether user has hit the stop button

@@ -3,10 +3,10 @@ export let poselandmarker_heavy = {
     this.appendDummyInput()
       .appendField("Pose Landmarker (Heavy)")
     this.setInputsInline(false);
-    this.setOutput(true, "MODEL");
+    this.setOutput(true, "PoseEstimationModel");
     this.setPreviousStatement(false, null);
     this.setNextStatement(false, null);
-    this.setColour(100);
+    this.setColour("%{BKY_MODELS_HUE}");
   },
 
   transpile: function (block, generator) {

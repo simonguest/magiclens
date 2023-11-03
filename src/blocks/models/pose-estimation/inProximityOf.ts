@@ -3,10 +3,10 @@ import Blockly from "blockly";
 export let inProximityOf = {
   init: function () {
     this.appendValueInput("BODY_PART")
-      .setCheck("POSITION")
+      .setCheck("Position")
       .appendField("if ")
     this.appendValueInput("LOCATION")
-      .setCheck("POSITION")
+      .setCheck("Position")
       .appendField("is within")
       .appendField(new Blockly.FieldNumber(50, 0, 1024), "DISTANCE")
       .appendField("pixels of")
@@ -14,7 +14,7 @@ export let inProximityOf = {
     this.setOutput(true, "Boolean");
     this.setPreviousStatement(false, null);
     this.setNextStatement(false, null);
-    this.setColour(250);
+    this.setColour("%{BKY_POSITION_HUE}");
   },
 
   transpile: function (block, generator) {

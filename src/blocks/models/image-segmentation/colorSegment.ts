@@ -2,7 +2,8 @@ import Blockly from "blockly";
 
 export let colorSegment = {
   init: function () {
-    this.appendValueInput("OBJECT")
+    this.appendValueInput("SEGMENT")
+      .setCheck("Segment")
       .appendField("color segment");
     this.appendDummyInput()
       .appendField("with color")
@@ -13,19 +14,19 @@ export let colorSegment = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(250);
+    this.setColour("%{BKY_DRAW_HUE}");
   },
 
   transpile: function (block, generator) {
-    let object = generator.valueToCode(block, 'OBJECT', generator.ORDER_NONE);
-    if (object === "") return "";
+    let segment = generator.valueToCode(block, 'SEGMENT', generator.ORDER_NONE);
+    if (segment === "") return "";
 
-    // convert hex color and transparency to rgb array
+    // convert hex color and transparency to rgb array - more efficient to do here vs. every frame
     let color = block.getFieldValue("COLOR");
     const rgb = color.match(/[A-Za-z0-9]{2}/g).map((v) => parseInt(v, 16));
     let transparency = block.getFieldValue("TRANSPARENCY");
     rgb.push(Math.round((1 - transparency) * 255));
 
-    return `await cv.colorSegment(${object}, [${rgb}]);`;
+    return `await cv.colorSegment(${segment}, [${rgb}]);`;
   }
 };

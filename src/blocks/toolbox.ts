@@ -4,7 +4,7 @@ export let toolbox: any = {
   contents: [
     {
       kind: "category",
-      name: "Webcam",
+      name: "Image Capture",
       contents: [
         {
           kind: "block",
@@ -16,23 +16,17 @@ export let toolbox: any = {
         },
         {
           kind: "block",
-          type: "capture_webcam_image",
-        }
-      ],
-    },
-    {
-      kind: "category",
-      name: "Samples",
-      contents: [
+          type: "webcam_image",
+        },
         {
           kind: "block",
-          type: "input_load_sample_image",
+          type: "sample_image",
         }
       ],
     },
     {
       kind: "category",
-      name: "Transform",
+      name: "Filters",
       contents: [
         {
           kind: "block",
@@ -41,16 +35,12 @@ export let toolbox: any = {
         {
           kind: "block",
           type: "rotate_right"
-        },
-        {
-          kind: "block",
-          type: "add_image_to_frame",
         }
       ]
     },
     {
       kind: "category",
-      name: "Models",
+      name: "ML Models",
       expanded: true,
       contents: [
         {
@@ -60,13 +50,6 @@ export let toolbox: any = {
             {
               kind: "block",
               type: "detect_objects",
-              inputs: {
-                MODEL: {
-                  shadow: {
-                    type: "efficientdet_lite0"
-                  }
-                }
-              }
             },
             {
               kind: "block",
@@ -97,13 +80,6 @@ export let toolbox: any = {
             {
               kind: "block",
               type: "segment",
-              inputs: {
-                MODEL: {
-                  shadow: {
-                    type: "selfiesegmenter"
-                  }
-                }
-              }
             },
             {
               kind: "block",
@@ -167,6 +143,10 @@ export let toolbox: any = {
       kind: "category",
       name: "Display",
       contents: [
+        {
+          kind: "block",
+          type: "add_image_to_frame",
+        },
         {
           kind: "block",
           type: "display_frame",

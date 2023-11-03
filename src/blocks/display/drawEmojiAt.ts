@@ -9,11 +9,15 @@ export const emojis = [
   },
   {
     id: "money-bag", title: "💰"
+  },
+  {
+    id: "fish", title: "🐟"
   }]
 
 export let drawEmojiAt = {
   init: function () {
     this.appendValueInput("POSITION")
+      .setCheck("Position")
       .appendField("draw emoji")
       .appendField(
         new Blockly.FieldDropdown(emojis.map(l => [l.title, l.id])),
@@ -23,7 +27,7 @@ export let drawEmojiAt = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(250);
+    this.setColour("%{BKY_DRAW_HUE}");
   },
 
   transpile: function (block, generator) {

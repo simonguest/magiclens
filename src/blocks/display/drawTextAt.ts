@@ -11,8 +11,10 @@ const fonts = [
 export let drawTextAt = {
   init: function () {
     this.appendValueInput("TEXT")
+      .setCheck("String")
       .appendField("draw text")
     this.appendValueInput("POSITION")
+      .setCheck("Position")
       .appendField("at");
     this.appendDummyInput()
       .appendField("with font")
@@ -20,15 +22,15 @@ export let drawTextAt = {
         new Blockly.FieldDropdown(fonts.map(l => [l.title, l.id])),
         "FONT"
       )
-      .appendField("font size")
-      .appendField(new Blockly.FieldNumber(20, 1, 100), "FONT_SIZE")
     this.appendDummyInput()
-      .appendField("font color")
+      .appendField("size")
+      .appendField(new Blockly.FieldNumber(20, 1, 100), "FONT_SIZE")
+      .appendField("color")
       .appendField(new Blockly.FieldColour("#FFF", null), "FONT_COLOR");
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(250);
+    this.setColour("%{BKY_DRAW_HUE}");
   },
 
   transpile: function (block, generator) {

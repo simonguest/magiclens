@@ -3,9 +3,8 @@ import { Debug } from "../debug";
 import Blockly from "blockly";
 import { javascriptGenerator } from "blockly/javascript";
 
-import * as webcam from "./webcam";
-import * as samples from "./samples";
-import * as transform from "./transform";
+import * as capture from "./capture";
+import * as filters from "./filters";
 import * as models from "./models";
 import * as display from "./display";
 
@@ -27,6 +26,13 @@ let workspace = Blockly.inject("blockly-div", {
   trashcan: false,
 });
 
+// Define colours for blocks
+Blockly.Msg.CAPTURE_HUE = "0";
+Blockly.Msg.FILTERS_HUE = "180";
+Blockly.Msg.MODELS_HUE = "60";
+Blockly.Msg.DRAW_HUE = "250";
+Blockly.Msg.POSITION_HUE = "130";
+
 const createCustomBlock = (name, blockType) => {
   Blockly.Blocks[name] = blockType;
   javascriptGenerator.forBlock[name] = function (block, generator) {
@@ -35,21 +41,20 @@ const createCustomBlock = (name, blockType) => {
 };
 
 const createCustomBlocks = () => {
-  createCustomBlock("start_webcam", webcam.startWebcam);
-  createCustomBlock("stop_webcam", webcam.stopWebcam);
-  createCustomBlock("capture_webcam_image", webcam.captureWebcamImage);
+  createCustomBlock("start_webcam", capture.startWebcam);
+  createCustomBlock("stop_webcam", capture.stopWebcam);
+  createCustomBlock("webcam_image", capture.webcamImage);
+  createCustomBlock("sample_image", capture.sampleImage);
 
-  createCustomBlock("input_load_sample_image", samples.loadSampleImage);
-
-  createCustomBlock("convert_to_gray", transform.convertToGray);
-  createCustomBlock("rotate_right", transform.rotateRight);
-  createCustomBlock("add_image_to_frame", transform.addImageToFrame);
+  createCustomBlock("convert_to_gray", filters.convertToGray);
+  createCustomBlock("rotate_right", filters.rotateRight);
 
   createCustomBlock("display_frame", display.displayFrame);
   createCustomBlock("draw_text_at", display.drawTextAt);
   createCustomBlock("draw_emoji_at", display.drawEmojiAt);
   createCustomBlock("position", display.position);
   createCustomBlock("prefixed_position", display.prefixedPosition);
+  createCustomBlock("add_image_to_frame", display.addImageToFrame);
 
   createCustomBlock("detect_objects", models.detectObjects);
   createCustomBlock("efficientdet_lite0", models.efficientdet_lite0);

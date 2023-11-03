@@ -1,18 +1,19 @@
 
 export let drawPose = {
   init: function () {
-      this.appendValueInput("OBJECT")
+      this.appendValueInput("POSE")
+        .setCheck("Pose")
           .appendField("draw pose");
       this.setInputsInline(false);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(250);
+    this.setColour("%{BKY_DRAW_HUE}");
   },
 
   transpile: function (block, generator) {
-      let object = generator.valueToCode(block, 'OBJECT', generator.ORDER_NONE);
-      if (object === "") return "";
+      let pose = generator.valueToCode(block, 'POSE', generator.ORDER_NONE);
+      if (pose === "") return "";
 
-      return `await cv.drawPose(${object});`;
+      return `await cv.drawPose(${pose});`;
   }
 };

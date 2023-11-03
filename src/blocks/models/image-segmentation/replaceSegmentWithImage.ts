@@ -2,9 +2,11 @@ import Blockly from "blockly";
 
 export let replaceSegmentWithImage = {
   init: function () {
-    this.appendValueInput("OBJECT")
+    this.appendValueInput("SEGMENT")
+      .setCheck("Segment")
       .appendField("replace segment");
     this.appendValueInput("IMAGE")
+      .setCheck("Image")
       .appendField("with image");
     this.appendDummyInput()
       .appendField("transparency")
@@ -12,18 +14,18 @@ export let replaceSegmentWithImage = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(250);
+    this.setColour("%{BKY_DRAW_HUE}");
   },
 
   transpile: function (block, generator) {
-    let object = generator.valueToCode(block, 'OBJECT', generator.ORDER_NONE);
-    if (object === "") return "";
+    let segment = generator.valueToCode(block, 'SEGMENT', generator.ORDER_NONE);
+    if (segment === "") return "";
 
     let image = generator.valueToCode(block, 'IMAGE', generator.ORDER_NONE);
     if (image === "") return "";
 
     let transparency = block.getFieldValue("TRANSPARENCY");
 
-    return `await cv.replaceSegmentWithImage(${object}, ${image}, ${(1 - transparency) * 255});`;
+    return `await cv.replaceSegmentWithImage(${segment}, ${image}, ${(1 - transparency) * 255});`;
   }
 };

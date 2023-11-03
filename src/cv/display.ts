@@ -37,6 +37,12 @@ export class Display {
 
   private wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+  public addImageToFrame(canvas: HTMLCanvasElement, image: ImageData) {
+    Debug.write("Add image to frame (hidden image canvas)");
+    const ctx = canvas.getContext("2d");
+    ctx.putImageData(image, 0, 0); // put overlay to canvas
+  }
+
   public async displayFrame(imageCanvas: HTMLCanvasElement, hiddenImageCanvas: HTMLCanvasElement, boundingBoxCanvas: HTMLCanvasElement, segmentationMaskCanvas: HTMLCanvasElement, poseCanvas: HTMLCanvasElement, userCanvas: HTMLCanvasElement) {
     const ctx = imageCanvas.getContext("2d");
     ctx.drawImage(hiddenImageCanvas, 0, 0);

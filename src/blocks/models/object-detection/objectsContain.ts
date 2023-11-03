@@ -3,7 +3,8 @@ import Blockly from "blockly";
 
 export let objectsContain = {
   init: function () {
-    this.appendValueInput("OBJECT")
+    this.appendValueInput("OBJECTS")
+      .setCheck("Objects")
       .appendField("objects");
     this.appendDummyInput()
       .appendField("contain")
@@ -15,16 +16,16 @@ export let objectsContain = {
     this.setOutput(true, "Boolean");
     this.setPreviousStatement(false, null);
     this.setNextStatement(false, null);
-    this.setColour(250);
+    this.setColour("%{BKY_LOGIC_HUE}");
   },
 
   transpile: function (block, generator) {
-    let object = generator.valueToCode(block, 'OBJECT', generator.ORDER_NONE);
+    let objects = generator.valueToCode(block, 'OBJECTS', generator.ORDER_NONE);
     let label = block.getFieldValue("LABEL");
 
-    if (object === "") return "";
+    if (objects === "") return "";
     if (label === "") return "";
 
-    return [`cv.objectsContain(${object}, "${label}")`, generator.ORDER_NONE];
+    return [`cv.objectsContain(${objects}, "${label}")`, generator.ORDER_NONE];
   }
 };
