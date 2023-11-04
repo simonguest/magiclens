@@ -48,6 +48,8 @@ const createCustomBlocks = () => {
 
   createCustomBlock("convert_to_grayscale", filters.convertToGrayscale);
   createCustomBlock("rotate_right", filters.rotateRight);
+  createCustomBlock("rotate_left", filters.rotateLeft);
+  createCustomBlock("rotate_180", filters.rotate180);
 
   createCustomBlock("display_frame", display.displayFrame);
   createCustomBlock("draw_text_at", display.drawTextAt);

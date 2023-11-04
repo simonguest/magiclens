@@ -37,4 +37,47 @@ export class Filters {
     return result;
   }
 
+  public rotateLeft(image: ImageData) {
+    Debug.write("Invoking filter to rotate image left");
+    let width = image.width;
+    let height = image.height;
+    let data = image.data;
+    let length = data.length;
+    let result = new ImageData(height, width);
+    let resultData = result.data;
+    for (let i = 0; i < length; i += 4) {
+      let x = Math.floor(i / 4) % width;
+      let y = Math.floor(i / 4 / width);
+      let newY = width - x - 1;
+      let newIndex = (newY * height + y) * 4;
+      resultData[newIndex] = data[i];
+      resultData[newIndex + 1] = data[i + 1];
+      resultData[newIndex + 2] = data[i + 2];
+      resultData[newIndex + 3] = data[i + 3];
+    }
+    return result;
+  }
+
+  public rotate180(image: ImageData) {
+    Debug.write("Invoking filter to rotate image 180");
+    let width = image.width;
+    let height = image.height;
+    let data = image.data;
+    let length = data.length;
+    let result = new ImageData(width, height);
+    let resultData = result.data;
+    for (let i = 0; i < length; i += 4) {
+      let x = Math.floor(i / 4) % width;
+      let y = Math.floor(i / 4 / width);
+      let newX = width - x - 1;
+      let newY = height - y - 1;
+      let newIndex = (newY * width + newX) * 4;
+      resultData[newIndex] = data[i];
+      resultData[newIndex + 1] = data[i + 1];
+      resultData[newIndex + 2] = data[i + 2];
+      resultData[newIndex + 3] = data[i + 3];
+    }
+    return result;
+  }
+
 }

@@ -35,6 +35,14 @@ export let toolbox: any = {
         {
           kind: "block",
           type: "rotate_right"
+        },
+        {
+          kind: "block",
+          type: "rotate_left"
+        },
+        {
+          kind: "block",
+          type: "rotate_180"
         }
       ]
     },

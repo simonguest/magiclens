@@ -83,6 +83,14 @@ export class CV {
     return this.filters.rotateRight(image);
   }
 
+  public rotateLeft(image: ImageData) {
+    return this.filters.rotateLeft(image);
+  }
+
+  public rotate180(image: ImageData) {
+    return this.filters.rotate180(image);
+  }
+
   /*************************
    Object Detection
    *************************/
