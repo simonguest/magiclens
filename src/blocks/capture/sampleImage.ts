@@ -14,6 +14,9 @@ const sampleImages = [{
   },
   {
     id: "tropical_fish.png", title: "Tropical fish"
+  },
+  {
+    id: "red_material.png", title: "Red material"
   }
 ]
 
@@ -22,7 +25,7 @@ export let sampleImage = {
     this.appendDummyInput()
       .appendField("sample image")
       .appendField(
-        new Blockly.FieldDropdown(sampleImages.map(l => [l.title, l.id])),
+        new Blockly.FieldDropdown(sampleImages.map(l => [l.title, l.id]).sort()),
         "IMAGE"
       )
     this.setInputsInline(false);
