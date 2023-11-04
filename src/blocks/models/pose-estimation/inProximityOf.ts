@@ -4,7 +4,7 @@ export let inProximityOf = {
   init: function () {
     this.appendValueInput("BODY_PART")
       .setCheck("Position")
-      .appendField("if ")
+      .appendField("position of")
     this.appendValueInput("LOCATION")
       .setCheck("Position")
       .appendField("is within")

@@ -11,6 +11,9 @@ const sampleImages = [{
   },
   {
     id: "space_background.png", title: "Space background"
+  },
+  {
+    id: "tropical_fish.png", title: "Tropical fish"
   }
 ]
 
