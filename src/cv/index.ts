@@ -47,7 +47,11 @@ export class CV {
    *************************/
 
   public async startWebcam(deviceId: string) {
-    await this.webcam.start(deviceId, this.imageCanvas);
+    try {
+      await this.webcam.start(deviceId, this.imageCanvas);
+    } catch (err) {
+      Debug.write(err);
+    }
     this.clearCanvas(this.imageCanvas);
   }
 
@@ -103,11 +107,14 @@ export class CV {
     return this.imageSegmentation.segment(this.mp, image, model);
   }
 
-  public async colorSegment(data: {result: ImageSegmenterResult, category: number}, rgb: number[]) {
+  public async colorSegment(data: { result: ImageSegmenterResult, category: number }, rgb: number[]) {
     await this.imageSegmentation.colorSegment(this.segmentationMaskCanvas, data.result, data.category, rgb);
   }
 
-  public async replaceSegmentWithImage(data: {result: ImageSegmenterResult, category:number}, image: ImageData, transparency: number) {
+  public async replaceSegmentWithImage(data: {
+    result: ImageSegmenterResult,
+    category: number
+  }, image: ImageData, transparency: number) {
     await this.imageSegmentation.replaceSegmentWithImage(this.segmentationMaskCanvas, data.result, data.category, image, transparency);
   }
 
@@ -124,7 +131,7 @@ export class CV {
     await this.poseEstimation.displayPose(this.poseCanvas, pose);
   }
 
-  public getPositionOf(bodyPart: number, pose: PoseLandmarkerResult){
+  public getPositionOf(bodyPart: number, pose: PoseLandmarkerResult) {
     return this.poseEstimation.getPositionOf(bodyPart, pose);
   }
 
@@ -153,7 +160,7 @@ export class CV {
     this.clearCanvas(this.userCanvas);
   }
 
-  public drawTextAt(text: string, position: Position, font: string, size: number, color:string) {
+  public drawTextAt(text: string, position: Position, font: string, size: number, color: string) {
     this.display.drawTextAt(this.userCanvas, text, position, font, size, color);
   }
 
@@ -161,7 +168,7 @@ export class CV {
     this.display.drawEmojiAt(this.userCanvas, emoji, position);
   }
 
-  public inProximityOf(first: Position, second: Position, radius: number){
+  public inProximityOf(first: Position, second: Position, radius: number) {
     if (first === null) return;
     if (second === null) return;
     return Math.sqrt((second.x - first.x) ** 2 + (second.y - first.y) ** 2) <= radius;
@@ -184,8 +191,17 @@ export class CV {
   public async init() {
     Debug.write("Initializing CV");
     Debug.write("Detecting Webcam devices");
-    let devices = await navigator.mediaDevices.enumerateDevices();
-    window["devices"] = devices.filter(device => device.kind === "videoinput");
+    try {
+      let currentStream = await navigator.mediaDevices.getUserMedia({ video: true });
+      let devices = await navigator.mediaDevices.enumerateDevices();
+      window["devices"] = devices.filter(device => device.kind === "videoinput");
+      let tracks = currentStream.getTracks();
+      tracks.forEach(function (track) {
+        track.stop();
+      });
+    } catch (err) {
+      Debug.write("Error detecting webcam devices: " + err);
+    }
 
     Debug.write("Initializing mediapipe")
     await this.mp.init();

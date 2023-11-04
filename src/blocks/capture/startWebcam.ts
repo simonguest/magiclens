@@ -6,6 +6,8 @@ export let startWebcam = {
       return window["devices"].map((device) => {
         return [device.label.replace(/\s*\([0-9A-Fa-f]+:[0-9A-Fa-f]+\)\s*$/, ''), device.deviceId];
       });
+    } else {
+      return [["No webcam detected", "no-webcam"]];
     }
   },
 

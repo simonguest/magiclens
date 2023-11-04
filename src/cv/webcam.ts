@@ -37,6 +37,7 @@ export class Webcam {
         return resolve(this.currentStream);
       }
       let that = this;
+      if (deviceId === "no-webcam") return reject("No webcam detected");
       navigator.mediaDevices.getUserMedia({video: {deviceId: deviceId}})
         .then(async function (stream) {
           that.currentStream = stream;
