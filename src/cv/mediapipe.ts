@@ -12,7 +12,7 @@ export class MediaPipe {
 
   public async init() {
     return new Promise(async (resolve) => {
-      this.vision = await FilesetResolver.forVisionTasks(
+      this.vision = await FilesetResolver.forVisionTasks("."
       );
       Debug.write("MediaPipe initialized");
       resolve("MediaPipe initialized");
