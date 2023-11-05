@@ -188,8 +188,8 @@ export class CV {
     this.display.drawTextAt(this.userCanvas, text, position, font, size, color);
   }
 
-  public drawEmojiAt(emoji: string, position: Position) {
-    this.display.drawEmojiAt(this.userCanvas, emoji, position);
+  public drawEmojiAt(emoji: string, position: Position, size: number) {
+    this.display.drawEmojiAt(this.userCanvas, emoji, position, size);
   }
 
   public inProximityOf(first: Position, second: Position, radius: number) {

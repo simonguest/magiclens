@@ -93,7 +93,7 @@ export class Display {
   }
 
 
-  public drawEmojiAt(userCanvas: HTMLCanvasElement, emoji: string, position: Position) {
+  public drawEmojiAt(userCanvas: HTMLCanvasElement, emoji: string, position: Position, size: number) {
     if (position === null) {
       Debug.write("No position provided");
       return;
@@ -101,7 +101,7 @@ export class Display {
     Debug.write(`Drawing emoji ${emoji} at ${position.x},${position.y}`);
     let ctx = userCanvas.getContext("2d");
     // draw the label background
-    ctx.font = "70px serif";
+    ctx.font = `${size}px serif`;
     let icon = emojis.find(e => e.id === emoji).title;
     ctx.fillText(icon, position.x, position.y);
   }
