@@ -1,7 +1,7 @@
 {
   "name": "cvlab",
   "version": "1.0.0",
-  "description": "CV Lab",
+  "description": "Magic Lens",
   "scripts": {
     "clean": "rm -rf ./dist && rm -rf ./.parcel-cache",
     "build": "npx parcel build --public-url '.' index.html",
