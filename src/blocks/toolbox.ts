@@ -43,6 +43,22 @@ export let toolbox: any = {
         {
           kind: "block",
           type: "rotate_180"
+        },
+        {
+          kind: "block",
+          type: "flip_horizontal"
+        },
+        {
+          kind: "block",
+          type: "flip_vertical"
+        },
+        {
+          kind: "block",
+          type: "invert"
+        },
+        {
+          kind: "block",
+          type: "blur"
         }
       ]
     },

@@ -91,6 +91,22 @@ export class CV {
     return this.filters.rotate180(image);
   }
 
+  public flipHorizontal(image: ImageData) {
+    return this.filters.flipHorizontal(image);
+  }
+
+  public flipVertical(image: ImageData) {
+    return this.filters.flipVertical(image);
+  }
+
+  public invert(image: ImageData) {
+    return this.filters.invert(image);
+  }
+
+  public blur(image: ImageData, radius: number) {
+    return this.filters.blur(image, radius);
+  }
+
   /*************************
    Object Detection
    *************************/

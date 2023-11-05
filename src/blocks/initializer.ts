@@ -50,6 +50,10 @@ const createCustomBlocks = () => {
   createCustomBlock("rotate_right", filters.rotateRight);
   createCustomBlock("rotate_left", filters.rotateLeft);
   createCustomBlock("rotate_180", filters.rotate180);
+  createCustomBlock("flip_horizontal", filters.flipHorizontal);
+  createCustomBlock("flip_vertical", filters.flipVertical);
+  createCustomBlock("invert", filters.invert);
+  createCustomBlock("blur", filters.blur);
 
   createCustomBlock("display_frame", display.displayFrame);
   createCustomBlock("draw_text_at", display.drawTextAt);
