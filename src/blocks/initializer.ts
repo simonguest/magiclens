@@ -45,6 +45,7 @@ const createCustomBlocks = () => {
   createCustomBlock("stop_webcam", capture.stopWebcam);
   createCustomBlock("webcam_image", capture.webcamImage);
   createCustomBlock("sample_image", capture.sampleImage);
+  createCustomBlock("background", capture.background);
 
   createCustomBlock("convert_to_grayscale", filters.convertToGrayscale);
   createCustomBlock("rotate_right", filters.rotateRight);

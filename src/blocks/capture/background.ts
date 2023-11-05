@@ -1,22 +1,23 @@
 import Blockly from "blockly";
 
-const sampleImages = [{
-  id: "dogs_walking_in_park.png", title: "Dogs walking in park"
-},
+const backgrounds = [
   {
-    id: "cat_sitting_on_chair.png", title: "Cat sitting on a chair"
+    id: "space_background.png", title: "Space"
   },
   {
-    id: "skateboarder.png", title: "Skateboarder"
+    id: "tropical_fish.png", title: "Tropical fish"
+  },
+  {
+    id: "red_material.png", title: "Red material"
   }
 ]
 
-export let sampleImage = {
+export let background = {
   init: function () {
     this.appendDummyInput()
-      .appendField("sample image")
+      .appendField("background image")
       .appendField(
-        new Blockly.FieldDropdown(sampleImages.map(l => [l.title, l.id]).sort()),
+        new Blockly.FieldDropdown(backgrounds.map(l => [l.title, l.id]).sort()),
         "IMAGE"
       )
     this.setInputsInline(false);

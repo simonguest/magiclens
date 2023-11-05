@@ -21,6 +21,10 @@ export let toolbox: any = {
         {
           kind: "block",
           type: "sample_image",
+        },
+        {
+          kind: "block",
+          type: "background",
         }
       ],
     },
