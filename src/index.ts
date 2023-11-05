@@ -94,6 +94,8 @@ async function init() {
 
   clearButton.onclick = () => {
     Debug.write("clear button pressed");
+    // stop the current project, if running
+    window["cancelRequest"] = true;
     if (confirm("Clearing the workspace will lose all unsaved work. Continue?")) {
       sessionStorage.removeItem("workspace");
       location.reload();
@@ -119,6 +121,8 @@ async function init() {
 
   exampleDropdown.onchange = async (e) => {
     Debug.write("Example workspace dropdown changed");
+    // stop the current project, if running
+    window["cancelRequest"] = true;
     // noinspection TypeScriptUnresolvedReference
     let file = e.target.value;
     if (file) {
@@ -133,6 +137,8 @@ async function init() {
 
   uploadButton.onchange = async (e) => {
     Debug.write("upload workspace from file");
+    // stop the current project, if running
+    window["cancelRequest"] = true;
     let file = e.target["files"][0];
     if (!file) {
       return;
