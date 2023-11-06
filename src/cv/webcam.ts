@@ -12,11 +12,11 @@ export class Webcam {
 
   private wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  private displayStartingWebCamImage(canvas: HTMLCanvasElement) {
-    canvas.width = 1024;
-    canvas.height = 1024;
+  private displayStartingWebCamImage(canvas: HTMLCanvasElement, width: number, height: number) {
+    canvas.width = width;
+    canvas.height = height;
     const ctx = canvas.getContext("2d");
-    ctx.fillRect(0, 0, 1024, 1024);
+    ctx.fillRect(0, 0, width, height);
     ctx.font = '28px sans-serif';           // You can adjust the size and font-family to your liking
     ctx.fillStyle = 'white';
     ctx.textAlign = 'center';
@@ -26,9 +26,9 @@ export class Webcam {
     ctx.fillText('Starting Webcam', canvas.width / 2, canvas.height / 2);
   }
 
-  public async start(deviceId: string, canvas: HTMLCanvasElement) {
+  public async start(deviceId: string, canvas: HTMLCanvasElement, width: number, height: number) {
     Debug.write("Displaying starting webcam image");
-    this.displayStartingWebCamImage(canvas);
+    this.displayStartingWebCamImage(canvas, width, height);
 
     Debug.write(`Starting webcam`);
     return new Promise(async (resolve, reject) => {
@@ -73,10 +73,7 @@ export class Webcam {
     });
   }
 
-  private createGreenImageData() {
-    const width = 1024;
-    const height = 1024;
-
+  private createGreenImageData(width: number, height: number) {
     // Create an offscreen canvas
     const offscreenCanvas = document.createElement('canvas');
     const context = offscreenCanvas.getContext('2d');
@@ -95,19 +92,19 @@ export class Webcam {
     return imageData;
   }
 
-  public async captureImage() {
+  public async captureImage(width: number, height: number) {
     Debug.write("Trying to capture webcam image");
     return new Promise(async (resolve) => {
       if (!this.currentStream) {
         Debug.write("Webcam is not started.");
         // Create a default green image instead
-        resolve(this.createGreenImageData());
+        resolve(this.createGreenImageData(width, height));
       }
       let ctx = this.videoCanvas.getContext('2d');
-      ctx.drawImage(this.videoElement, 0, 0, 1024, 1024);
+      ctx.drawImage(this.videoElement, 0, 0, width, height);
 
       // Extract the image data and return
-      let imageData = ctx.getImageData(0, 0, 1024, 1024);
+      let imageData = ctx.getImageData(0, 0, width, height);
       resolve(imageData);
     });
   }

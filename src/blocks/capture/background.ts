@@ -2,13 +2,13 @@ import Blockly from "blockly";
 
 const backgrounds = [
   {
-    id: "space_background.png", title: "Space"
+    id: "space_background_512x512.png", title: "Space"
   },
   {
-    id: "tropical_fish.png", title: "Tropical fish"
+    id: "tropical_fish_512x512.png", title: "Tropical fish"
   },
   {
-    id: "red_material.png", title: "Red material"
+    id: "red_material_512x512.png", title: "Red material"
   }
 ]
 

@@ -25,6 +25,14 @@ export class CV {
   private poseEstimation = new PoseEstimation();
   private display = new Display();
 
+  private readonly width: number = 1024;
+  private readonly height: number = 1024;
+
+  constructor(width: number, height: number) {
+    this.width = width;
+    this.height = height;
+  }
+
   /*************************
    Canvas Collection
    *************************/
@@ -35,6 +43,7 @@ export class CV {
   private segmentationMaskCanvas = document.getElementById("segmentation-mask-canvas") as HTMLCanvasElement;
   private poseCanvas = document.getElementById("pose-canvas") as HTMLCanvasElement;
   private userCanvas = document.getElementById("user-canvas") as HTMLCanvasElement;
+
 
   /*************************
    Display Methods
@@ -48,7 +57,7 @@ export class CV {
 
   public async startWebcam(deviceId: string) {
     try {
-      await this.webcam.start(deviceId, this.imageCanvas);
+      await this.webcam.start(deviceId, this.imageCanvas, this.width, this.height);
     } catch (err) {
       Debug.write(err);
     }
@@ -60,7 +69,7 @@ export class CV {
   }
 
   public async captureWebcamImage() {
-    return await this.webcam.captureImage();
+    return await this.webcam.captureImage(this.width, this.height);
   }
 
   /*************************
@@ -68,7 +77,7 @@ export class CV {
    *************************/
 
   private loadSampleImage(filename: string) {
-    return this.samples.loadSampleImage(filename);
+    return this.samples.loadSampleImage(filename, this.width, this.height);
   }
 
   /*************************
@@ -132,14 +141,14 @@ export class CV {
   }
 
   public async colorSegment(data: { result: ImageSegmenterResult, category: number }, rgb: number[]) {
-    await this.imageSegmentation.colorSegment(this.segmentationMaskCanvas, data.result, data.category, rgb);
+    await this.imageSegmentation.colorSegment(this.segmentationMaskCanvas, data.result, data.category, rgb, this.width, this.height);
   }
 
   public async replaceSegmentWithImage(data: {
     result: ImageSegmenterResult,
     category: number
   }, image: ImageData, transparency: number) {
-    await this.imageSegmentation.replaceSegmentWithImage(this.segmentationMaskCanvas, data.result, data.category, image, transparency);
+    await this.imageSegmentation.replaceSegmentWithImage(this.segmentationMaskCanvas, data.result, data.category, image, transparency, this.width, this.height);
   }
 
   /*************************
@@ -152,11 +161,11 @@ export class CV {
 
   public async drawPose(pose: PoseLandmarkerResult) {
     this.clearCanvas(this.poseCanvas);
-    await this.poseEstimation.displayPose(this.poseCanvas, pose);
+    await this.poseEstimation.displayPose(this.poseCanvas, pose, this.width, this.height);
   }
 
   public getPositionOf(bodyPart: number, pose: PoseLandmarkerResult) {
-    return this.poseEstimation.getPositionOf(bodyPart, pose);
+    return this.poseEstimation.getPositionOf(bodyPart, pose, this.width, this.height);
   }
 
   /*************************
@@ -199,8 +208,8 @@ export class CV {
   }
 
   private clearCanvas(canvas: HTMLCanvasElement) {
-    canvas.width = 1024;
-    canvas.height = 1024;
+    canvas.width = this.width;
+    canvas.height = this.height;
   }
 
   public clearCanvasCollection() {

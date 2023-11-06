@@ -8,7 +8,7 @@ import { blocklyInit, workspace } from "./blocks/initializer";
 
 blocklyInit();
 
-const cv = new CV();
+const cv = new CV(512, 512);
 
 // Setup UI components
 const runButton = document.getElementById("run-button");

@@ -2,31 +2,31 @@ import Blockly from "blockly";
 
 const modelTypes = [
   {
-    id: "{ x: 100, y: 100 }", title: "top left"
+    id: "{ x: 50, y: 50 }", title: "top left"
   },
   {
-    id: "{ x: 512, y: 100 }", title: "top center"
+    id: "{ x: 256, y: 50 }", title: "top center"
   },
   {
-    id: "{ x: 1024 - 100, y: 100 }", title: "top right"
+    id: "{ x: 512 - 50, y: 50 }", title: "top right"
   },
   {
-    id: "{ x: 100, y: 512 }", title: "center left"
+    id: "{ x: 50, y: 256 }", title: "center left"
   },
   {
-    id: "{ x: 512, y: 512 }", title: "center"
+    id: "{ x: 256, y: 256 }", title: "center"
   },
   {
-    id: "{ x: 1024 - 100, y: 512 }", title: "center right"
+    id: "{ x: 512 - 50, y: 256 }", title: "center right"
   },
   {
-    id: "{ x: 100, y: 1024 - 100 }", title: "bottom left"
+    id: "{ x: 50, y: 512 - 50 }", title: "bottom left"
   },
   {
-    id: "{ x: 512, y: 1024 - 100 }", title: "bottom center"
+    id: "{ x: 256, y: 512 - 50 }", title: "bottom center"
   },
   {
-    id: "{ x: 1024 - 100, y: 1024 - 100 }", title: "bottom right"
+    id: "{ x: 512 - 50, y: 512 - 50 }", title: "bottom right"
   }
   ]
 

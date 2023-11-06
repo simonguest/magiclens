@@ -5,7 +5,7 @@ import { ObjectDetectorResult } from "@mediapipe/tasks-vision";
 export class ObjectDetection {
 
   private BOUNDING_BOX_COLOR : string = "#777777";
-  private BOUNDING_BOX_FONT : string = "20px Arial";
+  private BOUNDING_BOX_FONT : string = "14px Arial";
   private BOUNDING_BOX_FONT_COLOR : string = "#ffffff";
 
   public async detectObjects(mediapipe: MediaPipe, image: ImageData, model: ModelData) {
@@ -23,7 +23,7 @@ export class ObjectDetection {
 
       // draw border box
       ctx.strokeStyle = this.BOUNDING_BOX_COLOR;
-      ctx.lineWidth = 4;
+      ctx.lineWidth = 3;
       ctx.strokeRect(originX, originY, width, height);
 
       // draw the label background
@@ -31,7 +31,7 @@ export class ObjectDetection {
       ctx.font = this.BOUNDING_BOX_FONT;
       ctx.textBaseline = "top";
       const textWidth = ctx.measureText(label + " - " + score + "%").width;
-      const textHeight = 18;
+      const textHeight = 14;
       const textY = originY - (textHeight + ctx.lineWidth);
       ctx.fillRect(
         originX - 1,

@@ -18,13 +18,13 @@ export class Samples {
     });
   }
 
-  public async loadSampleImage(filename: string) {
+  public async loadSampleImage(filename: string, width: number, height: number) {
     Debug.write(`Loading the ${filename} image`);
     const imageEl = await this.loadImage(`./images/${filename}`);
     Debug.write(`Image loaded`);
     let ctx = (document.getElementById("sample-image-canvas") as HTMLCanvasElement).getContext("2d");
     ctx.drawImage(imageEl, 0, 0);
-    return ctx.getImageData(0, 0, 1024, 1024);
+    return ctx.getImageData(0, 0, width, height);
   }
 
 }

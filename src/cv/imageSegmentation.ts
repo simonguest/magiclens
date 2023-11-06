@@ -1,16 +1,14 @@
 import { Debug } from "../debug";
 import { MediaPipe } from "./mediapipe";
 import { ImageSegmenterResult } from "@mediapipe/tasks-vision";
-import { replaceSegmentWithImage } from "../blocks/models";
 
 export class ImageSegmentation {
 
-
-  public async colorSegment(canvas: HTMLCanvasElement, result: ImageSegmenterResult, category: number, rgb: number[]) {
+  public async colorSegment(canvas: HTMLCanvasElement, result: ImageSegmenterResult, category: number, rgb: number[], width: number, height: number) {
     Debug.write("Color segment");
 
     const ctx = canvas.getContext("2d");
-    let imageDataObj = ctx.getImageData(0, 0, 1024, 1024);
+    let imageDataObj = ctx.getImageData(0, 0, width, height);
     let imageData = imageDataObj.data;
     const mask = result.categoryMask.getAsUint8Array();
     const len = mask.length;
@@ -26,17 +24,17 @@ export class ImageSegmentation {
     }
     ctx.putImageData(imageDataObj, 0, 0);
     const uint8Array = new Uint8ClampedArray(imageData.buffer);
-    const dataNew = new ImageData(uint8Array, 1024, 1024);
+    const dataNew = new ImageData(uint8Array, width, height);
     ctx.putImageData(dataNew, 0, 0);
     Debug.write("Done color segment")
   }
 
-  public async replaceSegmentWithImage(canvas: HTMLCanvasElement, result: ImageSegmenterResult, category: number, image: ImageData, transparency: number) {
+  public async replaceSegmentWithImage(canvas: HTMLCanvasElement, result: ImageSegmenterResult, category: number, image: ImageData, transparency: number, width: number, height: number) {
     Debug.write("Replace segment with image");
 
     // Get the image data for the current canvas
     const ctx = canvas.getContext("2d");
-    let imageDataObj = ctx.getImageData(0, 0, 1024, 1024);
+    let imageDataObj = ctx.getImageData(0, 0, width, height);
     let imageData = imageDataObj.data;
     const mask = result.categoryMask.getAsUint8Array();
     const len = mask.length;
@@ -55,7 +53,7 @@ export class ImageSegmentation {
     }
     ctx.putImageData(imageDataObj, 0, 0);
     const uint8Array = new Uint8ClampedArray(imageData.buffer);
-    const dataNew = new ImageData(uint8Array, 1024, 1024);
+    const dataNew = new ImageData(uint8Array, width, height);
     ctx.putImageData(dataNew, 0, 0);
     Debug.write("Done replace segment with image")
 

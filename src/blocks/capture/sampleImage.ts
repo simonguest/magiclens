@@ -1,13 +1,13 @@
 import Blockly from "blockly";
 
 const sampleImages = [{
-  id: "dogs_walking_in_park.png", title: "Dogs walking in park"
+  id: "dogs_walking_in_park_512x512.png", title: "Dogs walking in park"
 },
   {
-    id: "cat_sitting_on_chair.png", title: "Cat sitting on a chair"
+    id: "cat_sitting_on_chair_512x512.png", title: "Cat sitting on a chair"
   },
   {
-    id: "skateboarder.png", title: "Skateboarder"
+    id: "skateboarder_512x512.png", title: "Skateboarder"
   }
 ]
 
