@@ -819,7 +819,7 @@
                                                                             "type": "in_proximity_of",
                                                                             "id": "U1K`fuw74^GW4#LiMCz2",
                                                                             "fields": {
-                                                                              "DISTANCE": 100
+                                                                              "DISTANCE": 50
                                                                             },
                                                                             "inputs": {
                                                                               "BODY_PART": {
@@ -922,7 +922,7 @@
                                                                                 "type": "in_proximity_of",
                                                                                 "id": "l!`EdnN=f.0PPJ)+H(Q|",
                                                                                 "fields": {
-                                                                                  "DISTANCE": 100
+                                                                                  "DISTANCE": 50
                                                                                 },
                                                                                 "inputs": {
                                                                                   "BODY_PART": {
