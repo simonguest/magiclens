@@ -1,1 +1,260 @@
-{"blocks":{"languageVersion":0,"blocks":[{"type":"start_webcam","id":"r}lguSwsf{HKkV+arBB}","x":84,"y":93,"fields":{"DEVICE":"39bd635d20b02672669d77373392a968870f058e6cbc5b276d2f6ec235cde593"},"next":{"block":{"type":"controls_whileUntil","id":"4Vw7Pg_(_aR?R`]aIDsT","fields":{"MODE":"WHILE"},"inputs":{"BOOL":{"block":{"type":"logic_boolean","id":".uM8~n#G:ax$W^Xfu$@t","fields":{"BOOL":"TRUE"}}},"DO":{"block":{"type":"variables_set","id":"v}lM}Os9p}fA#F-sZFtv","fields":{"VAR":{"id":"+0Zf1.2~WuTR,AE{Z=CH"}},"inputs":{"VALUE":{"block":{"type":"webcam_image","id":"ftY~t2kSs}?skpI,D~:`"}}},"next":{"block":{"type":"add_image_to_frame","id":"QxHspEJ_=8,gt/#.5v+J","inputs":{"IMAGE":{"block":{"type":"variables_get","id":"@9)I/02$_l%-fn}z8Zmk","fields":{"VAR":{"id":"+0Zf1.2~WuTR,AE{Z=CH"}}}}},"next":{"block":{"type":"variables_set","id":"j}GoC:1[1|q8fEq(}%gX","fields":{"VAR":{"id":"LW,80D0a,lYXH5d_M/[O"}},"inputs":{"VALUE":{"block":{"type":"detect_objects","id":"oWce9z|Jj`$S*3_-X~q7","inputs":{"IMAGE":{"block":{"type":"variables_get","id":"wrwosIG7]8-(![xkQYo5","fields":{"VAR":{"id":"+0Zf1.2~WuTR,AE{Z=CH"}}}},"MODEL":{"block":{"type":"efficientdet_lite2","id":"v#*.W*`QRr8NxGjq$6+?","fields":{"MODEL":"./models/object-detection/EfficientDet-Lite2/float32/efficientdet_lite2.tflite"}}}}}}},"next":{"block":{"type":"controls_if","id":"()W~D-Mpfw*4UyjqlT?+","inputs":{"IF0":{"block":{"type":"objects_contain","id":"5YU%1ncwyGaD^:~9A%V*","fields":{"LABEL":"cell phone"},"inputs":{"OBJECTS":{"block":{"type":"variables_get","id":"VezKbo-~cDDzCcJ6VT.|","fields":{"VAR":{"id":"LW,80D0a,lYXH5d_M/[O"}}}}}}},"DO0":{"block":{"type":"draw_text_at","id":"$XK(n4I],4BD5ubUq3_F","fields":{"FONT":"Arial","FONT_SIZE":50,"FONT_COLOR":"#ff0000"},"inputs":{"TEXT":{"block":{"type":"text","id":"zYgdmvXz5uGgCXB_%a`b","fields":{"TEXT":"Cell Phone Detected!"}}},"POSITION":{"block":{"type":"prefixed_position","id":"P{ihy:@}VJaCq16!7#{~","fields":{"POSITION":"{ x: 512, y: 100 }"}}}},"next":{"block":{"type":"variables_set","id":"|qq8LolX~_S}:I.3e~JF","fields":{"VAR":{"id":"r~PouJne?g0?VbDH#[1i"}},"inputs":{"VALUE":{"block":{"type":"segment","id":"v{X~Ha1}6AWojs|G.W*r","inputs":{"IMAGE":{"block":{"type":"variables_get","id":"j,?Xx8h1lWk?~G-2Cbf?","fields":{"VAR":{"id":"+0Zf1.2~WuTR,AE{Z=CH"}}}},"MODEL":{"block":{"type":"selfiesegmenter","id":"@e+Izb$*V35$TjJh}4Xg","fields":{"CATEGORY":"0"}}}}}}},"next":{"block":{"type":"color_segment","id":"F?3nn~J`BQMFSOJb-%Q+","fields":{"COLOR":"#ff0000","TRANSPARENCY":0.5},"inputs":{"SEGMENT":{"block":{"type":"variables_get","id":"A_Q-fQIEMZj(=6^dHwvh","fields":{"VAR":{"id":"r~PouJne?g0?VbDH#[1i"}}}}}}}}}}}},"next":{"block":{"type":"display_frame","id":"d|(Z0vkZyi^iY|3{AwCY"}}}}}}}}}}}}}}]},"variables":[{"name":"objects","id":"LW,80D0a,lYXH5d_M/[O"},{"name":"image","id":"+0Zf1.2~WuTR,AE{Z=CH"},{"name":"person","id":"r~PouJne?g0?VbDH#[1i"}]}
+{
+  "blocks": {
+    "languageVersion": 0,
+    "blocks": [
+      {
+        "type": "start_webcam",
+        "id": "r}lguSwsf{HKkV+arBB}",
+        "x": 84,
+        "y": 93,
+        "fields": {
+          "DEVICE": "39bd635d20b02672669d77373392a968870f058e6cbc5b276d2f6ec235cde593"
+        },
+        "next": {
+          "block": {
+            "type": "controls_whileUntil",
+            "id": "4Vw7Pg_(_aR?R`]aIDsT",
+            "fields": {
+              "MODE": "WHILE"
+            },
+            "inputs": {
+              "BOOL": {
+                "block": {
+                  "type": "logic_boolean",
+                  "id": ".uM8~n#G:ax$W^Xfu$@t",
+                  "fields": {
+                    "BOOL": "TRUE"
+                  }
+                }
+              },
+              "DO": {
+                "block": {
+                  "type": "variables_set",
+                  "id": "v}lM}Os9p}fA#F-sZFtv",
+                  "fields": {
+                    "VAR": {
+                      "id": "+0Zf1.2~WuTR,AE{Z=CH"
+                    }
+                  },
+                  "inputs": {
+                    "VALUE": {
+                      "block": {
+                        "type": "webcam_image",
+                        "id": "ftY~t2kSs}?skpI,D~:`"
+                      }
+                    }
+                  },
+                  "next": {
+                    "block": {
+                      "type": "add_image_to_frame",
+                      "id": "QxHspEJ_=8,gt/#.5v+J",
+                      "inputs": {
+                        "IMAGE": {
+                          "block": {
+                            "type": "variables_get",
+                            "id": "@9)I/02$_l%-fn}z8Zmk",
+                            "fields": {
+                              "VAR": {
+                                "id": "+0Zf1.2~WuTR,AE{Z=CH"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "next": {
+                        "block": {
+                          "type": "variables_set",
+                          "id": "j}GoC:1[1|q8fEq(}%gX",
+                          "fields": {
+                            "VAR": {
+                              "id": "LW,80D0a,lYXH5d_M/[O"
+                            }
+                          },
+                          "inputs": {
+                            "VALUE": {
+                              "block": {
+                                "type": "detect_objects",
+                                "id": "oWce9z|Jj`$S*3_-X~q7",
+                                "inputs": {
+                                  "IMAGE": {
+                                    "block": {
+                                      "type": "variables_get",
+                                      "id": "wrwosIG7]8-(![xkQYo5",
+                                      "fields": {
+                                        "VAR": {
+                                          "id": "+0Zf1.2~WuTR,AE{Z=CH"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "MODEL": {
+                                    "block": {
+                                      "type": "efficientdet_lite2",
+                                      "id": "v#*.W*`QRr8NxGjq$6+?",
+                                      "fields": {
+                                        "MODEL": "./models/object-detection/EfficientDet-Lite2/float32/efficientdet_lite2.tflite"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "next": {
+                            "block": {
+                              "type": "controls_if",
+                              "id": "()W~D-Mpfw*4UyjqlT?+",
+                              "inputs": {
+                                "IF0": {
+                                  "block": {
+                                    "type": "objects_contain",
+                                    "id": "5YU%1ncwyGaD^:~9A%V*",
+                                    "fields": {
+                                      "LABEL": "cell phone"
+                                    },
+                                    "inputs": {
+                                      "OBJECTS": {
+                                        "block": {
+                                          "type": "variables_get",
+                                          "id": "VezKbo-~cDDzCcJ6VT.|",
+                                          "fields": {
+                                            "VAR": {
+                                              "id": "LW,80D0a,lYXH5d_M/[O"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "DO0": {
+                                  "block": {
+                                    "type": "draw_text_at",
+                                    "id": "$XK(n4I],4BD5ubUq3_F",
+                                    "fields": {
+                                      "FONT": "Arial",
+                                      "FONT_SIZE": 25,
+                                      "FONT_COLOR": "#ff0000"
+                                    },
+                                    "inputs": {
+                                      "TEXT": {
+                                        "block": {
+                                          "type": "text",
+                                          "id": "zYgdmvXz5uGgCXB_%a`b",
+                                          "fields": {
+                                            "TEXT": "Cell Phone Detected!"
+                                          }
+                                        }
+                                      },
+                                      "POSITION": {
+                                        "block": {
+                                          "type": "prefixed_position",
+                                          "id": "P{ihy:@}VJaCq16!7#{~",
+                                          "fields": {
+                                            "POSITION": "{ x: 256, y: 50 }"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "next": {
+                                      "block": {
+                                        "type": "variables_set",
+                                        "id": "|qq8LolX~_S}:I.3e~JF",
+                                        "fields": {
+                                          "VAR": {
+                                            "id": "r~PouJne?g0?VbDH#[1i"
+                                          }
+                                        },
+                                        "inputs": {
+                                          "VALUE": {
+                                            "block": {
+                                              "type": "segment",
+                                              "id": "v{X~Ha1}6AWojs|G.W*r",
+                                              "inputs": {
+                                                "IMAGE": {
+                                                  "block": {
+                                                    "type": "variables_get",
+                                                    "id": "j,?Xx8h1lWk?~G-2Cbf?",
+                                                    "fields": {
+                                                      "VAR": {
+                                                        "id": "+0Zf1.2~WuTR,AE{Z=CH"
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "MODEL": {
+                                                  "block": {
+                                                    "type": "selfiesegmenter",
+                                                    "id": "@e+Izb$*V35$TjJh}4Xg",
+                                                    "fields": {
+                                                      "CATEGORY": "0"
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "next": {
+                                          "block": {
+                                            "type": "color_segment",
+                                            "id": "F?3nn~J`BQMFSOJb-%Q+",
+                                            "fields": {
+                                              "COLOR": "#ff0000",
+                                              "TRANSPARENCY": 0.5
+                                            },
+                                            "inputs": {
+                                              "SEGMENT": {
+                                                "block": {
+                                                  "type": "variables_get",
+                                                  "id": "A_Q-fQIEMZj(=6^dHwvh",
+                                                  "fields": {
+                                                    "VAR": {
+                                                      "id": "r~PouJne?g0?VbDH#[1i"
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "next": {
+                                "block": {
+                                  "type": "display_frame",
+                                  "id": "d|(Z0vkZyi^iY|3{AwCY"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "variables": [
+    {
+      "name": "objects",
+      "id": "LW,80D0a,lYXH5d_M/[O"
+    },
+    {
+      "name": "image",
+      "id": "+0Zf1.2~WuTR,AE{Z=CH"
+    },
+    {
+      "name": "person",
+      "id": "r~PouJne?g0?VbDH#[1i"
+    }
+  ]
+}

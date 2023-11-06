@@ -1,1 +1,124 @@
-{"blocks":{"languageVersion":0,"blocks":[{"type":"variables_set","id":"@|Z1S8`yK%D#sqHw({+o","x":58,"y":59,"fields":{"VAR":{"id":"PDwZ%[A^{:g)y5OQ3-:."}},"inputs":{"VALUE":{"block":{"type":"sample_image","id":"=$;y+*1dlfg20O),c.)@","fields":{"IMAGE":"cat_sitting_on_chair.png"}}}},"next":{"block":{"type":"add_image_to_frame","id":"?yD1iHKq@~QZH=63Yruw","inputs":{"IMAGE":{"block":{"type":"variables_get","id":"|#1Ply:~=tE=B~+}mhm=","fields":{"VAR":{"id":"PDwZ%[A^{:g)y5OQ3-:."}}}}},"next":{"block":{"type":"variables_set","id":"tA}-WD[xA5S~!6tl~uhf","fields":{"VAR":{"id":"H*X=Ca7}wSztqM)4Ac8."}},"inputs":{"VALUE":{"block":{"type":"detect_objects","id":"r6U7$4`yBM.Qi%r)PXg]","inputs":{"IMAGE":{"block":{"type":"variables_get","id":"I,0d#cZc]DyY#twxEX?t","fields":{"VAR":{"id":"PDwZ%[A^{:g)y5OQ3-:."}}}},"MODEL":{"block":{"type":"efficientdet_lite2","id":"w.mix1ncQ(#?(_)3)?9#","fields":{"MODEL":"./models/object-detection/EfficientDet-Lite2/float16/efficientdet_lite2.tflite"}}}}}}},"next":{"block":{"type":"draw_bounding_boxes","id":"NGgo]4X?|?dT!/@=.W@[","inputs":{"OBJECTS":{"block":{"type":"variables_get","id":"vzv3|lD([C@%wN#_3NaJ","fields":{"VAR":{"id":"H*X=Ca7}wSztqM)4Ac8."}}}}},"next":{"block":{"type":"display_frame","id":"?G9XDWLZ3exf+Z%9lf[!"}}}}}}}}}]},"variables":[{"name":"image","id":"PDwZ%[A^{:g)y5OQ3-:."},{"name":"objects","id":"H*X=Ca7}wSztqM)4Ac8."}]}
+{
+  "blocks": {
+    "languageVersion": 0,
+    "blocks": [
+      {
+        "type": "variables_set",
+        "id": "@|Z1S8`yK%D#sqHw({+o",
+        "x": 58,
+        "y": 59,
+        "fields": {
+          "VAR": {
+            "id": "PDwZ%[A^{:g)y5OQ3-:."
+          }
+        },
+        "inputs": {
+          "VALUE": {
+            "block": {
+              "type": "sample_image",
+              "id": "=$;y+*1dlfg20O),c.)@",
+              "fields": {
+                "IMAGE": "cat_sitting_on_chair_512x512.png"
+              }
+            }
+          }
+        },
+        "next": {
+          "block": {
+            "type": "add_image_to_frame",
+            "id": "?yD1iHKq@~QZH=63Yruw",
+            "inputs": {
+              "IMAGE": {
+                "block": {
+                  "type": "variables_get",
+                  "id": "|#1Ply:~=tE=B~+}mhm=",
+                  "fields": {
+                    "VAR": {
+                      "id": "PDwZ%[A^{:g)y5OQ3-:."
+                    }
+                  }
+                }
+              }
+            },
+            "next": {
+              "block": {
+                "type": "variables_set",
+                "id": "tA}-WD[xA5S~!6tl~uhf",
+                "fields": {
+                  "VAR": {
+                    "id": "H*X=Ca7}wSztqM)4Ac8."
+                  }
+                },
+                "inputs": {
+                  "VALUE": {
+                    "block": {
+                      "type": "detect_objects",
+                      "id": "r6U7$4`yBM.Qi%r)PXg]",
+                      "inputs": {
+                        "IMAGE": {
+                          "block": {
+                            "type": "variables_get",
+                            "id": "I,0d#cZc]DyY#twxEX?t",
+                            "fields": {
+                              "VAR": {
+                                "id": "PDwZ%[A^{:g)y5OQ3-:."
+                              }
+                            }
+                          }
+                        },
+                        "MODEL": {
+                          "block": {
+                            "type": "efficientdet_lite2",
+                            "id": "w.mix1ncQ(#?(_)3)?9#",
+                            "fields": {
+                              "MODEL": "./models/object-detection/EfficientDet-Lite2/float16/efficientdet_lite2.tflite"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "next": {
+                  "block": {
+                    "type": "draw_bounding_boxes",
+                    "id": "NGgo]4X?|?dT!/@=.W@[",
+                    "inputs": {
+                      "OBJECTS": {
+                        "block": {
+                          "type": "variables_get",
+                          "id": "vzv3|lD([C@%wN#_3NaJ",
+                          "fields": {
+                            "VAR": {
+                              "id": "H*X=Ca7}wSztqM)4Ac8."
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "next": {
+                      "block": {
+                        "type": "display_frame",
+                        "id": "?G9XDWLZ3exf+Z%9lf[!"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "variables": [
+    {
+      "name": "image",
+      "id": "PDwZ%[A^{:g)y5OQ3-:."
+    },
+    {
+      "name": "objects",
+      "id": "H*X=Ca7}wSztqM)4Ac8."
+    }
+  ]
+}
