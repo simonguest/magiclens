@@ -8,9 +8,9 @@ export class ObjectDetection {
   private BOUNDING_BOX_FONT : string = "14px Arial";
   private BOUNDING_BOX_FONT_COLOR : string = "#ffffff";
 
-  public async detectObjects(mediapipe: MediaPipe, image: ImageData, model: ModelData) {
+  public async detectObjects(mediapipe: MediaPipe, image: ImageData, model: ModelData, delegate: string) {
     Debug.write("Detecting objects");
-    return await mediapipe.detectObjects(image, model);
+    return await mediapipe.detectObjects(image, model, delegate);
   }
 
   public async displayBoundingBoxes(canvas: HTMLCanvasElement, result: ObjectDetectorResult) {

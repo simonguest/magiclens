@@ -4,9 +4,9 @@ import { PoseLandmarkerResult } from "@mediapipe/tasks-vision";
 
 export class PoseEstimation {
 
-  public async detectPose(mp: MediaPipe, image: ImageData, model: ModelData) {
+  public async detectPose(mp: MediaPipe, image: ImageData, model: ModelData, delegate: string) {
     Debug.write("Detecting pose");
-    return await mp.detectPose(image, model);
+    return await mp.detectPose(image, model, delegate);
   }
 
   public async displayPose(canvas: HTMLCanvasElement, pose: PoseLandmarkerResult, width: number, height: number) {

@@ -1,3 +1,5 @@
+import Blockly from "blockly";
+
 export let detectObjects = {
   init: function () {
     this.appendValueInput("IMAGE")
@@ -6,6 +8,12 @@ export let detectObjects = {
     this.appendValueInput("MODEL")
       .setCheck("ObjectDetectionModel")
       .appendField("using model");
+    this.appendDummyInput()
+      .appendField("running on")
+      .appendField(
+        new Blockly.FieldDropdown([["GPU", "GPU"], ["CPU", "CPU"]]),
+        "DELEGATE"
+      )
     this.setInputsInline(false);
     this.setOutput(true, "Objects");
     this.setPreviousStatement(false, null);
@@ -20,6 +28,6 @@ export let detectObjects = {
     if (image === "") return "";
     if (model === "") return "";
 
-    return [`await cv.detectObjects(${image}, ${model})`, generator.ORDER_NONE];
+    return [`await cv.detectObjects(${image}, ${model}, "${block.getFieldValue("DELEGATE")}")`, generator.ORDER_NONE];
   }
 };

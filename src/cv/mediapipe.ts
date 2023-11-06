@@ -29,53 +29,55 @@ export class MediaPipe {
     this.models[path] = model;
   }
 
-  public async detectObjects(image: ImageData, model: ModelData) {
-    let detector = this.getModel(model.path);
+  public async detectObjects(image: ImageData, model: ModelData, delegate) {
+    let detector = this.getModel(`${model.path}_${delegate}`);
     if (!detector) {
       detector = await ObjectDetector.createFromOptions(this.vision, {
         baseOptions: {
           modelAssetPath: model.path,
-          delegate: "GPU",
+          delegate: delegate,
         },
         scoreThreshold: 0.5,
         runningMode: "IMAGE",
       });
-      this.cacheModel(model.path, detector);
+      this.cacheModel(`${model.path}_${delegate}`, detector);
     }
 
     return detector.detect(image);
   }
 
-  public async segment(image: ImageData, model: ModelData) {
-    let segmenter = this.getModel(model.path);
+  public async segment(image: ImageData, model: ModelData, delegate: string) {
+    if (delegate !== 'GPU' && delegate !== 'CPU') return;
+    let segmenter = this.getModel(`${model.path}_${delegate}`);
     if (!segmenter) {
       segmenter = await ImageSegmenter.createFromOptions(this.vision, {
         baseOptions: {
           modelAssetPath: model.path,
-          delegate: 'GPU',
+          delegate: delegate,
         },
         runningMode: 'IMAGE',
         outputCategoryMask: true,
         outputConfidenceMasks: false
       });
-      this.cacheModel(model.path, segmenter);
+      this.cacheModel(`${model.path}_${delegate}`, segmenter);
     }
 
     return { result: segmenter.segment(image), category: model.category };
   }
 
-  public async detectPose(image: ImageData, model: ModelData) {
-    let poseLandmarker = this.getModel(model.path);
+  public async detectPose(image: ImageData, model: ModelData, delegate: string) {
+    if (delegate !== 'GPU' && delegate !== 'CPU') return;
+    let poseLandmarker = this.getModel(`${model.path}_${delegate}`);
     if (!poseLandmarker) {
       poseLandmarker = await PoseLandmarker.createFromOptions(this.vision, {
         baseOptions: {
           modelAssetPath: model.path,
-          delegate: 'GPU',
+          delegate: delegate,
         },
         runningMode: 'IMAGE',
         numPoses: 1,
       });
-      this.cacheModel(model.path, poseLandmarker);
+      this.cacheModel(`${model.path}_${delegate}`, poseLandmarker);
     }
     return poseLandmarker.detect(image);
   }

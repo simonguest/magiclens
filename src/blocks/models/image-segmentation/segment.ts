@@ -1,3 +1,5 @@
+import Blockly from "blockly";
+
 export let segment = {
   init: function () {
     this.appendValueInput("IMAGE")
@@ -6,6 +8,12 @@ export let segment = {
     this.appendValueInput("MODEL")
       .setCheck("ImageSegmentationModel")
       .appendField("using model");
+    this.appendDummyInput()
+      .appendField("running on")
+      .appendField(
+        new Blockly.FieldDropdown([["GPU", "GPU"], ["CPU", "CPU"]]),
+        "DELEGATE"
+      )
     this.setInputsInline(false);
     this.setOutput(true, "Segment");
     this.setPreviousStatement(false, null);
@@ -20,6 +28,6 @@ export let segment = {
     if (image === "") return "";
     if (model === "") return "";
 
-    return [`await cv.segment(${image}, ${model})`, generator.ORDER_NONE];
+    return [`await cv.segment(${image}, ${model}, "${block.getFieldValue("DELEGATE")}")`, generator.ORDER_NONE];
   }
 };

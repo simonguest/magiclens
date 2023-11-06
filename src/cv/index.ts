@@ -120,8 +120,8 @@ export class CV {
    Object Detection
    *************************/
 
-  public async detectObjects(image: ImageData, model: ModelData) {
-    return this.objectDetection.detectObjects(this.mp, image, model);
+  public async detectObjects(image: ImageData, model: ModelData, delegate: string) {
+    return this.objectDetection.detectObjects(this.mp, image, model, delegate);
   }
 
   public async drawBoundingBoxes(result: ObjectDetectorResult) {
@@ -136,8 +136,8 @@ export class CV {
    Image Segmentation
    *************************/
 
-  public async segment(image: ImageData, model: ModelData) {
-    return this.imageSegmentation.segment(this.mp, image, model);
+  public async segment(image: ImageData, model: ModelData, delegate: string) {
+    return this.imageSegmentation.segment(this.mp, image, model, delegate);
   }
 
   public async colorSegment(data: { result: ImageSegmenterResult, category: number }, rgb: number[]) {
@@ -155,8 +155,8 @@ export class CV {
    Pose Detection
    *************************/
 
-  public async detectPose(image: ImageData, model: ModelData) {
-    return await this.poseEstimation.detectPose(this.mp, image, model);
+  public async detectPose(image: ImageData, model: ModelData, delegate: string) {
+    return await this.poseEstimation.detectPose(this.mp, image, model, delegate);
   }
 
   public async drawPose(pose: PoseLandmarkerResult) {
