@@ -4,13 +4,13 @@ import { ObjectDetectorResult } from "@mediapipe/tasks-vision";
 
 export class ObjectDetection {
 
-  private BOUNDING_BOX_COLOR : string = "#777777";
-  private BOUNDING_BOX_FONT : string = "14px Arial";
-  private BOUNDING_BOX_FONT_COLOR : string = "#ffffff";
+  private BOUNDING_BOX_COLOR: string = "#777777";
+  private BOUNDING_BOX_FONT: string = "14px Arial";
+  private BOUNDING_BOX_FONT_COLOR: string = "#ffffff";
 
-  public async detectObjects(mediapipe: MediaPipe, image: ImageData, model: ModelData, delegate: string) {
+  public async detectObjects(mediapipe: MediaPipe, image: ImageData, model: ModelData, delegate: string, displayMessage: any, clearMessage: any) {
     Debug.write("Detecting objects");
-    return await mediapipe.detectObjects(image, model, delegate);
+    return await mediapipe.detectObjects(image, model, delegate, displayMessage, clearMessage);
   }
 
   public async displayBoundingBoxes(canvas: HTMLCanvasElement, result: ObjectDetectorResult) {

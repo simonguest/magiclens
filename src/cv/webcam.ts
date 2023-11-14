@@ -12,24 +12,7 @@ export class Webcam {
 
   private wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  private displayStartingWebCamImage(canvas: HTMLCanvasElement, width: number, height: number) {
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext("2d");
-    ctx.fillRect(0, 0, width, height);
-    ctx.font = '28px sans-serif';           // You can adjust the size and font-family to your liking
-    ctx.fillStyle = 'white';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-
-    // Draw the text in the center of the canvas
-    ctx.fillText('Starting Webcam', canvas.width / 2, canvas.height / 2);
-  }
-
-  public async start(deviceId: string, canvas: HTMLCanvasElement, width: number, height: number) {
-    Debug.write("Displaying starting webcam image");
-    this.displayStartingWebCamImage(canvas, width, height);
-
+  public async start(deviceId: string, canvas: HTMLCanvasElement, width: number, height: number, displayMessage: any, clearMessage: any) {
     Debug.write(`Starting webcam`);
     return new Promise(async (resolve, reject) => {
       if (this.currentStream) {
@@ -38,6 +21,7 @@ export class Webcam {
       }
       let that = this;
       if (deviceId === "no-webcam") return reject("No webcam detected");
+      displayMessage("Starting camera...");
       navigator.mediaDevices.getUserMedia({video: {deviceId: deviceId}})
         .then(async function (stream) {
           that.currentStream = stream;
@@ -45,10 +29,12 @@ export class Webcam {
           that.videoElement.addEventListener("canplay", that.canPlayCallback, false);
           await that.videoElement.play();
           await that.wait(500); // Wait for the webcam to receive enough light after startup before capturing an image
+          clearMessage();
           resolve(that.currentStream);
         })
         .catch(function (err) {
           Debug.write("An error occurred: " + err);
+          clearMessage();
           reject("An error occurred: " + err);
         });
     });

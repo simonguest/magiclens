@@ -29,9 +29,10 @@ export class MediaPipe {
     this.models[path] = model;
   }
 
-  public async detectObjects(image: ImageData, model: ModelData, delegate) {
+  public async detectObjects(image: ImageData, model: ModelData, delegate, displayMessage: any, clearMessage: any) {
     let detector = this.getModel(`${model.path}_${delegate}`);
     if (!detector) {
+      displayMessage("Loading model...");
       detector = await ObjectDetector.createFromOptions(this.vision, {
         baseOptions: {
           modelAssetPath: model.path,
@@ -41,15 +42,17 @@ export class MediaPipe {
         runningMode: "IMAGE",
       });
       this.cacheModel(`${model.path}_${delegate}`, detector);
+      clearMessage();
     }
 
     return detector.detect(image);
   }
 
-  public async segment(image: ImageData, model: ModelData, delegate: string) {
+  public async segment(image: ImageData, model: ModelData, delegate: string, displayMessage: any, clearMessage: any) {
     if (delegate !== 'GPU' && delegate !== 'CPU') return;
     let segmenter = this.getModel(`${model.path}_${delegate}`);
     if (!segmenter) {
+      displayMessage("Loading model...")
       segmenter = await ImageSegmenter.createFromOptions(this.vision, {
         baseOptions: {
           modelAssetPath: model.path,
@@ -60,15 +63,17 @@ export class MediaPipe {
         outputConfidenceMasks: false
       });
       this.cacheModel(`${model.path}_${delegate}`, segmenter);
+      clearMessage();
     }
 
     return { result: segmenter.segment(image), category: model.category };
   }
 
-  public async detectPose(image: ImageData, model: ModelData, delegate: string) {
+  public async detectPose(image: ImageData, model: ModelData, delegate: string, displayMessage: any, clearMessage: any) {
     if (delegate !== 'GPU' && delegate !== 'CPU') return;
     let poseLandmarker = this.getModel(`${model.path}_${delegate}`);
     if (!poseLandmarker) {
+      displayMessage("Loading model...")
       poseLandmarker = await PoseLandmarker.createFromOptions(this.vision, {
         baseOptions: {
           modelAssetPath: model.path,
@@ -78,6 +83,7 @@ export class MediaPipe {
         numPoses: 1,
       });
       this.cacheModel(`${model.path}_${delegate}`, poseLandmarker);
+      clearMessage();
     }
     return poseLandmarker.detect(image);
   }

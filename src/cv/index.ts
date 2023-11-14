@@ -38,6 +38,8 @@ export class CV {
    *************************/
 
   private imageCanvas = document.getElementById("image-canvas") as HTMLCanvasElement;
+  private messageCanvas = document.getElementById("message-canvas") as HTMLCanvasElement;
+
   private hiddenImageCanvas = document.getElementById("hidden-image-canvas") as HTMLCanvasElement;
   private boundingBoxCanvas = document.getElementById("bounding-box-canvas") as HTMLCanvasElement;
   private segmentationMaskCanvas = document.getElementById("segmentation-mask-canvas") as HTMLCanvasElement;
@@ -57,7 +59,7 @@ export class CV {
 
   public async startWebcam(deviceId: string) {
     try {
-      await this.webcam.start(deviceId, this.imageCanvas, this.width, this.height);
+      await this.webcam.start(deviceId, this.imageCanvas, this.width, this.height, this.displayMessage, this.clearMessage);
     } catch (err) {
       Debug.write(err);
     }
@@ -121,7 +123,7 @@ export class CV {
    *************************/
 
   public async detectObjects(image: ImageData, model: ModelData, delegate: string) {
-    return this.objectDetection.detectObjects(this.mp, image, model, delegate);
+    return this.objectDetection.detectObjects(this.mp, image, model, delegate, this.displayMessage, this.clearMessage);
   }
 
   public async drawBoundingBoxes(result: ObjectDetectorResult) {
@@ -137,7 +139,7 @@ export class CV {
    *************************/
 
   public async segment(image: ImageData, model: ModelData, delegate: string) {
-    return this.imageSegmentation.segment(this.mp, image, model, delegate);
+    return this.imageSegmentation.segment(this.mp, image, model, delegate, this.displayMessage, this.clearMessage);
   }
 
   public async colorSegment(data: { result: ImageSegmenterResult, category: number }, rgb: number[]) {
@@ -156,7 +158,7 @@ export class CV {
    *************************/
 
   public async detectPose(image: ImageData, model: ModelData, delegate: string) {
-    return await this.poseEstimation.detectPose(this.mp, image, model, delegate);
+    return await this.poseEstimation.detectPose(this.mp, image, model, delegate, this.displayMessage, this.clearMessage);
   }
 
   public async drawPose(pose: PoseLandmarkerResult) {
@@ -215,15 +217,47 @@ export class CV {
   public clearCanvasCollection() {
     Debug.write("Clearing canvas collection");
     this.clearCanvas(this.imageCanvas);
+    this.clearCanvas(this.messageCanvas);
     this.clearCanvas(this.boundingBoxCanvas);
     this.clearCanvas(this.segmentationMaskCanvas);
     this.clearCanvas(this.poseCanvas);
     this.clearCanvas(this.userCanvas);
   }
 
+  public async displayMessage(message: string) {
+    const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+    const messageCanvas = document.getElementById("message-canvas") as HTMLCanvasElement;
+    const ctx = messageCanvas.getContext("2d");
+
+    Debug.write("Displaying message");
+    ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+    // Create a black background with 50% transparency
+    ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+    ctx.fillRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+    // Display the message
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText(message, ctx.canvas.clientWidth / 2, ctx.canvas.clientHeight / 2);
+
+    // Wait for 1ms to allow the message to be displayed
+    await wait(1);
+  }
+
+  public async clearMessage(){
+    const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+    const messageCanvas = document.getElementById("message-canvas") as HTMLCanvasElement;
+    const ctx = messageCanvas.getContext("2d");
+
+    Debug.write("Clearing message");
+    ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+    await wait(1);
+  }
+
   public async init() {
     Debug.write("Initializing CV");
     Debug.write("Detecting Webcam devices");
+    await this.displayMessage("Searching for cameras");
     try {
       let currentStream = await navigator.mediaDevices.getUserMedia({ video: true });
       let devices = await navigator.mediaDevices.enumerateDevices();
@@ -235,6 +269,7 @@ export class CV {
     } catch (err) {
       Debug.write("Error detecting webcam devices: " + err);
     }
+    await this.clearMessage();
 
     Debug.write("Initializing mediapipe")
     await this.mp.init();

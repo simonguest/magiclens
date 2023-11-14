@@ -59,8 +59,8 @@ export class ImageSegmentation {
 
   }
 
-  public async segment(mp: MediaPipe, image: ImageData, model: ModelData, delegate: string) {
+  public async segment(mp: MediaPipe, image: ImageData, model: ModelData, delegate: string, displayMessage: any, clearMessage: any) {
     Debug.write("Segment Image");
-    return await mp.segment(image, model, delegate);
+    return await mp.segment(image, model, delegate, displayMessage, clearMessage);
   }
 }

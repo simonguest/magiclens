@@ -1,100 +1,104 @@
 html,
 body {
-  height: 100%;
-  margin: 3px;
+    height: 100%;
+    margin: 3px;
 }
 
 body {
-  background-color: #fff;
-  font-family: sans-serif;
-  overflow: hidden;
+    background-color: #fff;
+    font-family: sans-serif;
+    overflow: hidden;
 }
 
 #container {
-  display: grid;
-  grid-template-rows: 30px calc(100% - 50px);
-  height: 100%;
+    display: grid;
+    grid-template-rows: 30px calc(100% - 50px);
+    height: 100%;
 }
 
 #header {
-  grid-row: 1;
+    grid-row: 1;
 }
 
 .button-row-label {
-  font-size: small;
+    font-size: small;
 }
 
 #split {
-  grid-row: 2;
-  display: flex;
-  flex-direction: row;
+    grid-row: 2;
+    display: flex;
+    flex-direction: row;
 }
 
 #run-area {
-  width: 40%;
-  height: 100%;
-  background: #333333;
+    width: 40%;
+    height: 100%;
+    background: #333333;
 }
 
 #canvas-container {
-  display: flex;
-  justify-content: center;  /* Horizontal centering */
-  align-items: center;      /* Vertical centering */
-  overflow: hidden;         /* Hide any overflowing content */
-  /* Assuming the div is resizable, you might have something like this: */
-  resize: both;
-  border: 1px solid #000;   /* Just for visualization */
-  position: relative;
-  height: 100%;
+    display: flex;
+    justify-content: center; /* Horizontal centering */
+    align-items: center; /* Vertical centering */
+    overflow: hidden; /* Hide any overflowing content */
+    /* Assuming the div is resizable, you might have something like this: */
+    resize: both;
+    border: 1px solid #000; /* Just for visualization */
+    position: relative;
+    height: 100%;
 }
 
 #canvas-container canvas {
-  max-width: 512px;
-  max-height: 512px;
-  width: 100%;   /* Make the canvas responsive */
-  height: 100%;
-  object-fit: contain; /* Make sure the canvas doesn't stretch out of proportion */
-  position: absolute;  /* Position the canvases absolutely to overlap */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);  /* Center the canvases within the container */
+    max-width: 512px;
+    max-height: 512px;
+    width: 100%; /* Make the canvas responsive */
+    height: 100%;
+    object-fit: contain; /* Make sure the canvas doesn't stretch out of proportion */
+    position: absolute; /* Position the canvases absolutely to overlap */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the canvases within the container */
 }
 
 #image-canvas {
-  z-index: 1;
+    z-index: 1;
+}
+
+#message-canvas {
+    z-index: 2;
 }
 
 #blockly-area {
-  width: 60%;
-  background: #ffffff;
-  text-align: center;
+    width: 60%;
+    background: #ffffff;
+    text-align: center;
 }
 
 #column-resizer {
-  display: block;
-  top: 0;
-  right: 0;
-  margin: 0;
-  width: 6px;
-  height: 100%;
-  padding: 0;
-  cursor: col-resize;
-  border: 1px solid transparent;
+    display: block;
+    top: 0;
+    right: 0;
+    margin: 0;
+    width: 6px;
+    height: 100%;
+    padding: 0;
+    cursor: col-resize;
+    border: 1px solid transparent;
 }
 
 #footer {
-  grid-row: 3;
+    grid-row: 3;
 }
 
 #drag {
-  z-index: 999;
-  position: relative;
-  background-color: white;
-  width: 22px;
-  top: 45%;
-  left: -9px;
-  pointer-events: none;
-  cursor: col-resize;
-  clip-path: inset(0% 19%);
-  user-select: none;
+    z-index: 999;
+    position: relative;
+    background-color: white;
+    width: 22px;
+    top: 45%;
+    left: -9px;
+    pointer-events: none;
+    cursor: col-resize;
+    clip-path: inset(0% 19%);
+    user-select: none;
 }
