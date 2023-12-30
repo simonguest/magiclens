@@ -14,7 +14,7 @@ To launch MagicLens, browse to https://simonguest.github.io/magiclens. When the 
 
 Then, drag blocks on to the workspace to build your program:
 
-#### Screenshot
+<img width="1230" alt="image" src="https://github.com/simonguest/magiclens/assets/769225/f41dd875-4ccf-4adf-8422-1d0e37d505ee">
 
 To run the program, click the run button on the toolbar. Click the stop button to interrupt (e.g., if you have a for loop capturing frames from the webcam.)
 
