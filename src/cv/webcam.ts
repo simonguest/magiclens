@@ -19,7 +19,7 @@ export class Webcam {
         Debug.write("Webcam is already on.");
         return resolve(this.currentStream);
       }
-      let that = this;
+      const that = this;
       if (deviceId === "no-webcam") return reject("No webcam detected");
       displayMessage("Starting camera...");
       navigator.mediaDevices.getUserMedia({video: {deviceId: deviceId}})
@@ -47,7 +47,7 @@ export class Webcam {
         Debug.write("Webcam is not started.")
         return resolve("Webcam is not started.");
       }
-      let tracks = this.currentStream.getTracks();
+      const tracks = this.currentStream.getTracks();
       tracks.forEach(function (track) {
         track.stop();
       });
@@ -86,11 +86,11 @@ export class Webcam {
         // Create a default green image instead
         resolve(this.createGreenImageData(width, height));
       }
-      let ctx = this.videoCanvas.getContext('2d');
+      const ctx = this.videoCanvas.getContext('2d');
       ctx.drawImage(this.videoElement, 0, 0, width, height);
 
       // Extract the image data and return
-      let imageData = ctx.getImageData(0, 0, width, height);
+      const imageData = ctx.getImageData(0, 0, width, height);
       resolve(imageData);
     });
   }

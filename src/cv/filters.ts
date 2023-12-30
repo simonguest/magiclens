@@ -4,13 +4,13 @@ export class Filters {
 
   public convertToGrayscale(image: ImageData) {
     Debug.write("Invoking filter to convert to grayscale");
-    let data = image.data;
-    let length = data.length;
+    const data = image.data;
+    const length = data.length;
     for (let i = 0; i < length; i += 4) {
-      let r = data[i];
-      let g = data[i + 1];
-      let b = data[i + 2];
-      let v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      const v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
       data[i] = data[i + 1] = data[i + 2] = v;
     }
     return image;
@@ -18,17 +18,17 @@ export class Filters {
 
   public rotateRight(image: ImageData) {
     Debug.write("Invoking filter to rotate image right");
-    let width = image.width;
-    let height = image.height;
-    let data = image.data;
-    let length = data.length;
-    let result = new ImageData(height, width);
-    let resultData = result.data;
+    const width = image.width;
+    const height = image.height;
+    const data = image.data;
+    const length = data.length;
+    const result = new ImageData(height, width);
+    const resultData = result.data;
     for (let i = 0; i < length; i += 4) {
-      let x = Math.floor(i / 4) % width;
-      let y = Math.floor(i / 4 / width);
-      let newX = height - y - 1;
-      let newIndex = (x * height + newX) * 4;
+      const x = Math.floor(i / 4) % width;
+      const y = Math.floor(i / 4 / width);
+      const newX = height - y - 1;
+      const newIndex = (x * height + newX) * 4;
       resultData[newIndex] = data[i];
       resultData[newIndex + 1] = data[i + 1];
       resultData[newIndex + 2] = data[i + 2];
@@ -39,17 +39,17 @@ export class Filters {
 
   public rotateLeft(image: ImageData) {
     Debug.write("Invoking filter to rotate image left");
-    let width = image.width;
-    let height = image.height;
-    let data = image.data;
-    let length = data.length;
-    let result = new ImageData(height, width);
-    let resultData = result.data;
+    const width = image.width;
+    const height = image.height;
+    const data = image.data;
+    const length = data.length;
+    const result = new ImageData(height, width);
+    const resultData = result.data;
     for (let i = 0; i < length; i += 4) {
-      let x = Math.floor(i / 4) % width;
-      let y = Math.floor(i / 4 / width);
-      let newY = width - x - 1;
-      let newIndex = (newY * height + y) * 4;
+      const x = Math.floor(i / 4) % width;
+      const y = Math.floor(i / 4 / width);
+      const newY = width - x - 1;
+      const newIndex = (newY * height + y) * 4;
       resultData[newIndex] = data[i];
       resultData[newIndex + 1] = data[i + 1];
       resultData[newIndex + 2] = data[i + 2];
@@ -60,18 +60,18 @@ export class Filters {
 
   public rotate180(image: ImageData) {
     Debug.write("Invoking filter to rotate image 180");
-    let width = image.width;
-    let height = image.height;
-    let data = image.data;
-    let length = data.length;
-    let result = new ImageData(width, height);
-    let resultData = result.data;
+    const width = image.width;
+    const height = image.height;
+    const data = image.data;
+    const length = data.length;
+    const result = new ImageData(width, height);
+    const resultData = result.data;
     for (let i = 0; i < length; i += 4) {
-      let x = Math.floor(i / 4) % width;
-      let y = Math.floor(i / 4 / width);
-      let newX = width - x - 1;
-      let newY = height - y - 1;
-      let newIndex = (newY * width + newX) * 4;
+      const x = Math.floor(i / 4) % width;
+      const y = Math.floor(i / 4 / width);
+      const newX = width - x - 1;
+      const newY = height - y - 1;
+      const newIndex = (newY * width + newX) * 4;
       resultData[newIndex] = data[i];
       resultData[newIndex + 1] = data[i + 1];
       resultData[newIndex + 2] = data[i + 2];
@@ -82,17 +82,17 @@ export class Filters {
 
   public flipHorizontal(image: ImageData) {
     Debug.write("Invoking filter to flip image horizontally");
-    let width = image.width;
-    let height = image.height;
-    let data = image.data;
-    let length = data.length;
-    let result = new ImageData(width, height);
-    let resultData = result.data;
+    const width = image.width;
+    const height = image.height;
+    const data = image.data;
+    const length = data.length;
+    const result = new ImageData(width, height);
+    const resultData = result.data;
     for (let i = 0; i < length; i += 4) {
-      let x = Math.floor(i / 4) % width;
-      let y = Math.floor(i / 4 / width);
-      let newX = width - x - 1;
-      let newIndex = (y * width + newX) * 4;
+      const x = Math.floor(i / 4) % width;
+      const y = Math.floor(i / 4 / width);
+      const newX = width - x - 1;
+      const newIndex = (y * width + newX) * 4;
       resultData[newIndex] = data[i];
       resultData[newIndex + 1] = data[i + 1];
       resultData[newIndex + 2] = data[i + 2];
@@ -103,17 +103,17 @@ export class Filters {
 
   public flipVertical(image: ImageData) {
     Debug.write("Invoking filter to flip image vertically");
-    let width = image.width;
-    let height = image.height;
-    let data = image.data;
-    let length = data.length;
-    let result = new ImageData(width, height);
-    let resultData = result.data;
+    const width = image.width;
+    const height = image.height;
+    const data = image.data;
+    const length = data.length;
+    const result = new ImageData(width, height);
+    const resultData = result.data;
     for (let i = 0; i < length; i += 4) {
-      let x = Math.floor(i / 4) % width;
-      let y = Math.floor(i / 4 / width);
-      let newY = height - y - 1;
-      let newIndex = (newY * width + x) * 4;
+      const x = Math.floor(i / 4) % width;
+      const y = Math.floor(i / 4 / width);
+      const newY = height - y - 1;
+      const newIndex = (newY * width + x) * 4;
       resultData[newIndex] = data[i];
       resultData[newIndex + 1] = data[i + 1];
       resultData[newIndex + 2] = data[i + 2];
@@ -124,8 +124,8 @@ export class Filters {
 
   public invert(image: ImageData) {
     Debug.write("Invoking filter to invert image");
-    let data = image.data;
-    let length = data.length;
+    const data = image.data;
+    const length = data.length;
     for (let i = 0; i < length; i += 4) {
       data[i] = 255 - data[i];
       data[i + 1] = 255 - data[i + 1];
@@ -135,12 +135,12 @@ export class Filters {
   }
 
   private createGaussianKernel(radius: number) {
-    let size = radius * 2 + 1;
-    let kernel = new Array(size);
-    let sigma = radius / 3;
+    const size = radius * 2 + 1;
+    const kernel = new Array(size);
+    const sigma = radius / 3;
     let sum = 0;
     for (let i = 0; i < size; i++) {
-      let x = i - radius;
+      const x = i - radius;
       kernel[i] = Math.exp(-x * x / (2 * sigma * sigma));
       sum += kernel[i];
     }
@@ -152,25 +152,25 @@ export class Filters {
 
   public blur(image: ImageData, radius: number) {
     Debug.write("Invoking filter to blur image");
-    let width = image.width;
-    let height = image.height;
-    let data = image.data;
-    let length = data.length;
-    let result = new ImageData(width, height);
-    let resultData = result.data;
-    let kernel = this.createGaussianKernel(radius);
-    let kernelSize = kernel.length;
-    let kernelHalfSize = Math.floor(kernelSize / 2);
+    const width = image.width;
+    const height = image.height;
+    const data = image.data;
+    const length = data.length;
+    const result = new ImageData(width, height);
+    const resultData = result.data;
+    const kernel = this.createGaussianKernel(radius);
+    const kernelSize = kernel.length;
+    const kernelHalfSize = Math.floor(kernelSize / 2);
     for (let i = 0; i < length; i += 4) {
-      let x = Math.floor(i / 4) % width;
-      let y = Math.floor(i / 4 / width);
+      const x = Math.floor(i / 4) % width;
+      const y = Math.floor(i / 4 / width);
       let sum = 0;
       let r = 0;
       let g = 0;
       let b = 0;
       for (let j = 0; j < kernelSize; j++) {
-        let k = j - kernelHalfSize;
-        let pixelIndex = ((y + k) * width + x) * 4;
+        const k = j - kernelHalfSize;
+        const pixelIndex = ((y + k) * width + x) * 4;
         if (pixelIndex < 0 || pixelIndex >= length) {
           continue;
         }

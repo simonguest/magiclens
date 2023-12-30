@@ -1,4 +1,4 @@
-export let blur = {
+export const blur = {
   init: function () {
     this.appendValueInput("IMAGE")
       .setCheck("Image")
@@ -11,7 +11,7 @@ export let blur = {
   },
 
   transpile: function (block, generator) {
-    let image = generator.valueToCode(block, 'IMAGE', generator.ORDER_NONE);
+    const image = generator.valueToCode(block, 'IMAGE', generator.ORDER_NONE);
     if (image === "") return "";
 
     return [`cv.blur(${image}, 20)`, generator.ORDER_NONE];

@@ -1,4 +1,4 @@
-export let addImageToFrame = {
+export const addImageToFrame = {
   init: function () {
     this.appendValueInput("IMAGE")
       .setCheck("Image")
@@ -12,7 +12,7 @@ export let addImageToFrame = {
   },
 
   transpile: function (block, generator) {
-    let image = generator.valueToCode(block, 'IMAGE', generator.ORDER_NONE);
+    const image = generator.valueToCode(block, 'IMAGE', generator.ORDER_NONE);
     if (image === "") return "";
 
     return `await cv.addImageToFrame(${image});`;

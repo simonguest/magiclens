@@ -30,7 +30,7 @@ const modelTypes = [
   }
   ]
 
-export let prefixedPosition = {
+export const prefixedPosition = {
   init: function () {
     this.appendDummyInput()
       .appendField("position")
@@ -46,7 +46,7 @@ export let prefixedPosition = {
   },
 
   transpile: function (block, generator) {
-    let position = `(${block.getFieldValue("POSITION")})`;
+    const position = `(${block.getFieldValue("POSITION")})`;
     return [position, generator.ORDER_NONE];
   },
 };

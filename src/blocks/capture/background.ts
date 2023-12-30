@@ -1,4 +1,4 @@
-import Blockly from "blockly";
+import Blockly, { MenuOption } from "blockly";
 
 const backgrounds = [
   {
@@ -12,12 +12,12 @@ const backgrounds = [
   }
 ]
 
-export let background = {
+export const background = {
   init: function () {
     this.appendDummyInput()
       .appendField("background image")
       .appendField(
-        new Blockly.FieldDropdown(backgrounds.map(l => [l.title, l.id]).sort()),
+        new Blockly.FieldDropdown(backgrounds.map(l => [l.title, l.id]).sort() as MenuOption[]),
         "IMAGE"
       )
     this.setInputsInline(false);
@@ -28,7 +28,7 @@ export let background = {
   },
 
   transpile: function (block, generator) {
-    let image = block.getFieldValue("IMAGE");
+    const image = block.getFieldValue("IMAGE");
     return [`await cv.loadSampleImage("${image}")`, generator.ORDER_NONE];
   },
 };

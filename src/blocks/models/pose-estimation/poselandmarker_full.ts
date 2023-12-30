@@ -1,4 +1,4 @@
-export let poselandmarker_full = {
+export const poselandmarker_full = {
   init: function () {
     this.appendDummyInput()
       .appendField("Pose Landmarker (Full)")
@@ -10,7 +10,7 @@ export let poselandmarker_full = {
   },
 
   transpile: function (block, generator) {
-    let model = `({name: "PoseLandmarker-Lite", path: "./models/pose-estimation/PoseLandmarker/full/float16/pose_landmarker_full.task"})`;
+    const model = `({name: "PoseLandmarker-Lite", path: "./models/pose-estimation/PoseLandmarker/full/float16/pose_landmarker_full.task"})`;
     return [model, generator.ORDER_NONE];
   },
 };

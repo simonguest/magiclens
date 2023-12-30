@@ -8,7 +8,7 @@ const fonts = [
     id: "Courier", title: "Courier"
   }]
 
-export let drawTextAt = {
+export const drawTextAt = {
   init: function () {
     this.appendValueInput("TEXT")
       .setCheck("String")
@@ -34,10 +34,10 @@ export let drawTextAt = {
   },
 
   transpile: function (block, generator) {
-    let text = generator.valueToCode(block, 'TEXT', generator.ORDER_NONE);
+    const text = generator.valueToCode(block, 'TEXT', generator.ORDER_NONE);
     if (text === "") return "";
 
-    let position = generator.valueToCode(block, 'POSITION', generator.ORDER_NONE);
+    const position = generator.valueToCode(block, 'POSITION', generator.ORDER_NONE);
     if (position === "") return "";
 
     return `cv.drawTextAt(${text},${position}, "${block.getFieldValue('FONT')}", ${block.getFieldValue('FONT_SIZE')}, "${block.getFieldValue('FONT_COLOR')}");`;

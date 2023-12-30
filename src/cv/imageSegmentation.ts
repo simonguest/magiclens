@@ -8,8 +8,8 @@ export class ImageSegmentation {
     Debug.write("Color segment");
 
     const ctx = canvas.getContext("2d");
-    let imageDataObj = ctx.getImageData(0, 0, width, height);
-    let imageData = imageDataObj.data;
+    const imageDataObj = ctx.getImageData(0, 0, width, height);
+    const imageData = imageDataObj.data;
     const mask = result.categoryMask.getAsUint8Array();
     const len = mask.length;
 
@@ -34,13 +34,13 @@ export class ImageSegmentation {
 
     // Get the image data for the current canvas
     const ctx = canvas.getContext("2d");
-    let imageDataObj = ctx.getImageData(0, 0, width, height);
-    let imageData = imageDataObj.data;
+    const imageDataObj = ctx.getImageData(0, 0, width, height);
+    const imageData = imageDataObj.data;
     const mask = result.categoryMask.getAsUint8Array();
     const len = mask.length;
 
     // Get the image data for the image to replace the segment with
-    let replacementImageData = image.data;
+    const replacementImageData = image.data;
 
     for (let i = 0; i < len; i++) {
       if (mask[i] === category) {

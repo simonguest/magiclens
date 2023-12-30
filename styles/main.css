@@ -86,10 +86,6 @@ body {
     border: 1px solid transparent;
 }
 
-#footer {
-    grid-row: 3;
-}
-
 #drag {
     z-index: 999;
     position: relative;

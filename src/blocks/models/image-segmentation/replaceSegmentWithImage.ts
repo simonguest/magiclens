@@ -1,6 +1,6 @@
 import Blockly from "blockly";
 
-export let replaceSegmentWithImage = {
+export const replaceSegmentWithImage = {
   init: function () {
     this.appendValueInput("SEGMENT")
       .setCheck("Segment")
@@ -18,13 +18,13 @@ export let replaceSegmentWithImage = {
   },
 
   transpile: function (block, generator) {
-    let segment = generator.valueToCode(block, 'SEGMENT', generator.ORDER_NONE);
+    const segment = generator.valueToCode(block, 'SEGMENT', generator.ORDER_NONE);
     if (segment === "") return "";
 
-    let image = generator.valueToCode(block, 'IMAGE', generator.ORDER_NONE);
+    const image = generator.valueToCode(block, 'IMAGE', generator.ORDER_NONE);
     if (image === "") return "";
 
-    let transparency = block.getFieldValue("TRANSPARENCY");
+    const transparency = block.getFieldValue("TRANSPARENCY");
 
     return `await cv.replaceSegmentWithImage(${segment}, ${image}, ${(1 - transparency) * 255});`;
   }

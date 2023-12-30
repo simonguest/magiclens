@@ -1,4 +1,4 @@
-export let drawBoundingBoxes = {
+export const drawBoundingBoxes = {
   init: function () {
       this.appendValueInput("OBJECTS")
           .setCheck("Objects")
@@ -10,7 +10,7 @@ export let drawBoundingBoxes = {
   },
 
   transpile: function (block, generator) {
-      let objects = generator.valueToCode(block, 'OBJECTS', generator.ORDER_NONE);
+      const objects = generator.valueToCode(block, 'OBJECTS', generator.ORDER_NONE);
       if (objects === "") return "";
 
       return `await cv.drawBoundingBoxes(${objects});`;

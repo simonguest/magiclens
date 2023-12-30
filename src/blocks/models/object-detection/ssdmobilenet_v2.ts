@@ -8,7 +8,7 @@ const modelTypes = [
     id: "./models/object-detection/SSDMobileNet-V2/float32/ssd_mobilenet_v2.tflite", title: "fp32"
   }]
 
-export let ssdmobilenet_v2 = {
+export const ssdmobilenet_v2 = {
   init: function () {
     this.appendDummyInput()
       .appendField("SSD MobileNet V2")
@@ -24,7 +24,7 @@ export let ssdmobilenet_v2 = {
   },
 
   transpile: function (block, generator) {
-    let model = `({name: "SSDMobileNet-V2", path: "${block.getFieldValue("MODEL")}"})`;
+    const model = `({name: "SSDMobileNet-V2", path: "${block.getFieldValue("MODEL")}"})`;
     return [model, generator.ORDER_NONE];
   },
 };

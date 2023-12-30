@@ -9,7 +9,7 @@ const categories = [
   }
 ]
 
-export let selfiesegmenter = {
+export const selfiesegmenter = {
   init: function () {
     this.appendDummyInput()
       .appendField("Selfie")
@@ -25,7 +25,7 @@ export let selfiesegmenter = {
   },
 
   transpile: function (block, generator) {
-    let model = `({name: "SelfieSegmenter", path: "./models/image-segmentation/SelfieSegmentation/float16/selfie_segmenter.tflite", category: ${block.getFieldValue("CATEGORY")}})`;
+    const model = `({name: "SelfieSegmenter", path: "./models/image-segmentation/SelfieSegmentation/float16/selfie_segmenter.tflite", category: ${block.getFieldValue("CATEGORY")}})`;
     return [model, generator.ORDER_NONE];
   },
 };

@@ -99,7 +99,7 @@ export const emojis = [
   }
   ]
 
-export let drawEmojiAt = {
+export const drawEmojiAt = {
   init: function () {
     this.appendValueInput("POSITION")
       .setCheck("Position")
@@ -118,7 +118,7 @@ export let drawEmojiAt = {
   },
 
   transpile: function (block, generator) {
-    let position = generator.valueToCode(block, 'POSITION', generator.ORDER_NONE);
+    const position = generator.valueToCode(block, 'POSITION', generator.ORDER_NONE);
     if (position === "") return "";
 
     let size = block.getFieldValue('EMOJI_SIZE');

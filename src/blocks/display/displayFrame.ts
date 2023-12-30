@@ -1,4 +1,4 @@
-export let displayFrame = {
+export const displayFrame = {
   init: function () {
     this.appendDummyInput()
       .appendField("display frame");

@@ -1,4 +1,4 @@
-export let position = {
+export const position = {
   init: function () {
     this.appendDummyInput()
 
@@ -16,12 +16,12 @@ export let position = {
   },
 
   transpile: function (block, generator) {
-    let x = generator.valueToCode(block, 'X', generator.ORDER_NONE);
+    const x = generator.valueToCode(block, 'X', generator.ORDER_NONE);
     if (x === "") return "";
-    let y = generator.valueToCode(block, 'Y', generator.ORDER_NONE);
+    const y = generator.valueToCode(block, 'Y', generator.ORDER_NONE);
     if (y === "") return "";
 
-    let position = `({x: ${x}, y: ${y}})`;
+    const position = `({x: ${x}, y: ${y}})`;
     return [position, generator.ORDER_NONE];
   },
 };

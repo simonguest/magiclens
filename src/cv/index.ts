@@ -259,10 +259,10 @@ export class CV {
     Debug.write("Detecting Webcam devices");
     await this.displayMessage("Searching for cameras");
     try {
-      let currentStream = await navigator.mediaDevices.getUserMedia({ video: true });
-      let devices = await navigator.mediaDevices.enumerateDevices();
+      const currentStream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const devices = await navigator.mediaDevices.enumerateDevices();
       window["devices"] = devices.filter(device => device.kind === "videoinput");
-      let tracks = currentStream.getTracks();
+      const tracks = currentStream.getTracks();
       tracks.forEach(function (track) {
         track.stop();
       });

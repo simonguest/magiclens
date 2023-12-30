@@ -15,11 +15,11 @@ export class ObjectDetection {
 
   public async displayBoundingBoxes(canvas: HTMLCanvasElement, result: ObjectDetectorResult) {
     Debug.write("Displaying bounding boxes");
-    let ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
     result.detections.forEach((detection) => {
       const label = detection.categories[0].categoryName;
       const score = (detection.categories[0].score * 100).toFixed(1);
-      let { originX, originY, width, height } = detection.boundingBox;
+      const { originX, originY, width, height } = detection.boundingBox;
 
       // draw border box
       ctx.strokeStyle = this.BOUNDING_BOX_COLOR;

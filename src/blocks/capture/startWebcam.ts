@@ -1,6 +1,6 @@
 import Blockly from "blockly";
 
-export let startWebcam = {
+export const startWebcam = {
   getDevices: function () {
     if (window["devices"]) {
       return window["devices"].map((device) => {
@@ -22,7 +22,7 @@ export let startWebcam = {
   },
 
   transpile: function (block) {
-    let device = block.getFieldValue("DEVICE");
+    const device = block.getFieldValue("DEVICE");
     return `await cv.startWebcam("${device}");`;
   },
 };

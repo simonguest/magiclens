@@ -22,10 +22,12 @@ const uploadButton = document.getElementById("upload");
 // Code execution
 async function run() {
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const enableRunButton = () => {
     runButton.removeAttribute("disabled");
     stopButton.setAttribute("disabled", "true");
   }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const disableRunButton = () => {
     runButton.setAttribute("disabled", "true");
     stopButton.removeAttribute("disabled");
@@ -34,7 +36,7 @@ async function run() {
   cv.clearCanvasCollection();
 
   // Generate the required code
-  let code = javascriptGenerator.workspaceToCode(workspace);
+  const code = javascriptGenerator.workspaceToCode(workspace);
 
   // Check to see if the user has included a displayFrame block
   if (!code.includes("cv.displayFrame()")) {
@@ -71,7 +73,7 @@ async function init() {
   await cv.init();
 
   Debug.write("Loading workspace from session storage");
-  let jsonStr = sessionStorage.getItem("workspace");
+  const jsonStr = sessionStorage.getItem("workspace");
   if (jsonStr) {
     Blockly.serialization.workspaces.load(JSON.parse(jsonStr), workspace);
   } else {
@@ -104,10 +106,10 @@ async function init() {
 
   exportButton.onclick = () => {
     Debug.write("download button pressed");
-    let file = new Blob([sessionStorage.getItem("workspace")], {
+    const file = new Blob([sessionStorage.getItem("workspace")], {
       type: "text/json",
     });
-    let a = document.createElement("a"),
+    const a = document.createElement("a"),
       url = URL.createObjectURL(file);
     a.href = url;
     a.download = "cv-workspace.json";
@@ -123,8 +125,9 @@ async function init() {
     Debug.write("Example workspace dropdown changed");
     // stop the current project, if running
     window["cancelRequest"] = true;
-    // noinspection TypeScriptUnresolvedReference
-    let file = e.target.value;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const file = e.target.value;
     if (file) {
       if (confirm("Loading this example workspace will lose all unsaved work. Continue?")) {
         const response = await fetch(`./examples/${file}`);
@@ -139,32 +142,32 @@ async function init() {
     Debug.write("upload workspace from file");
     // stop the current project, if running
     window["cancelRequest"] = true;
-    let file = e.target["files"][0];
+    const file = e.target["files"][0];
     if (!file) {
       return;
     }
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.onload = function (e) {
-      let json = e.target.result;
+      const json = e.target.result;
       Blockly.serialization.workspaces.load(JSON.parse(json.toString()), workspace);
       sessionStorage.setItem("workspace", json.toString());
     };
     reader.readAsText(file);
   };
 
-  const broadcastColumnResize = (e) => {
+  const broadcastColumnResize = (e: PointerEvent) => {
     // Add some hard limits to the column resizing
     if (e.clientX < 200 || e.clientX > window.innerWidth - 200) return;
 
-    let windowWidth = window.innerWidth;
-    let runArea = document.getElementById("run-area");
+    const windowWidth = window.innerWidth;
+    const runArea = document.getElementById("run-area");
     runArea.style.width = `${((window.innerWidth - e.clientX) / windowWidth) * 100}%`;
 
 
-    let blocklyArea = document.getElementById("blockly-area");
+    const blocklyArea = document.getElementById("blockly-area");
     blocklyArea.style.width = `${(e.clientX / windowWidth) * 100}%`;
 
-    let columnResizedEvent = new Event("resize");
+    const columnResizedEvent = new Event("resize");
     window.dispatchEvent(columnResizedEvent);
   };
 
@@ -178,4 +181,4 @@ async function init() {
   };
 }
 
-init();
+init().then();

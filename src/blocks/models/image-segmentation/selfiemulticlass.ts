@@ -21,7 +21,7 @@ const categories = [
   }
   ]
 
-export let selfiemulticlass = {
+export const selfiemulticlass = {
   init: function () {
     this.appendDummyInput()
       .appendField("Multi-class Selfie")
@@ -38,7 +38,7 @@ export let selfiemulticlass = {
 
   transpile: function (block, generator) {
 
-    let model = `({name: "SelfieMulticlass", path: "./models/image-segmentation/SelfieMulticlass/float32/selfie_multiclass_256x256.tflite", category: ${block.getFieldValue("CATEGORY")}})`;
+    const model = `({name: "SelfieMulticlass", path: "./models/image-segmentation/SelfieMulticlass/float32/selfie_multiclass_256x256.tflite", category: ${block.getFieldValue("CATEGORY")}})`;
     return [model, generator.ORDER_NONE];
   },
 };

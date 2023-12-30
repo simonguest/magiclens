@@ -35,7 +35,7 @@ const bodyParts = [
   { id: "31", title: "left foot index" },
   { id: "32", title: "right foot index" }
 ]
-export let getPositionOf = {
+export const getPositionOf = {
   init: function () {
     this.appendDummyInput()
       .appendField("get position of ")
@@ -54,7 +54,7 @@ export let getPositionOf = {
   },
 
   transpile: function (block, generator) {
-    let pose = generator.valueToCode(block, 'POSE', generator.ORDER_NONE);
+    const pose = generator.valueToCode(block, 'POSE', generator.ORDER_NONE);
     if (pose === "") return "";
 
     return [`cv.getPositionOf(${block.getFieldValue("BODY_PART")}, ${pose})`, generator.ORDER_NONE];

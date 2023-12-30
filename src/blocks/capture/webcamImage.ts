@@ -1,4 +1,4 @@
-export let webcamImage = {
+export const webcamImage = {
   init: function () {
     this.appendDummyInput()
       .appendField("capture webcam image")

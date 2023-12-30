@@ -1,5 +1,7 @@
 // Should be typed to ToolboxInfo, but bug in blockly ts definitions doesn't handle custom fields.
-export let toolbox: any = {
+import { ToolboxInfo } from "blockly/core/utils/toolbox";
+
+export const toolbox: ToolboxInfo = {
   kind: "categoryToolbox",
   contents: [
     {

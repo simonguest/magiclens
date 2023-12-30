@@ -10,7 +10,7 @@ import * as display from "./display";
 
 import { toolbox } from "./toolbox";
 
-let workspace = Blockly.inject("blockly-div", {
+const workspace = Blockly.inject("blockly-div", {
   toolbox: toolbox,
   horizontalLayout: false,
   toolboxPosition: "start",
@@ -88,10 +88,10 @@ const createCustomBlocks = () => {
 };
 
 const handleBlocklyResize = () => {
-  let blocklyArea = document.getElementById("blockly-area");
-  let blocklyDiv = document.getElementById("blockly-div");
+  const blocklyArea = document.getElementById("blockly-area");
+  const blocklyDiv = document.getElementById("blockly-div");
 
-  let onresize = function () {
+  const onresize = function () {
     // Compute the absolute coordinates and dimensions of blocklyArea.
     let element: HTMLElement = blocklyArea;
     let x = 0;
@@ -124,7 +124,7 @@ const eventInitializer = () => {
     ) {
       // Write to session storage
       Debug.write("Writing workspace to session storage");
-      let json = Blockly.serialization.workspaces.save(workspace);
+      const json = Blockly.serialization.workspaces.save(workspace);
       sessionStorage.setItem("workspace", JSON.stringify(json));
     }
   });

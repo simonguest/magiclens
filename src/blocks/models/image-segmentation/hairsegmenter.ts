@@ -8,7 +8,7 @@ const categories = [
     id: "0", title: "background"
   }
 ]
-export let hairsegmenter = {
+export const hairsegmenter = {
   init: function () {
     this.appendDummyInput()
       .appendField("Hair Segmenter")
@@ -24,7 +24,7 @@ export let hairsegmenter = {
   },
 
   transpile: function (block, generator) {
-    let model = `({name: "HairSegmenter", path: "./models/image-segmentation/HairSegmenter/float32/hair_segmenter.tflite", category: ${block.getFieldValue("CATEGORY")}})`;
+    const model = `({name: "HairSegmenter", path: "./models/image-segmentation/HairSegmenter/float32/hair_segmenter.tflite", category: ${block.getFieldValue("CATEGORY")}})`;
     return [model, generator.ORDER_NONE];
   },
 };

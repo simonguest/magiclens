@@ -52,7 +52,7 @@ export class Display {
     ctx.drawImage(userCanvas, 0, 0);
 
     // Overlay the FPS counter in the top left corner
-    let averageFPS = this.fpsCounter.calculateFPS(Date.now()).averageFPS;
+    const averageFPS = this.fpsCounter.calculateFPS(Date.now()).averageFPS;
     ctx.font = '20px Arial';
     ctx.fillStyle = 'white';
     ctx.strokeStyle = 'black';
@@ -70,7 +70,7 @@ export class Display {
       return;
     }
     Debug.write(`Drawing text ${text} at ${position.x},${position.y}`);
-    let ctx = userCanvas.getContext("2d");
+    const ctx = userCanvas.getContext("2d");
     // draw the label background
     ctx.font = `${size}px ${font}`;
     ctx.fillStyle = color;
@@ -99,10 +99,10 @@ export class Display {
       return;
     }
     Debug.write(`Drawing emoji ${emoji} at ${position.x},${position.y}`);
-    let ctx = userCanvas.getContext("2d");
+    const ctx = userCanvas.getContext("2d");
     // draw the label background
     ctx.font = `${size}px serif`;
-    let icon = emojis.find(e => e.id === emoji).title;
+    const icon = emojis.find(e => e.id === emoji).title;
     ctx.fillText(icon, position.x, position.y);
   }
 

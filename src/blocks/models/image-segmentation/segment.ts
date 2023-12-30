@@ -1,6 +1,6 @@
 import Blockly from "blockly";
 
-export let segment = {
+export const segment = {
   init: function () {
     this.appendValueInput("IMAGE")
       .setCheck("Image")
@@ -22,8 +22,8 @@ export let segment = {
   },
 
   transpile: function (block, generator) {
-    let image = generator.valueToCode(block, 'IMAGE', generator.ORDER_NONE);
-    let model = generator.valueToCode(block, 'MODEL', generator.ORDER_NONE);
+    const image = generator.valueToCode(block, 'IMAGE', generator.ORDER_NONE);
+    const model = generator.valueToCode(block, 'MODEL', generator.ORDER_NONE);
 
     if (image === "") return "";
     if (model === "") return "";

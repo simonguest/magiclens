@@ -1,6 +1,6 @@
 import Blockly from "blockly";
 
-export let inProximityOf = {
+export const inProximityOf = {
   init: function () {
     this.appendValueInput("BODY_PART")
       .setCheck("Position")
@@ -18,9 +18,9 @@ export let inProximityOf = {
   },
 
   transpile: function (block, generator) {
-    let bodyPart = generator.valueToCode(block, 'BODY_PART', generator.ORDER_NONE);
+    const bodyPart = generator.valueToCode(block, 'BODY_PART', generator.ORDER_NONE);
     if (bodyPart === "") return "";
-    let location = generator.valueToCode(block, 'LOCATION', generator.ORDER_NONE);
+    const location = generator.valueToCode(block, 'LOCATION', generator.ORDER_NONE);
     if (location === "") return "";
 
     return [`cv.inProximityOf(${bodyPart}, ${location}, ${block.getFieldValue('DISTANCE')})`, generator.ORDER_NONE];

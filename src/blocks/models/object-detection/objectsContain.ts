@@ -1,7 +1,7 @@
 import labels from "./labels"
 import Blockly from "blockly";
 
-export let objectsContain = {
+export const objectsContain = {
   init: function () {
     this.appendValueInput("OBJECTS")
       .setCheck("Objects")
@@ -20,8 +20,8 @@ export let objectsContain = {
   },
 
   transpile: function (block, generator) {
-    let objects = generator.valueToCode(block, 'OBJECTS', generator.ORDER_NONE);
-    let label = block.getFieldValue("LABEL");
+    const objects = generator.valueToCode(block, 'OBJECTS', generator.ORDER_NONE);
+    const label = block.getFieldValue("LABEL");
 
     if (objects === "") return "";
     if (label === "") return "";

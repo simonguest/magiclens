@@ -1,5 +1,5 @@
 
-export let drawPose = {
+export const drawPose = {
   init: function () {
       this.appendValueInput("POSE")
         .setCheck("Pose")
@@ -11,7 +11,7 @@ export let drawPose = {
   },
 
   transpile: function (block, generator) {
-      let pose = generator.valueToCode(block, 'POSE', generator.ORDER_NONE);
+      const pose = generator.valueToCode(block, 'POSE', generator.ORDER_NONE);
       if (pose === "") return "";
 
       return `await cv.drawPose(${pose});`;

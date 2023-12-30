@@ -8,7 +8,7 @@ const modelTypes = [
     id: "./models/object-detection/EfficientDet-Lite2/float32/efficientdet_lite2.tflite", title: "fp32"
   }]
 
-export let efficientdet_lite2 = {
+export const efficientdet_lite2 = {
   init: function () {
     this.appendDummyInput()
       .appendField("EfficientDet Lite 2")
@@ -24,7 +24,7 @@ export let efficientdet_lite2 = {
   },
 
   transpile: function (block, generator) {
-    let model = `({name: "EfficientDet-Lite2", path: "${block.getFieldValue("MODEL")}"})`;
+    const model = `({name: "EfficientDet-Lite2", path: "${block.getFieldValue("MODEL")}"})`;
     return [model, generator.ORDER_NONE];
   },
 };

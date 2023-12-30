@@ -1,4 +1,4 @@
-export let flipVertical = {
+export const flipVertical = {
   init: function () {
     this.appendValueInput("IMAGE")
       .setCheck("Image")
@@ -13,7 +13,7 @@ export let flipVertical = {
   },
 
   transpile: function (block, generator) {
-    let image = generator.valueToCode(block, 'IMAGE', generator.ORDER_NONE);
+    const image = generator.valueToCode(block, 'IMAGE', generator.ORDER_NONE);
     if (image === "") return "";
 
     return [`cv.flipVertical(${image})`, generator.ORDER_NONE];

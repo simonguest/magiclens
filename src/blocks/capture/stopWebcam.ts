@@ -1,4 +1,4 @@
-export let stopWebcam = {
+export const stopWebcam = {
   init: function () {
     this.appendDummyInput()
       .appendField("stop webcam")

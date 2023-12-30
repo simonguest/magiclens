@@ -11,7 +11,7 @@ const sampleImages = [{
   }
 ]
 
-export let sampleImage = {
+export const sampleImage = {
   init: function () {
     this.appendDummyInput()
       .appendField("sample image")
@@ -27,7 +27,7 @@ export let sampleImage = {
   },
 
   transpile: function (block, generator) {
-    let image = block.getFieldValue("IMAGE");
+    const image = block.getFieldValue("IMAGE");
     return [`await cv.loadSampleImage("${image}")`, generator.ORDER_NONE];
   },
 };

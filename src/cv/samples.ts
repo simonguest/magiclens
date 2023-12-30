@@ -4,7 +4,7 @@ export class Samples {
 
   private loadImage(url: string): Promise<HTMLImageElement> {
     return new Promise((resolve, reject) => {
-      let img = new Image();
+      const img = new Image();
 
       img.onload = function () {
         resolve(img);  // resolves with the image element
@@ -22,7 +22,7 @@ export class Samples {
     Debug.write(`Loading the ${filename} image`);
     const imageEl = await this.loadImage(`./images/${filename}`);
     Debug.write(`Image loaded`);
-    let ctx = (document.getElementById("sample-image-canvas") as HTMLCanvasElement).getContext("2d");
+    const ctx = (document.getElementById("sample-image-canvas") as HTMLCanvasElement).getContext("2d");
     ctx.drawImage(imageEl, 0, 0);
     return ctx.getImageData(0, 0, width, height);
   }
