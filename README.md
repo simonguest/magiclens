@@ -14,7 +14,7 @@ To launch MagicLens, browse to https://simonguest.github.io/magiclens. When the 
 
 Then, drag blocks on to the workspace to build your program:
 
-<img width="1230" alt="image" src="https://github.com/simonguest/magiclens/assets/769225/f41dd875-4ccf-4adf-8422-1d0e37d505ee">
+<img width="1463" alt="image" src="https://github.com/simonguest/magiclens/assets/769225/35a9f4e7-cb40-42e2-87b5-1933d5cd8196">
 
 To run the program, click the run button on the toolbar. Click the stop button to interrupt (e.g., if you have a for loop capturing frames from the webcam.)
 
@@ -35,3 +35,5 @@ Use the "Load Example Workspace" dropdown to open example projects that demonstr
 **Clothes Color:** Runs an image segmenetation model to detect clothing and repaints them with a sparkly red background.
 
 **Fish Tank:** A game that combines a pose detector and image segmentation where you need to "catch" the fish and snails swimming in the tank.
+
+<img width="1230" alt="image" src="https://github.com/simonguest/magiclens/assets/769225/f41dd875-4ccf-4adf-8422-1d0e37d505ee">
