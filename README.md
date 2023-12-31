@@ -1,12 +1,12 @@
 # MagicLens
 
-MagicLens is a prototype that demonstrates how students (grades 7-12) can use block-based programming to learn AI through computer vision. Students can build programs using a variety of models that include object detection, pose detection, and image segmentation.
+MagicLens is a prototype that demonstrates how students (grades 7-12) can use block-based programming to learn computer vision. Students can build programs using a variety of models that include object detection, pose detection, and image segmentation.
 
-Students can learn about AI and computer vision by presenting various objects via their webcam, experimenting with the impacts of running models on the CPU vs GPU, and by using image pre-processing filters.
+Students can learn about computer vision by presenting various objects via their webcam, experimenting with the impacts of running models on the CPU vs GPU, and by using image pre-processing filters.
 
 Designed to run on minimal hardware, MagicLens is fully browser-based and requires no installation. It uses WebGL to run models on the GPU and works (albeit with a slower framerate) on many low-end laptops and Chromebooks.
 
-MagicLens is made possible thanks to Google's [Google's Blockly](https://github.com/google/blockly) and [MediaPipe](https://developers.google.com/mediapipe).
+MagicLens is made possible thanks to Google's [Blockly](https://github.com/google/blockly) and [MediaPipe](https://developers.google.com/mediapipe).
 
 ## Using MagicLens
 
