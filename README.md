@@ -14,7 +14,7 @@ To launch MagicLens, browse to https://simonguest.github.io/magiclens. When the 
 
 Then, drag blocks on to the workspace to build your program:
 
-<img width="1463" alt="image" src="https://github.com/simonguest/magiclens/assets/769225/35a9f4e7-cb40-42e2-87b5-1933d5cd8196">
+![Screenshot 2024-01-01 at 21 59 20](https://github.com/simonguest/magiclens/assets/769225/452291b3-7996-40f5-9c2c-4aef0608ee2d)
 
 To run the program, click the run button on the toolbar. Click the stop button to interrupt (e.g., if you have a for loop capturing frames from the webcam.)
 
@@ -26,14 +26,24 @@ Use the "Load Example Workspace" dropdown to open example projects that demonstr
 
 **Object Detector:** Runs an object detector model on the webcam stream. The object detector models have been trained with the [COCO dataset](https://cocodataset.org/#home) and will recognize 80 different objects.
 
+![Screenshot 2024-01-01 at 22 00 56](https://github.com/simonguest/magiclens/assets/769225/0a8276f7-7013-4e96-918e-cef0668b54c0)
+
 **Post Detector:** Runs a pose detector model on the webcam stream.
+
+![Screenshot 2024-01-01 at 22 01 33](https://github.com/simonguest/magiclens/assets/769225/9da31dcf-a2e2-4085-a7ad-0eee118ba9e3)
 
 **Space Background:** Runs an image segmentation model to detect the background in the frame and replaces it with an image of a space scene.
 
+![Screenshot 2024-01-01 at 22 02 07](https://github.com/simonguest/magiclens/assets/769225/88488a73-bfe9-41c1-b9ae-c3be3346681b)
+
 **No Cellphones:** Runs an object detector model to detect cellphones in the scene. If found, it runs an image segmentation model to paint the person red. (Perfect for detecting cell phone usage in class!)
+
+![Screenshot 2024-01-01 at 22 02 51](https://github.com/simonguest/magiclens/assets/769225/10cbedbb-f1d7-46f9-b204-3c96ae2bbd62)
 
 **Clothes Color:** Runs an image segmenetation model to detect clothing and repaints them with a sparkly red background.
 
+![Screenshot 2024-01-01 at 22 03 09](https://github.com/simonguest/magiclens/assets/769225/be1ff341-67cd-4902-8d4d-c360881e7f61)
+
 **Fish Tank:** A game that combines a pose detector and image segmentation where you need to "catch" the fish and snails swimming in the tank.
 
-<img width="1230" alt="image" src="https://github.com/simonguest/magiclens/assets/769225/f41dd875-4ccf-4adf-8422-1d0e37d505ee">
+![Screenshot 2024-01-01 at 22 03 33](https://github.com/simonguest/magiclens/assets/769225/69de01c5-05fe-4687-b7f1-21515fc64997)
