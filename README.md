@@ -28,7 +28,7 @@ Use the "Load Example Workspace" dropdown to open example projects that demonstr
 
 ![Screenshot 2024-01-01 at 22 00 56](https://github.com/simonguest/magiclens/assets/769225/0a8276f7-7013-4e96-918e-cef0668b54c0)
 
-**Post Detector:** Runs a pose detector model on the webcam stream.
+**Pose Detector:** Runs a pose detector model on the webcam stream.
 
 ![Screenshot 2024-01-01 at 22 01 33](https://github.com/simonguest/magiclens/assets/769225/9da31dcf-a2e2-4085-a7ad-0eee118ba9e3)
 
@@ -40,7 +40,7 @@ Use the "Load Example Workspace" dropdown to open example projects that demonstr
 
 ![Screenshot 2024-01-01 at 22 02 51](https://github.com/simonguest/magiclens/assets/769225/10cbedbb-f1d7-46f9-b204-3c96ae2bbd62)
 
-**Clothes Color:** Runs an image segmenetation model to detect clothing and repaints them with a sparkly red background.
+**Clothes Color:** Runs an image segmentation model to detect clothing and repaints them with a sparkly red background.
 
 ![Screenshot 2024-01-01 at 22 03 09](https://github.com/simonguest/magiclens/assets/769225/be1ff341-67cd-4902-8d4d-c360881e7f61)
 
