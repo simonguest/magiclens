@@ -5,6 +5,19 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch via NPM",
+      "request": "launch",
+      "runtimeArgs": [
+        "run-script",
+        "server"
+      ],
+      "runtimeExecutable": "npm",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node"
+    },
+    {
       "type": "chrome",
       "request": "launch",
       "name": "Launch Chrome against localhost:55000",
@@ -13,6 +26,12 @@
       "sourceMapPathOverrides": {
         "/__parcel_source_root/*": "${webRoot}/*"
       }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Launch Server/Client",
+      "configurations": ["Launch via NPM", "Launch Chrome against localhost:55000"]
     }
   ]
 }
