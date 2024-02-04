@@ -45,10 +45,10 @@ export class PoseEstimation {
       Debug.write("No landmarks detected");
       return null;
     }
-    let coords = pose.landmarks[0][bodyPart];
-    let x = coords.x * width;
-    let y = coords.y * height;
-    let position: Position = { x: x, y: y };
+    const coords = pose.landmarks[0][bodyPart];
+    const x = coords.x * width;
+    const y = coords.y * height;
+    const position: Position = { x: x, y: y };
     Debug.write(`Getting position of body part id: ${bodyPart} at ${position.x},${position.y}`);
     return position;
   }

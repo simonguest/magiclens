@@ -5,9 +5,11 @@ import { MediaPipe } from "./mediapipe";
 import { Samples } from "./samples";
 import { ObjectDetection } from "./objectDetection";
 
-import { ImageSegmenterResult, ObjectDetectorResult, PoseLandmarkerResult } from "@mediapipe/tasks-vision";
+import { ImageSegmenterResult, ObjectDetectorResult, PoseLandmarkerResult, FaceLandmarkerResult } from "@mediapipe/tasks-vision";
 import { ImageSegmentation } from "./imageSegmentation";
 import { PoseEstimation } from "./poseEstimation";
+import { FaceDetection } from "./faceDetection";
+
 import { Filters } from "./filters";
 import { Display } from "./display";
 
@@ -23,6 +25,7 @@ export class CV {
   private objectDetection = new ObjectDetection();
   private imageSegmentation = new ImageSegmentation();
   private poseEstimation = new PoseEstimation();
+  private faceDetection = new FaceDetection();
   private display = new Display();
 
   private readonly width: number = 1024;
@@ -168,6 +171,18 @@ export class CV {
 
   public getPositionOf(bodyPart: number, pose: PoseLandmarkerResult) {
     return this.poseEstimation.getPositionOf(bodyPart, pose, this.width, this.height);
+  }
+
+  /*************************
+   Face Detection
+   *************************/
+
+  public async detectFace(image: ImageData, model: ModelData, delegate: string) {
+    return await this.faceDetection.detectFace(this.mp, image, model, delegate, this.displayMessage, this.clearMessage);
+  }
+
+  public async drawFace(face: FaceLandmarkerResult) {
+    await this.faceDetection.drawFace(this.userCanvas, face, this.width, this.height);
   }
 
   /*************************

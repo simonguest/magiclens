@@ -1,10 +1,11 @@
 import { Debug } from "../debug";
 
-import { FilesetResolver, ObjectDetector, PoseLandmarker, ImageSegmenter } from "@mediapipe/tasks-vision";
+import { FilesetResolver, ObjectDetector, PoseLandmarker, ImageSegmenter, FaceLandmarker } from "@mediapipe/tasks-vision";
 
 export class MediaPipe {
 
   public static POSE_CONNECTIONS = PoseLandmarker.POSE_CONNECTIONS;
+  public static FACE_CONNECTIONS = FaceLandmarker.FACE_LANDMARKS_CONTOURS
 
   private vision = null;
 
@@ -86,6 +87,26 @@ export class MediaPipe {
       clearMessage();
     }
     return poseLandmarker.detect(image);
+  }
+
+  public async detectFace(image: ImageData, model: ModelData, delegate: string, displayMessage: any, clearMessage: any) {
+    if (delegate !== 'GPU' && delegate !== 'CPU') return;
+    let faceLandmarker = this.getModel(`${model.path}_${delegate}`);
+    if (!faceLandmarker) {
+      displayMessage("Loading model...")
+      faceLandmarker = await FaceLandmarker.createFromOptions(this.vision, {
+        baseOptions: {
+          modelAssetPath: model.path,
+          delegate: delegate,
+        },
+        runningMode: 'IMAGE',
+        numFaces: 1,
+        outputFaceBlendshapes: true
+      });
+      this.cacheModel(`${model.path}_${delegate}`, faceLandmarker);
+      clearMessage();
+    }
+    return faceLandmarker.detect(image);
   }
 
 }

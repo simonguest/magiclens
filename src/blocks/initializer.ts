@@ -85,6 +85,10 @@ const createCustomBlocks = () => {
   createCustomBlock("draw_pose", models.drawPose);
   createCustomBlock("get_position_of", models.getPositionOf);
 
+  createCustomBlock("detect_face", models.detectFace);
+  createCustomBlock("facelandmarker_fp16", models.facelandmarker_fp16);
+  createCustomBlock("draw_face", models.drawFace);
+
 };
 
 const handleBlocklyResize = () => {

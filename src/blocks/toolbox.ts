@@ -166,6 +166,24 @@ export const toolbox: ToolboxInfo = {
               type: "in_proximity_of"
             }
           ]
+        },
+        {
+          kind: "category",
+          name: "Face Detection",
+          contents: [
+            {
+              kind: "block",
+              type: "detect_face",
+            },
+            {
+              kind: "block",
+              type: "facelandmarker_fp16",
+            },
+            {
+              kind: "block",
+              type: "draw_face",
+            }
+          ]
         }
       ]
     },
